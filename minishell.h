@@ -6,7 +6,7 @@
 /*   By: mgerbaud <mgerbaud@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 16:36:19 by mgerbaud          #+#    #+#             */
-/*   Updated: 2022/11/29 15:49:08 by mgerbaud         ###   ########.fr       */
+/*   Updated: 2022/11/29 19:30:11 by mgerbaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@ typedef struct s_paths
 typedef struct s_cmd
 {
 	char	*cmdpath;
+	char	*cmd;
+	char	*flags;
+	char	*arg;
 }			t_cmd;
 
 int		get_path(char *env[], t_paths *hpaths);

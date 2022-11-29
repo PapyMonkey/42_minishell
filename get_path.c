@@ -6,10 +6,11 @@
 /*   By: mgerbaud <mgerbaud@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 14:10:27 by mgerbaud          #+#    #+#             */
-/*   Updated: 2022/11/29 15:49:25 by mgerbaud         ###   ########.fr       */
+/*   Updated: 2022/11/29 19:06:05 by mgerbaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <errno.h>
 #include <string.h>
 #include <stdio.h>
 #include <string.h>
@@ -24,10 +25,7 @@ int	exec_cmd(t_cmd *cmd, char *av[], char *env[])
 
 	pid = fork();
 	if (!pid)
-	{
 		execve(cmd->cmdpath, av, env);
-		return (1);
-	}
 	else
 		wait(&status);
 	return (1);
