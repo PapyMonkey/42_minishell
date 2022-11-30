@@ -6,7 +6,7 @@
 /*   By: mgerbaud <mgerbaud@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 16:36:09 by mgerbaud          #+#    #+#             */
-/*   Updated: 2022/12/04 13:01:50 by aguiri           ###   ########.fr       */
+/*   Updated: 2022/12/05 11:19:33 by aguiri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	main(int __attribute__((unused))ac, __attribute__((unused))char *av[], char 
 		add_history((const char *)str);
 
 		if (!strcmp("pwd", str))
-			builtin_pwd(env);
+			b_pwd(env);
 		
 		// test = ft_split(str, ' ');
 		// int i;
