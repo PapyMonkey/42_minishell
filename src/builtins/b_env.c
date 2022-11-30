@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   b_pwd.c                                            :+:      :+:    :+:   */
+/*   b_env.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgerbaud <mgerbaud@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: aguiri <aguiri@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/29 19:45:15 by mgerbaud          #+#    #+#             */
-/*   Updated: 2022/11/30 15:31:48 by aguiri           ###   ########.fr       */
+/*   Created: 2022/11/30 12:21:38 by aguiri            #+#    #+#             */
+/*   Updated: 2022/11/30 16:33:53 by aguiri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
+#include "libft.h"
 
-void	b_pwd(char **envp)
+void	b_env(const char **envp)
 {
-	int		i;
+	int	i;
 
-	i = 0;
-	while (ft_strncmp(envp[i], "PWD", 3) != 0 && envp[i] != NULL)
-		i++;
-	ft_printf("%s\n", ft_strtrim(envp[i], "PWD="));
+	i = -1;
+	while (envp[++i])
+		ft_printf("%s\n", envp[i]);
 }
