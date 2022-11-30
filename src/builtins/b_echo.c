@@ -1,23 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   b_pwd.c                                            :+:      :+:    :+:   */
+/*   b_echo.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgerbaud <mgerbaud@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: aguiri <aguiri@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/29 19:45:15 by mgerbaud          #+#    #+#             */
-/*   Updated: 2022/11/30 15:31:48 by aguiri           ###   ########.fr       */
+/*   Created: 2022/11/30 16:22:44 by aguiri            #+#    #+#             */
+/*   Updated: 2022/11/30 16:42:23 by aguiri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-void	b_pwd(char **envp)
+void	b_echo(const char *str)
 {
-	int		i;
-
-	i = 0;
-	while (ft_strncmp(envp[i], "PWD", 3) != 0 && envp[i] != NULL)
-		i++;
-	ft_printf("%s\n", ft_strtrim(envp[i], "PWD="));
+	if (*(str + 5) == '-'
+		&& *(str + 6) == 'n')
+		ft_printf("%s", str + 8);
+	else
+		ft_printf("%s\n", str + 5);
 }
