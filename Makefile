@@ -6,7 +6,7 @@
 #    By: mgerbaud <mgerbaud@student.42nice.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/30 14:23:25 by aguiri            #+#    #+#              #
-#    Updated: 2022/11/29 19:40:38 by mgerbaud         ###   ########.fr        #
+#    Updated: 2022/11/30 11:34:59 by aguiri           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,10 +62,9 @@ HFLAGS				:=	-I $(HDRS_PATH)\
 # ********************************** L I B S **********************************
 
 # Libft
-FTFLAGS				:=	-L./$(LIBFT_PATH)\
-						-lft
+FTFLAGS				:=	-L./$(LIBFT_PATH)
 
-LFLAGS				:=	$(FTFLAGS)
+LFLAGS				:=	-lft -lreadline
 
 # ********************************* N O R M E *********************************
 
@@ -84,7 +83,7 @@ $(OBJS_PATH)/%.o: 	$(SRCS_PATH)/%.c $(HDRS_PATH)
 
 
 $(NAME):			$(OBJS)
-					@$(CC) $^ -lreadline -o $@ 
+					@$(CC) $(FTFLAGS) $^ $(LFLAGS) -o $@ 
 					@$(ECHO)\
 					$(CYAN)$(UNDERLINE)"$@"$(EOC)": "$(GREEN)"complete"$(EOC)
 

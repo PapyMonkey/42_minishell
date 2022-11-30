@@ -6,18 +6,10 @@
 /*   By: mgerbaud <mgerbaud@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 16:36:09 by mgerbaud          #+#    #+#             */
-/*   Updated: 2022/11/29 19:52:40 by mgerbaud         ###   ########.fr       */
+/*   Updated: 2022/11/30 11:35:12 by aguiri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <errno.h>
-#include <string.h>
-#include <unistd.h>
-#include <sys/wait.h>
-#include <stdio.h>
-#include <readline/readline.h>
-#include <readline/history.h>
-#include <dirent.h>
 #include "minishell.h"
 
 int	main(int __attribute__((unused))ac, __attribute__((unused))char *av[], char *env[])
