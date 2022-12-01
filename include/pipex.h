@@ -6,7 +6,7 @@
 /*   By: aguiri <aguiri@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 12:53:00 by aguiri            #+#    #+#             */
-/*   Updated: 2022/05/31 16:36:35 by aguiri           ###   ########.fr       */
+/*   Updated: 2022/12/01 19:46:53 by aguiri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,14 @@ void		ft_pipex_outfile(size_t i, int *fd, t_cmds cmds);
 
 // ****************************************************************************
 // Functions - pipex_path.c
+
+/**
+ * @brief			Check if the given ENV variable contains the PATH variable.
+ * 
+ * @param envp		2D array storing all the environment variables.
+ * @return			EXIT_SUCCESS if true, else EXIT_FAILURE.
+ */
+int			pipe_is_path(char **envp);
 
 /**
  * @brief			Get the PATH variable from the "envp" (environment

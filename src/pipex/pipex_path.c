@@ -6,13 +6,13 @@
 /*   By: aguiri <aguiri@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 22:48:51 by aguiri            #+#    #+#             */
-/*   Updated: 2022/05/31 20:26:19 by aguiri           ###   ########.fr       */
+/*   Updated: 2022/12/01 19:47:16 by aguiri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-static int	pipe_is_path(char **envp)
+int	pipe_is_path(char **envp)
 {
 	int	i;
 
