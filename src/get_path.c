@@ -6,15 +6,10 @@
 /*   By: mgerbaud <mgerbaud@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 14:10:27 by mgerbaud          #+#    #+#             */
-/*   Updated: 2022/11/29 15:49:25 by mgerbaud         ###   ########.fr       */
+/*   Updated: 2022/11/30 10:44:51 by aguiri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <string.h>
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include <unistd.h>
 #include "minishell.h"
 
 int	exec_cmd(t_cmd *cmd, char *av[], char *env[])
@@ -24,35 +19,10 @@ int	exec_cmd(t_cmd *cmd, char *av[], char *env[])
 
 	pid = fork();
 	if (!pid)
-	{
 		execve(cmd->cmdpath, av, env);
-		return (1);
-	}
 	else
 		wait(&status);
 	return (1);
-}
-
-static char	*ft_strjoin(char *str, char *add)
-{
-	char	*ret;
-	int		i;
-	int		j;
-
-	ret = malloc(sizeof(*str) * (strlen(str) + strlen(add) + 2));
-	if (!ret)
-		return (NULL);
-	i = -1;
-	j = -1;
-	while (str[++i])
-		ret[++j] = str[i];
-	ret[j + 1] = '/';
-	i = -1;
-	j += 1;
-	while (add[++i])
-		ret[++j] = add[i];
-	ret[j + 1] = '\0';
-	return (ret);
 }
 
 int	search_path(t_paths *hpaths, t_cmd *cmd, char *str)

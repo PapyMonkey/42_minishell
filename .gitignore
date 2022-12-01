@@ -60,6 +60,7 @@ compile_commands.json
 
 # Custom rules
 .DS_Store
+minishell
 
 # Subject files
 en.subject.pdf
