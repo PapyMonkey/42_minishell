@@ -6,7 +6,7 @@
 /*   By: mgerbaud <mgerbaud@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 16:36:19 by mgerbaud          #+#    #+#             */
-/*   Updated: 2022/12/04 12:57:29 by aguiri           ###   ########.fr       */
+/*   Updated: 2022/12/04 13:32:07 by aguiri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 # include "libft.h"
 
 # include "structures.h"
+# include "init.h"
 # include "parsing.h"
 # include "builtins.h"
 
@@ -45,11 +46,6 @@ void	err_malloc_exit(void);
 		exit the current process with exit(1).
 */
 void	err_put_exit(void);
-
-// ****************************************************************************
-// Functions - error.c
-
-t_var	*init(char **envp);
 
 // ****************************************************************************
 // Functions
