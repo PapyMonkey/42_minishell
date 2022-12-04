@@ -6,7 +6,7 @@
 /*   By: aguiri <aguiri@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 12:54:24 by aguiri            #+#    #+#             */
-/*   Updated: 2022/05/31 20:20:11 by aguiri           ###   ########.fr       */
+/*   Updated: 2022/12/04 12:49:18 by aguiri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,22 +100,22 @@ static void	ft_pipex_core(size_t i, int fd_old, t_cmds cmds)
 	}
 }
 
-int	main(int argc, char **argv, char **envp)
-{
-	int		fd[2];
-	t_cmds	cmds;
-
-	if (argc <= 4)
-	{
-		ft_printf("Error: Invalid arguments\n");
-		return (EXIT_FAILURE);
-	}
-	if (pipe(fd) == -1)
-		ft_error_put_exit();
-	cmds = ft_pipex_construct(argc, argv, envp);
-	close(fd[WRITE_END]);
-	ft_pipex_core(1, fd[READ_END], cmds);
-	close(fd[READ_END]);
-	ft_pipex_deconstruct(cmds);
-	return (EXIT_SUCCESS);
-}
+// int	main(int argc, char **argv, char **envp)
+// {
+// 	int		fd[2];
+// 	t_cmds	cmds;
+//
+// 	if (argc <= 4)
+// 	{
+// 		ft_printf("Error: Invalid arguments\n");
+// 		return (EXIT_FAILURE);
+// 	}
+// 	if (pipe(fd) == -1)
+// 		ft_error_put_exit();
+// 	cmds = ft_pipex_construct(argc, argv, envp);
+// 	close(fd[WRITE_END]);
+// 	ft_pipex_core(1, fd[READ_END], cmds);
+// 	close(fd[READ_END]);
+// 	ft_pipex_deconstruct(cmds);
+// 	return (EXIT_SUCCESS);
+// }
