@@ -1,27 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_paths.c                                       :+:      :+:    :+:   */
+/*   get_path.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aguiri <aguiri@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 13:30:37 by aguiri            #+#    #+#             */
-/*   Updated: 2022/12/04 13:30:57 by aguiri           ###   ########.fr       */
+/*   Updated: 2022/12/04 17:40:01 by aguiri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	init_paths(
-	struct s_var *var,
-	char *envp)
+char	**get_path(t_var *var)
 {
-	char	**path_splitted;
-	int		i;
+	t_list	*tmp;
+	char	**out;
 
-	path_splitted = ft_split(ft_strtrim(envp, "PATH="), ':');
-	i = -1;
-	while (path_splitted[++i])
-		ft_lstadd_back(&var->l_pth, ft_lstnew(path_splitted[i]));
-	free(path_splitted);
+	while (!ft_strncmp(((t_env *)var->l_env)->key, "PATH", 4))
+	{
+		tmp = var->l_env->next;
+		var->l_env = tmp;
+	}
+	if (!((t_env *)var->l_env)->value)
+		return (NULL);
+	return (ft_split(((t_env *)var->l_env)->value, ':'));
 }
