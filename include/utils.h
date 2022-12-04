@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.h                                             :+:      :+:    :+:   */
+/*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aguiri <aguiri@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/04 13:27:52 by aguiri            #+#    #+#             */
-/*   Updated: 2022/12/04 17:38:34 by aguiri           ###   ########.fr       */
+/*   Created: 2022/12/04 17:34:59 by aguiri            #+#    #+#             */
+/*   Updated: 2022/12/04 17:40:25 by aguiri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef INIT_H
-# define INIT_H 
+#ifndef UTILS_H
+# define UTILS_H
 
 // ****************************************************************************
 // Personal library
@@ -20,10 +20,15 @@
 # include "structures.h"
 
 // ****************************************************************************
-// Functions
+// Functions - get_path.c
 
-void	init_env(struct s_var *var, char **envp);
+/**
+@brief Build and alloc (malloc) a 2D array containing paths from the PATH
+		ENV variable.
 
-t_var	*init(char **envp);
+@param var Variable that will contain all the other useful ones.
+@return 2D array containing paths.
+*/
+char	**get_path(t_var *var);
 
-#endif	// INIT_H
+#endif	// UTILS_H

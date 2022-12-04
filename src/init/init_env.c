@@ -6,7 +6,7 @@
 /*   By: aguiri <aguiri@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 13:27:17 by aguiri            #+#    #+#             */
-/*   Updated: 2022/12/04 14:11:11 by aguiri           ###   ########.fr       */
+/*   Updated: 2022/12/04 17:41:43 by aguiri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,18 +34,16 @@ static struct s_env	*init_env_element(char *envp)
 	return (element);
 }
 
-void	init_env(
-	struct s_var *var,
-	char **envp)
+void	init_env(t_var *var, char **envp)
 {
 	int	i;
 
 	i = -1;
 	while (envp[++i])
 	{
-		if (ft_strncmp(envp[i], "PATH", 4) == 0)
-			init_paths(var, envp[i]);
-		else
-			ft_lstadd_back(&var->l_env, ft_lstnew(init_env_element(envp[i])));
+		ft_lstadd_back(
+			&var->l_env,
+			ft_lstnew(init_env_element(envp[i]))
+			);
 	}
 }
