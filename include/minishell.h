@@ -6,7 +6,7 @@
 /*   By: mgerbaud <mgerbaud@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 16:36:19 by mgerbaud          #+#    #+#             */
-/*   Updated: 2022/12/04 18:07:20 by aguiri           ###   ########.fr       */
+/*   Updated: 2022/12/04 18:10:39 by aguiri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,5 @@ void	free_env(void *env);
 @param var Variable that contains all the other useful ones.
 */
 void	free_var(struct s_var *var);
-
-// ****************************************************************************
-// Functions
-
-// int		get_path(char *env[], t_paths *hpaths);
-// int		search_path(t_paths *hpaths, t_cmd *cmd, char *str);
-int		exec_cmd(t_cmd *cmd, char *av[], char *env[]);
-char	**ft_split(const char *str, char sep);
 
 #endif // MINISHELL_H
