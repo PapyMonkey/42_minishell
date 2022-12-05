@@ -6,7 +6,7 @@
 /*   By: mgerbaud <mgerbaud@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 16:36:19 by mgerbaud          #+#    #+#             */
-/*   Updated: 2022/12/05 11:22:17 by aguiri           ###   ########.fr       */
+/*   Updated: 2022/12/06 04:04:49 by aguiri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 
 # include "structures.h"
 # include "init.h"
+# include "get.h"
 # include "utils.h"
 # include "builtins.h"
 

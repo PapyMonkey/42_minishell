@@ -1,21 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   b_env.c                                            :+:      :+:    :+:   */
+/*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aguiri <aguiri@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/30 12:21:38 by aguiri            #+#    #+#             */
-/*   Updated: 2022/12/06 04:10:49 by aguiri           ###   ########.fr       */
+/*   Created: 2022/12/05 11:34:58 by aguiri            #+#    #+#             */
+/*   Updated: 2022/12/05 11:39:46 by aguiri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	b_env(t_list *const l_env)
+void	print_env_elem(void *env)
 {
-	t_list	*tmp;
-
-	tmp = l_env;
-	ft_lstiter(tmp, print_env_elem);
+	printf("%s=%s\n",
+		(char *)((t_env *)env)->key,
+		(char *)((t_env *)env)->value
+		);
 }
