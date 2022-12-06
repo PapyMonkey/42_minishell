@@ -6,7 +6,7 @@
 /*   By: aguiri <aguiri@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 03:54:08 by aguiri            #+#    #+#             */
-/*   Updated: 2022/12/06 04:04:24 by aguiri           ###   ########.fr       */
+/*   Updated: 2022/12/06 05:51:15 by aguiri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 @param env_key Name of the variable to be searched.
 @return Pointer to the wanted element, NULL if it doesn't exist.
 */
-t_list	*get_env_elem(const t_list *l_env, const char *env_key);
+t_list	*get_env_elem(t_list *const l_env, const char *env_key);
 
 /**
 @brief Searchs for PATH ENV variable and allocates a 2D array containing all
@@ -38,6 +38,6 @@ t_list	*get_env_elem(const t_list *l_env, const char *env_key);
 @param var Variable that will contain all the other useful ones.
 @return 2D array containing all PATHs.
 */
-char	**get_path(const t_list *l_env);
+char	**get_path(t_list *const l_env);
 
 #endif	// GET_H

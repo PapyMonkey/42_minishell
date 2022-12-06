@@ -1,23 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_path.c                                         :+:      :+:    :+:   */
+/*   b_unset.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aguiri <aguiri@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/04 13:30:37 by aguiri            #+#    #+#             */
-/*   Updated: 2022/12/06 05:00:44 by aguiri           ###   ########.fr       */
+/*   Created: 2022/12/06 04:22:56 by aguiri            #+#    #+#             */
+/*   Updated: 2022/12/06 05:46:56 by aguiri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	**get_path(t_list *const l_env)
+void	b_unset(t_list *l_env, const char *str)
 {
+	int		i;
 	t_list	*tmp;
 
-	tmp = get_env_elem(l_env, "PATH");
-	if (!tmp)
-		return (NULL);
-	return (ft_split(((t_env *)tmp->content)->value, ':'));
+	i = 5;
+	while (ft_isspace(str[i]) && str[i])
+		i++;
+	tmp = get_env_elem(l_env, str + i);
+	if (tmp->next == NULL)
+		return ;
+	ft_lstremove(&l_env, tmp, free_env);
 }

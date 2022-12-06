@@ -6,13 +6,13 @@
 /*   By: aguiri <aguiri@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 17:09:21 by aguiri            #+#    #+#             */
-/*   Updated: 2022/12/05 17:15:07 by aguiri           ###   ########.fr       */
+/*   Updated: 2022/12/06 04:58:59 by aguiri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_list	*get_env_elem(const t_list *l_env, const char *env_key)
+t_list	*get_env_elem(t_list *const l_env, const char *env_key)
 {
 	int		env_key_len;
 	t_list	*tmp_env;
