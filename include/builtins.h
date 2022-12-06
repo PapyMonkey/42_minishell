@@ -6,7 +6,7 @@
 /*   By: mgerbaud <mgerbaud@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 19:48:45 by mgerbaud          #+#    #+#             */
-/*   Updated: 2022/12/06 04:14:08 by aguiri           ###   ########.fr       */
+/*   Updated: 2022/12/06 05:47:28 by aguiri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,14 @@ void	b_env(t_list *const l_env);
 @param l_env List of ENV variables.
 */
 void	b_pwd(t_list *const l_env);
+
+/**
+@brief Unset an ENV variable.
+
+@param l_env List of ENV variables.
+@param str Argument/input string.
+*/
+void	b_unset(t_list *l_env, const char *str);
 
 // ****************************************************************************
 // Functions - b_utils.c
