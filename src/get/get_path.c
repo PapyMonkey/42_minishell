@@ -1,26 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   get_path.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aguiri <aguiri@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/04 16:57:36 by aguiri            #+#    #+#             */
-/*   Updated: 2022/12/06 05:45:43 by aguiri           ###   ########.fr       */
+/*   Created: 2022/12/04 13:30:37 by aguiri            #+#    #+#             */
+/*   Updated: 2022/12/06 05:00:44 by aguiri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	free_env(void *env)
+char	**get_path(t_list *const l_env)
 {
-	free(((t_env *)env)->key);
-	free(((t_env *)env)->value);
-	free(env);
-}
+	t_list	*tmp;
 
-void	free_var(struct s_var *var)
-{
-	ft_lstclear(&var->l_env, free_env);
-	free(var);
+	tmp = get_env_elem(l_env, "PATH");
+	if (!tmp)
+		return (NULL);
+	return (ft_split(((t_env *)tmp->content)->value, ':'));
 }

@@ -1,12 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_utils.c                                    :+:      :+:    :+:   */
+/*   b_echo.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgerbaud <mgerbaud@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: aguiri <aguiri@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/29 19:59:51 by mgerbaud          #+#    #+#             */
-/*   Updated: 2022/11/29 20:00:38 by mgerbaud         ###   ########.fr       */
+/*   Created: 2022/11/30 16:22:44 by aguiri            #+#    #+#             */
+/*   Updated: 2022/11/30 16:42:23 by aguiri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "builtins.h"
+
+void	b_echo(const char *str)
+{
+	if (*(str + 5) == '-'
+		&& *(str + 6) == 'n')
+		ft_printf("%s", str + 8);
+	else
+		ft_printf("%s\n", str + 5);
+}

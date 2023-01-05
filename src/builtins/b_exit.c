@@ -1,23 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_pwd.c                                      :+:      :+:    :+:   */
+/*   b_exit.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgerbaud <mgerbaud@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: aguiri <aguiri@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/29 19:45:15 by mgerbaud          #+#    #+#             */
-/*   Updated: 2022/11/30 11:41:01 by aguiri           ###   ########.fr       */
+/*   Created: 2022/12/06 05:55:53 by aguiri            #+#    #+#             */
+/*   Updated: 2022/12/06 05:58:03 by aguiri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtins.h"
+#include "minishell.h"
 
-void	builtin_pwd(char **envp)
+void	b_exit(t_var *var)
 {
-	int		i;
-
-	i = 0;
-	while (ft_strncmp(envp[i], "PWD", 3) != 0 && envp[i] != NULL)
-		i++;
-    ft_printf("%s\n", ft_strtrim(envp[i], "PWD="));
+	free_var(var);
+	exit (EXIT_SUCCESS);
 }
