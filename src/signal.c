@@ -1,25 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/01 18:53:41 by aguiri            #+#    #+#             */
-/*   Updated: 2023/02/19 16:56:16 by bgales           ###   ########.fr       */
+/*   Created: 2023/02/19 16:09:03 by bgales            #+#    #+#             */
+/*   Updated: 2023/02/19 18:38:58 by bgales           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_var	*init(char **envp)
+void	signal_handler(int signo)
 {
-	t_var	*var_out;
-
-	var_out = malloc(sizeof(t_var));
-	if (!var_out)
-		err_malloc_exit();
-	var_out->l_env = NULL;
-	init_env(var_out, envp);
-	return (var_out);
+	if (signo == SIGINT)
+	{
+		printf("\n");
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
+	}
+	else
+	{
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
+		return;
+	}
 }

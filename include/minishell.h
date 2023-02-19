@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgerbaud <mgerbaud@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 16:36:19 by mgerbaud          #+#    #+#             */
-/*   Updated: 2022/12/06 04:04:49 by aguiri           ###   ########.fr       */
+/*   Updated: 2023/02/19 17:53:58 by bgales           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <dirent.h>
+# include <signal.h>
 
 // ****************************************************************************
 // Personal library
@@ -64,5 +65,8 @@ void	free_env(void *env);
 @param var Variable that contains all the other useful ones.
 */
 void	free_var(struct s_var *var);
+
+void	signal_handler(int signo);
+char	**ft_split(char const *s1, char c);
 
 #endif // MINISHELL_H

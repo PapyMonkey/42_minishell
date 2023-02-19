@@ -1,3 +1,4 @@
 [submodule "lib/libft"]
 	path = lib/libft
-	url = https://github.com/PapyMonkey/42_libft.git 
+	branch = main
+	url = https://github.com/PapyMonkey/42_libft.git
