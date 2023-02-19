@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mgerbaud <mgerbaud@student.42nice.fr>      +#+  +:+       +#+         #
+#    By: bgales <bgales@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/30 14:23:25 by aguiri            #+#    #+#              #
-#    Updated: 2022/11/30 15:30:10 by aguiri           ###   ########.fr        #
+#    Updated: 2023/02/19 18:06:11 by bgales           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,14 +57,16 @@ OBJS 				:=	$(addprefix $(OBJS_PATH)/, $(SRCS:$(SRCS_PATH)/%.c=%.o))
 # ********************************* H E A D S *********************************
 
 HFLAGS				:=	-I $(HDRS_PATH)\
-						-I $(LIBFT_PATH)/$(HDRS_PATH)
+						-I $(LIBFT_PATH)/$(HDRS_PATH)\
+						-I /Users/$(USER)/.brew/opt/readline/include
 
 # ********************************** L I B S **********************************
 
 # Libft
 FTFLAGS				:=	-L./$(LIBFT_PATH)
+LDFLAGS				:= -L/Users/$(USER)/.brew/opt/readline/lib
 
-LFLAGS				:=	$(FTFLAGS) -lft -lreadline
+LFLAGS				:=	$(FTFLAGS) $(LDFLAGS) -lft -lreadline
 
 # ********************************* N O R M E *********************************
 
@@ -79,11 +81,11 @@ $(OBJS_PATH)/%.o: 	$(SRCS_PATH)/%.c $(HDRS_PATH)
 					@$(MKDIR) $(dir $@)
 					@$(ECHO)\
 					$(WHITE)$(DARK)"Compiling $<"$(EOC)
-					@$(CC) $(HFLAGS) -o $@ -c $< 
+					@$(CC) $(HFLAGS) -o $@ -c $<
 
 
 $(NAME):			$(OBJS)
-					@$(CC) $^ $(FTFLAGS) $(LFLAGS) -o $@ 
+					@$(CC) $^ $(FTFLAGS) $(LFLAGS) -o $@
 					@$(ECHO)\
 					$(CYAN)$(UNDERLINE)"$@"$(EOC)": "$(GREEN)"complete"$(EOC)
 
@@ -109,16 +111,16 @@ lib:				libft mlx
 					mlx mlx_clean mlx_re
 					mlx mlx_clean mlx_re
 
-libft:				
+libft:
 					@$(MAKE) -C ./$(LIBFT_PATH)
 
 libft_clean:
 					@$(MAKE) -C ./$(LIBFT_PATH) clean
 
-libft_fclean:		
+libft_fclean:
 					@$(MAKE) -C ./$(LIBFT_PATH) fclean
 
-libft_re:		
+libft_re:
 					@$(MAKE) -C ./$(LIBFT_PATH) re
 
 .PHONY:				all clean fclean re\
