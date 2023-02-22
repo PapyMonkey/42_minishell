@@ -6,7 +6,7 @@
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 16:36:19 by mgerbaud          #+#    #+#             */
-/*   Updated: 2023/02/19 17:53:58 by bgales           ###   ########.fr       */
+/*   Updated: 2023/02/20 13:41:24 by bgales           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <readline/history.h>
 # include <dirent.h>
 # include <signal.h>
+# include <termios.h>
 
 // ****************************************************************************
 // Personal library
@@ -68,5 +69,6 @@ void	free_var(struct s_var *var);
 
 void	signal_handler(int signo);
 char	**ft_split(char const *s1, char c);
+void	get_signo(void);
 
 #endif // MINISHELL_H
