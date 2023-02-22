@@ -6,14 +6,14 @@
 #    By: bgales <bgales@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/30 14:23:25 by aguiri            #+#    #+#              #
-#    Updated: 2023/02/19 18:06:11 by bgales           ###   ########.fr        #
+#    Updated: 2023/02/21 12:02:04 by bgales           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME				?=	minishell
 
 CC					=	gcc
-CFLAGS				?=	-Wall -Wextra -Werror
+CFLAGS				?=	-Wall -Wextra -Werror -g -fsanitize=address
 AR 					?=	ar
 RM					?=	rm -f
 MKDIR				?=	mkdir -p
