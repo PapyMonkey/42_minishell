@@ -6,7 +6,7 @@
 /*   By: aguiri <aguiri@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 04:22:56 by aguiri            #+#    #+#             */
-/*   Updated: 2022/12/06 05:46:56 by aguiri           ###   ########.fr       */
+/*   Updated: 2023/02/25 17:35:15 by aguiri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,9 @@ void	b_unset(t_list *l_env, const char *str)
 	t_list	*tmp;
 
 	i = 5;
-
-	while (ft_isspace(str[i]) && str[i])
+	while (ft_isspace(*(str + i)) && str + i)
 		i++;
 	tmp = get_env_elem(l_env, str + i);
-	if (tmp->next == NULL)
-		return ;
+	printf("b_unset : Check\n");
 	ft_lstremove(&l_env, tmp, free_env);
 }
