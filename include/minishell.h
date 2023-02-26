@@ -6,7 +6,7 @@
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 16:36:19 by mgerbaud          #+#    #+#             */
-/*   Updated: 2023/02/20 13:41:24 by bgales           ###   ########.fr       */
+/*   Updated: 2023/02/26 17:31:45 by bgales           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,29 @@
 # include "get.h"
 # include "utils.h"
 # include "builtins.h"
+
+// ****************************************************************************
+// Enum
+
+enum{
+	WORD,
+	PIPE,
+	HERE_DOC,
+	REDIR_IN,
+	APPEND,
+	REDIR_OUT
+};
+
+// ****************************************************************************
+// Structures
+
+struct s_lexer
+{
+	char			*value;
+	int				type;
+	struct s_lexer	*next;
+};
+typedef struct s_lexer	t_lexer;
 
 // ****************************************************************************
 // Functions - error.c
@@ -67,8 +90,40 @@ void	free_env(void *env);
 */
 void	free_var(struct s_var *var);
 
-void	signal_handler(int signo);
-char	**ft_split(char const *s1, char c);
-void	get_signo(void);
+// ****************************************************************************
+// Functions - lexer.c
 
+t_lexer	*ft_split_args(char *str);
+char	**to_split(char *str);
+
+// ****************************************************************************
+// Functions - lexer_utils.c
+
+/**
+@brief Check for unclosed_quotes in char*.
+*/
+int		closed_quotes(char *str);
+
+/**
+@brief Itterate to the next quote in char* and returns the len to get to it.
+@param char*  string we'll search in@param char char to
+itterate to inside the char*.
+@param len norm purposes.
+*/
+int		itter_quote(char *str, char c, int *len);
+
+/**
+@brief Delete all quotes from a string.
+*/
+char	*del_quotes(char *split);
+
+/**
+@brief Count every word inside of a string according to the shell word cutting.
+*/
+int		word_count(char *str);
+
+/**
+@brief Find which elem of Enum is contained in a string and returns its number.
+*/
+int		enum_finder(char *str);
 #endif // MINISHELL_H
