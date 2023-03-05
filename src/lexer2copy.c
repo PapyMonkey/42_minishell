@@ -6,15 +6,11 @@
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 16:40:51 by bgales            #+#    #+#             */
-/*   Updated: 2023/03/05 13:10:21 by bgales           ###   ########.fr       */
+/*   Updated: 2023/03/05 13:30:26 by bgales           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-int	is_builtin(char *split)
-{
-	return (0);
-}
 
 int which_quote(char c)
 {
@@ -121,6 +117,7 @@ t_list	*struct_init(char *str)
 		i += is_quote(&str[i], &ret);
 		i += is_space(&str[i], &ret);
 		i += is_arg(&str[i], &ret);
+
 
 	}
 	ft_lstiter(ret, *print_arg_elem);
