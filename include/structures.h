@@ -6,7 +6,7 @@
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 18:37:28 by aguiri            #+#    #+#             */
-/*   Updated: 2023/03/05 13:16:30 by bgales           ###   ########.fr       */
+/*   Updated: 2023/03/05 14:13:36 by bgales           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,11 @@ typedef enum enum_type
 	REDIR_OUT,
 	HERE_DOC,
 	REDIR_IN,
-	// OPEN_QUOTE,
-	// CLOSE_QUOTE,
+	OPEN_QUOTE,
+	CLOSE_QUOTE,
 	QUOTE,
-	// OPEN_D_QUOTE,
-	// CLOSE_D_QUOTE,
+	OPEN_D_QUOTE,
+	CLOSE_D_QUOTE,
 	D_QUOTE,
 	TEXT,
 	WHITE_SPACE,
