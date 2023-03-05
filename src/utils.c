@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgerbaud <mgerbaud@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 13:14:43 by mgerbaud          #+#    #+#             */
-/*   Updated: 2022/11/30 10:44:40 by aguiri           ###   ########.fr       */
+/*   Updated: 2023/03/05 15:15:10 by bgales           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@ static int	issep(char c, char *sep)
 	return (0);
 }
 
-static int is_syntax_ok(const char *str, const int n)
+static int	is_syntax_ok(const char *str, const int n)
 {
 	int	n_end;
 	int	i;
-	int is_quote_open;
+	int	is_quote_open;
 	int	is_double_open;
 
 	n_end = n;
