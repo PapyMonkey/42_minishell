@@ -6,7 +6,7 @@
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 18:37:28 by aguiri            #+#    #+#             */
-/*   Updated: 2023/03/05 14:13:36 by bgales           ###   ########.fr       */
+/*   Updated: 2023/03/05 15:15:49 by bgales           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,9 @@ typedef struct s_env
 
 typedef struct s_arg
 {
-    char		*content;
+	char		*content;
 	t_enum_type	type;
-} 				t_arg;
+}				t_arg;
 /**
 struct s_var - Wrapper containing all the useful variables.
 */
