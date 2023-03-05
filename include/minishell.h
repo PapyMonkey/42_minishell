@@ -6,7 +6,7 @@
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 16:36:19 by mgerbaud          #+#    #+#             */
-/*   Updated: 2023/02/26 17:31:45 by bgales           ###   ########.fr       */
+/*   Updated: 2023/03/03 13:34:23 by bgales           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,18 +34,6 @@
 # include "get.h"
 # include "utils.h"
 # include "builtins.h"
-
-// ****************************************************************************
-// Enum
-
-enum{
-	WORD,
-	PIPE,
-	HERE_DOC,
-	REDIR_IN,
-	APPEND,
-	REDIR_OUT
-};
 
 // ****************************************************************************
 // Structures
@@ -93,10 +81,11 @@ void	free_var(struct s_var *var);
 // ****************************************************************************
 // Functions - lexer.c
 
-t_lexer	*ft_split_args(char *str);
-char	**to_split(char *str);
+/**
+@brief Split char * according to the shell word cutting.
+*/
+t_list	*ft_split_args(char *str);
 
-// ****************************************************************************
 // Functions - lexer_utils.c
 
 /**
@@ -113,17 +102,15 @@ itterate to inside the char*.
 int		itter_quote(char *str, char c, int *len);
 
 /**
-@brief Delete all quotes from a string.
-*/
-char	*del_quotes(char *split);
-
-/**
-@brief Count every word inside of a string according to the shell word cutting.
-*/
-int		word_count(char *str);
-
-/**
 @brief Find which elem of Enum is contained in a string and returns its number.
 */
-int		enum_finder(char *str);
+int		pipe_redir_finder(char *str);
+/**
+@brief Itterate to the next Enum member found in char * and returns
+the len to get to it.
+*/
+int		itter_enum(char *str);
+
+// t_list	*struct_init(char **split);
+t_list	*struct_init(char *str);
 #endif // MINISHELL_H

@@ -6,7 +6,7 @@
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 16:36:09 by mgerbaud          #+#    #+#             */
-/*   Updated: 2023/02/22 11:22:43 by bgales           ###   ########.fr       */
+/*   Updated: 2023/02/27 13:39:40 by bgales           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 // 	int		i = -1;
 
 // 	var = init(env);
-// 	get_signo();
+// 	// get_signo();
 // 	// while (var->l_pth->next)
 // 	// {
 // 	// 	tmp = var->l_pth;
@@ -34,12 +34,16 @@
 // 		str = readline("$> ");
 // 		if (!str) // ctrl + d
 // 			exit (0);
-// 		test = ft_split(str, ' ');
+// 		test =  to_split(str);
 // 		if (test == NULL)
 // 			printf("Missing closing quote\n");
 // 		if (test)
 // 		while(test[++i])
+// 		{
 // 			printf("%s\n", test[i]);
+// 			free(test[i]);
+// 			free (test);
+// 		}
 // 		if (str[0] && test != NULL)
 // 		{
 // 			add_history((const char *)str);
@@ -47,8 +51,9 @@
 // 		}
 // 		free(str);
 // 		i = -1;
-// 		// if (search_path(&hpaths, &cmd, str))
-// 		// 	exec_cmd(&cmd, av, env);
+// 		system("leaks minishell");
+// 		//  if (search_path(&hpaths, &cmd, str))
+// 		//  	exec_cmd(&cmd, av, env);
 // 	}
 // 	return (0);
 // }

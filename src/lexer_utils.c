@@ -1,27 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer2.c                                           :+:      :+:    :+:   */
+/*   lexer_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 15:28:36 by bgales            #+#    #+#             */
-/*   Updated: 2023/02/26 15:30:11 by bgales           ###   ########.fr       */
+/*   Updated: 2023/03/03 13:34:57 by bgales           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	enum_finder(char *str)
+int	pipe_redir_finder(char *str)
 {
 	if (*str == '|')
 		return (PIPE);
 	if (*str == '<' && *(str + 1) != '<')
 		return (REDIR_IN);
-	if (*str == '<' && *(str + 1) == '<')
-		return (HERE_DOC);
 	if (*str == '>' && *(str + 1) != '>')
 		return (REDIR_OUT);
+	if (*str == '<' && *(str + 1) == '<')
+		return (HERE_DOC);
 	if (*str == '>' && *(str + 1) == '>')
 		return (APPEND);
 	return (0);
@@ -44,6 +44,17 @@ int	itter_quote(char *str, char c, int *len)
 		*len += 1;
 	}
 	return (i);
+}
+
+int	itter_enum(char *str)
+{
+	if (pipe_redir_finder(str) == PIPE || pipe_redir_finder(str) == REDIR_IN
+		|| pipe_redir_finder(str) == REDIR_OUT)
+		return (1);
+	else if (!pipe_redir_finder(str))
+		return (0);
+	else
+		return (2);
 }
 
 int	closed_quotes(char *str)

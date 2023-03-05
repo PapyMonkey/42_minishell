@@ -6,15 +6,11 @@
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 17:49:47 by bgales            #+#    #+#             */
-/*   Updated: 2023/02/26 15:36:27 by bgales           ###   ########.fr       */
+/*   Updated: 2023/03/02 19:36:33 by bgales           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-
-
-
 
 int	word_count(char *str)
 {
@@ -38,7 +34,6 @@ int	word_count(char *str)
 			i++;
 		wc++;
 	}
-	printf("%d\n", wc);
 	return (wc);
 }
 
@@ -51,7 +46,7 @@ char	**to_split(char *str)
 	int		tab;
 
 	ret = malloc(sizeof(char *) * (word_count(str)
-				+ (len = 0) + (i = 0) + (tab = 0)));
+				+ (len = 0) + (i = 0) + (tab = 0) + 1));
 	while (str[i])
 	{
 		start = &str[i];
@@ -98,10 +93,10 @@ char	*del_quotes(char *split)
 	return (ret);
 }
 
-t_lexer	*ft_split_args(char *str)
+t_list	*ft_split_args(char *str)
 {
 	int		i;
-	t_lexer	*ret;
+	t_list	*ret;
 	char	**split;
 
 	i = -1;
@@ -111,10 +106,7 @@ t_lexer	*ft_split_args(char *str)
 		return (NULL);
 	str = ft_strtrim(str, " ");
 	split = to_split(str);
-	while (split[++i])
-		printf("%s\n", split[i]);
-	// while(split[++i])
-	// 	split[i] = del_quotes(split[i]); //leaks ici
+	struct_init(str);
 	i = -1;
 	return (ret);
 }
