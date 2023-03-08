@@ -6,7 +6,7 @@
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 17:49:47 by bgales            #+#    #+#             */
-/*   Updated: 2023/03/02 19:36:33 by bgales           ###   ########.fr       */
+/*   Updated: 2023/03/08 19:47:34 by bgales           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,13 +105,18 @@ t_list	*ft_split_args(char *str)
 	if (!!closed_quotes(str))
 		return (NULL);
 	str = ft_strtrim(str, " ");
-	split = to_split(str);
 	struct_init(str);
+	free(str);
 	i = -1;
 	return (ret);
 }
 
+
+
 int	main(int argc, char **argv)
 {
-	ft_split_args(argv[1]);
+	t_list *args;
+
+	args = ft_split_args(argv[1]);
+	system("leaks minishell");
 }

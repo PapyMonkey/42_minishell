@@ -1,16 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print.c                                            :+:      :+:    :+:   */
+/*   lst_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 11:34:58 by aguiri            #+#    #+#             */
-/*   Updated: 2023/03/05 15:14:48 by bgales           ###   ########.fr       */
+/*   Updated: 2023/03/08 19:43:21 by bgales           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void free_lstcontent(void *content)
+{
+	t_arg *arg;
+	arg = (t_arg *)content;
+	free(arg->content);
+	free(arg);
+}
 
 void	print_env_elem(void *env)
 {
@@ -32,6 +40,17 @@ void	print_arg_elem(void *arg)
 		((t_arg *)arg)->type, ((t_arg *)arg)->content);
 }
 
+t_arg	*t_arg_cpy(void *arg)
+{
+	t_arg	*ret;
+	t_arg	*ptr;
+
+	ptr = arg;
+	ret = malloc(sizeof(t_arg *));
+	ret->content = ft_strdup(ptr->content);
+	ret->type = ptr->type;
+	return (ret);
+}
 // void	print_char_elem(void *content)
 // {
 // 	printf("%s=%s\n",

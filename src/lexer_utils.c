@@ -6,11 +6,39 @@
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 15:28:36 by bgales            #+#    #+#             */
-/*   Updated: 2023/03/03 13:34:57 by bgales           ###   ########.fr       */
+/*   Updated: 2023/03/08 19:46:14 by bgales           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+char	*minishell_join(char *s1, char *s2)
+{
+	int		len_s1;
+	int		len_s2;
+	int		i;
+	char	*out;
+
+	if (!s1)
+		return (ft_strdup(s2));
+	out = malloc(sizeof(char) * ((len_s1 = ft_strlen(s1))
+				+ (len_s2 = ft_strlen(s2)) + 1));
+	if (out == NULL)
+		return (NULL);
+	i = -1;
+	while (++i < len_s1)
+	{
+		out[i] = (char) s1[i];
+	}
+	i = -1;
+	while (++i < len_s2)
+	{
+		out[i + len_s1] = (char) s2[i];
+	}
+	out[len_s1 + len_s2] = '\0';
+	free (s1);
+	return (out);
+}
 
 int	pipe_redir_finder(char *str)
 {

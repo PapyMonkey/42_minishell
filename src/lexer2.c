@@ -6,7 +6,7 @@
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 16:40:51 by bgales            #+#    #+#             */
-/*   Updated: 2023/03/05 16:59:05 by bgales           ###   ########.fr       */
+/*   Updated: 2023/03/08 17:02:12 by bgales           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	is_quote(char *str, t_list **list)
 {
 	t_arg	*arg;
-	
+
 	arg = malloc(sizeof(t_arg));
 	if (str[0] == '\'')
 		arg->type = QUOTE;
@@ -110,6 +110,7 @@ t_list	*struct_init(char *str)
 		i += is_space(&str[i], &ret);
 		i += is_arg(&str[i], &ret);
 	}
-	struct_init_2(ret);
+	ret = struct_init_2(&ret);
+	ft_lstclear(&ret, free_lstcontent);
 	return (ret);
 }

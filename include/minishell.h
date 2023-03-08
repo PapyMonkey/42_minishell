@@ -6,7 +6,7 @@
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 16:36:19 by mgerbaud          #+#    #+#             */
-/*   Updated: 2023/03/05 15:37:49 by bgales           ###   ########.fr       */
+/*   Updated: 2023/03/08 19:46:20 by bgales           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,5 +113,8 @@ int		itter_enum(char *str);
 
 // t_list	*struct_init(char **split);
 t_list	*struct_init(char *str);
-t_list	*struct_init_2(t_list *ret);
+t_list	*struct_init_2(t_list **ret);
+void free_lstcontent(void *content);
+t_arg	*t_arg_cpy(void *arg);
+char	*minishell_join(char *s1, char *s2);
 #endif // MINISHELL_H
