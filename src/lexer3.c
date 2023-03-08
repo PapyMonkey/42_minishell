@@ -6,7 +6,7 @@
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 15:33:13 by bgales            #+#    #+#             */
-/*   Updated: 2023/03/05 16:58:49 by bgales           ###   ########.fr       */
+/*   Updated: 2023/03/08 19:46:03 by bgales           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,23 +40,77 @@ void	to_next_quote(t_list **lst, char *quote)
 void	*open_close_quote(t_list **lst)
 {
 	t_arg	*arg;
-	t_list	*head;
+	t_list	*ptr;
 
-	head = *lst;
-	while (head != NULL)
+	ptr = *lst;
+	while (ptr != NULL)
 	{
-		arg = head->content;
+		arg = ptr->content;
 		if (!ft_strncmp(arg->content, "\'", 1))
-			to_next_quote(&head, arg->content);
+			to_next_quote(&ptr, arg->content);
 		if (!ft_strncmp(arg->content, "\"", 1))
-			to_next_quote(&head, arg->content);
-		head = head->next;
+			to_next_quote(&ptr, arg->content);
+		ptr = ptr->next;
 	}
 	return (0);
 }
 
-t_list	*struct_init_2(t_list *ret)
+void	*join_in_quotes_2(t_list **dst, t_list **src)
 {
-	open_close_quote(&ret);
-	ft_lstiter(ret, *print_arg_elem);
+	t_arg	*arg;
+	t_arg	*cpy;
+	char	*test;
+
+	*src = (*src)->next;
+	if (((t_arg *)(*src)->content)->type == CLOSE_D_QUOTE
+		&& ((t_arg *)(*src)->content)->type == CLOSE_QUOTE)
+	{
+		ft_lstadd_back(dst, ft_lstnew(t_arg_cpy((*src)->content)));
+		return (0);
+	}
+	cpy = malloc(sizeof(t_arg));
+	cpy->content = NULL;
+	while (((t_arg *)(*src)->content)->type != CLOSE_D_QUOTE &&
+		((t_arg *)(*src)->content)->type != CLOSE_QUOTE)
+	{
+		cpy->content = minishell_join(cpy->content,
+				((t_arg *)(*src)->content)->content);
+		(*src) = (*src)->next;
+		cpy->type = TEXT;
+	}
+	ft_lstadd_back(dst, ft_lstnew(cpy));
+	ft_lstadd_back(dst, ft_lstnew(t_arg_cpy((*src)->content)));
+	(*src) = (*src)->next;
+	ft_lstadd_back(dst, ft_lstnew(t_arg_cpy((*src)->content)));
+}
+
+t_list	*join_in_quotes(t_list **lst)
+{
+	t_list	*ret;
+	t_list	*ptr;
+	t_arg	*arg;
+
+	ptr = *lst;
+	ret = NULL;
+	while (ptr != NULL)
+	{
+		arg = ptr->content;
+		ft_lstadd_back(&ret, ft_lstnew(t_arg_cpy(arg)));
+		if (arg->type == OPEN_D_QUOTE || arg->type == OPEN_QUOTE)
+			join_in_quotes_2(&ret, &ptr);
+		if (ptr != NULL)
+			ptr = ptr->next;
+	}
+	return (ret);
+}
+
+t_list	*struct_init_2(t_list **ret)
+{
+	t_list	*test;
+
+	open_close_quote(ret);
+	test = join_in_quotes(ret);
+	ft_lstiter(test, *print_arg_elem);
+	ft_lstclear(ret, free_lstcontent);
+	return (test);
 }
