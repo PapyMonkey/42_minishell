@@ -6,7 +6,7 @@
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 18:37:28 by aguiri            #+#    #+#             */
-/*   Updated: 2023/03/05 15:15:49 by bgales           ###   ########.fr       */
+/*   Updated: 2023/03/09 14:09:58 by bgales           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,8 @@ typedef enum enum_type
 	OUT_D_QUOTES,
 	IN_QUOTES,
 	OUT_QUOTES,
-	USELESS,
+	FLAG,
+	ARG
 }	t_enum_type;
 /**
 struct s_env - Contains the key and linked value of an ENV variable.
