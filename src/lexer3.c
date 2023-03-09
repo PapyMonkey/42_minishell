@@ -6,7 +6,7 @@
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 15:33:13 by bgales            #+#    #+#             */
-/*   Updated: 2023/03/08 19:46:03 by bgales           ###   ########.fr       */
+/*   Updated: 2023/03/09 17:45:47 by bgales           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,7 @@ void	*join_in_quotes_2(t_list **dst, t_list **src)
 {
 	t_arg	*arg;
 	t_arg	*cpy;
-	char	*test;
 
-	*src = (*src)->next;
 	if (((t_arg *)(*src)->content)->type == CLOSE_D_QUOTE
 		&& ((t_arg *)(*src)->content)->type == CLOSE_QUOTE)
 	{
@@ -82,6 +80,7 @@ void	*join_in_quotes_2(t_list **dst, t_list **src)
 	ft_lstadd_back(dst, ft_lstnew(t_arg_cpy((*src)->content)));
 	(*src) = (*src)->next;
 	ft_lstadd_back(dst, ft_lstnew(t_arg_cpy((*src)->content)));
+	return (0);
 }
 
 t_list	*join_in_quotes(t_list **lst)
@@ -97,20 +96,24 @@ t_list	*join_in_quotes(t_list **lst)
 		arg = ptr->content;
 		ft_lstadd_back(&ret, ft_lstnew(t_arg_cpy(arg)));
 		if (arg->type == OPEN_D_QUOTE || arg->type == OPEN_QUOTE)
+		{
+			ptr = ptr->next;
 			join_in_quotes_2(&ret, &ptr);
+		}
 		if (ptr != NULL)
 			ptr = ptr->next;
 	}
 	return (ret);
 }
 
-t_list	*struct_init_2(t_list **ret)
+t_list	*struct_init_2(t_list **list)
 {
-	t_list	*test;
+	t_list	*ret;
 
-	open_close_quote(ret);
-	test = join_in_quotes(ret);
-	ft_lstiter(test, *print_arg_elem);
-	ft_lstclear(ret, free_lstcontent);
-	return (test);
+	open_close_quote(list);
+	ret = join_in_quotes(list);
+	define_elem(&ret);
+	del_whitespace(&ret);
+	ft_lstclear(list, free_lstcontent);
+	return (ret);
 }
