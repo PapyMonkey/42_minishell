@@ -6,7 +6,7 @@
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 15:33:13 by bgales            #+#    #+#             */
-/*   Updated: 2023/03/09 17:45:47 by bgales           ###   ########.fr       */
+/*   Updated: 2023/03/13 15:55:30 by bgales           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	*join_in_quotes_2(t_list **dst, t_list **src)
 	t_arg	*cpy;
 
 	if (((t_arg *)(*src)->content)->type == CLOSE_D_QUOTE
-		&& ((t_arg *)(*src)->content)->type == CLOSE_QUOTE)
+		|| ((t_arg *)(*src)->content)->type == CLOSE_QUOTE)
 	{
 		ft_lstadd_back(dst, ft_lstnew(t_arg_cpy((*src)->content)));
 		return (0);
@@ -78,12 +78,10 @@ void	*join_in_quotes_2(t_list **dst, t_list **src)
 	}
 	ft_lstadd_back(dst, ft_lstnew(cpy));
 	ft_lstadd_back(dst, ft_lstnew(t_arg_cpy((*src)->content)));
-	(*src) = (*src)->next;
-	ft_lstadd_back(dst, ft_lstnew(t_arg_cpy((*src)->content)));
 	return (0);
 }
 
-t_list	*join_in_quotes(t_list **lst)
+void	*join_in_quotes(t_list **lst)
 {
 	t_list	*ret;
 	t_list	*ptr;
@@ -103,17 +101,23 @@ t_list	*join_in_quotes(t_list **lst)
 		if (ptr != NULL)
 			ptr = ptr->next;
 	}
+	ft_lstclear(lst, free_lstcontent);
 	return (ret);
 }
 
 t_list	*struct_init_2(t_list **list)
 {
-	t_list	*ret;
-
-	open_close_quote(list);
-	ret = join_in_quotes(list);
-	define_elem(&ret);
-	del_whitespace(&ret);
-	ft_lstclear(list, free_lstcontent);
-	return (ret);
+	if (!no_quote(list))
+	{
+		open_close_quote(list);
+		*list = join_in_quotes(list);
+		empty_quotes(list);
+		while (!no_quote(list))
+			join_quotes(list);
+		join_text(list);
+	}
+	define_elem(list);
+	del_whitespace(list);
+	ft_lstiter(*list, *print_arg_elem);
+	return (*list);
 }
