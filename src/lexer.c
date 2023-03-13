@@ -6,7 +6,7 @@
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 17:49:47 by bgales            #+#    #+#             */
-/*   Updated: 2023/03/12 12:43:38 by bgales           ###   ########.fr       */
+/*   Updated: 2023/03/13 16:07:00 by bgales           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,7 @@ t_list	*ft_split_args(char *str)
 	ret = struct_init(str);
 	free(str);
 	i = -1;
+	ft_lstiter(ret, *print_arg_elem);
 	return (ret);
 }
 
