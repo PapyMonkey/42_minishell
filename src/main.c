@@ -1,25 +1,24 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/21 16:36:09 by mgerbaud          #+#    #+#             */
-/*   Updated: 2023/02/27 13:39:40 by bgales           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+// /* ************************************************************************** */
+// /*                                                                            */
+// /*                                                        :::      ::::::::   */
+// /*   main.c                                             :+:      :+:    :+:   */
+// /*                                                    +:+ +:+         +:+     */
+// /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
+// /*                                                +#+#+#+#+#+   +#+           */
+// /*   Created: 2022/11/21 16:36:09 by mgerbaud          #+#    #+#             */
+// /*   Updated: 2023/03/15 14:31:53 by bgales           ###   ########.fr       */
+// /*                                                                            */
+// /* ************************************************************************** */
 
-#include "minishell.h"
+// #include "minishell.h"
 
 
 // int	main(int argc, char **argv, char **env)
 // {
 // 	t_var	*var;
-// 	t_list	*tmp;
+// 	t_list	*list;
+// 	t_arg	*arg;
 // 	char	*str;
-// 	char	**test;
-// 	int		i = -1;
 
 // 	var = init(env);
 // 	// get_signo();
@@ -34,23 +33,18 @@
 // 		str = readline("$> ");
 // 		if (!str) // ctrl + d
 // 			exit (0);
-// 		test =  to_split(str);
-// 		if (test == NULL)
+// 		list =  ft_split_args(str);
+// 		if (list == NULL)
 // 			printf("Missing closing quote\n");
-// 		if (test)
-// 		while(test[++i])
-// 		{
-// 			printf("%s\n", test[i]);
-// 			free(test[i]);
-// 			free (test);
-// 		}
-// 		if (str[0] && test != NULL)
+// 		is_alias(list);
+// 		if (str[0])
 // 		{
 // 			add_history((const char *)str);
 // 			b_routine(str, var); // si hors de ce "if", print l'env lorsqu'on presse entree
 // 		}
 // 		free(str);
-// 		i = -1;
+// 		ft_lstiter(list, free_lstcontent);
+// 		free (list);
 // 		system("leaks minishell");
 // 		//  if (search_path(&hpaths, &cmd, str))
 // 		//  	exec_cmd(&cmd, av, env);
