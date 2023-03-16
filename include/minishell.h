@@ -6,7 +6,7 @@
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 16:36:19 by mgerbaud          #+#    #+#             */
-/*   Updated: 2023/03/13 15:54:40 by bgales           ###   ########.fr       */
+/*   Updated: 2023/03/16 13:58:16 by bgales           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,9 +119,15 @@ t_arg	*t_arg_cpy(void *arg);
 char	*minishell_join(char *s1, char *s2);
 void	*define_elem(t_list **list);
 void	*del_whitespace(t_list **list);
-void	*join_quotes(t_list **list);
 int		no_quote(t_list **list);
-void	*empty_quotes(t_list **list);
-void	*join_text(t_list **list);
+void	empty_quotes(t_list **list);
+void	join_text(t_list **list);
 int		no_quote(t_list **list);
+int		no_whitespace(t_list *list);
+t_list	*join_quotes(t_list **list);
+void	*join_all(t_list **list);
+int		alias_finder(char c);
+void	alias_replace(t_list **list, t_env *env);
+int		is_alias(char *str, t_list **list);
+
 #endif // MINISHELL_H

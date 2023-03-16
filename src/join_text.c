@@ -6,13 +6,13 @@
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 13:18:41 by bgales            #+#    #+#             */
-/*   Updated: 2023/03/13 15:55:42 by bgales           ###   ########.fr       */
+/*   Updated: 2023/03/15 15:18:47 by bgales           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	*join_text_2(t_list **ptr, t_list **tmp, t_list **save)
+void	join_text_2(t_list **ptr, t_list **tmp, t_list **save)
 {
 	while (*ptr != NULL && ((t_arg *)(*ptr)->content)->type == TEXT)
 	{
@@ -31,7 +31,7 @@ void	*join_text_2(t_list **ptr, t_list **tmp, t_list **save)
 	(*tmp)->next = *save;
 }
 
-void	*join_text(t_list **list)
+void	join_text(t_list **list)
 {
 	t_list	*ptr;
 	t_list	*tmp;

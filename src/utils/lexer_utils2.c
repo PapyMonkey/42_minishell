@@ -6,11 +6,44 @@
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 17:33:15 by bgales            #+#    #+#             */
-/*   Updated: 2023/03/13 15:59:07 by bgales           ###   ########.fr       */
+/*   Updated: 2023/03/14 16:58:26 by bgales           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	*join_all(t_list **list)
+{
+	t_list	*ret;
+	t_list	*ptr;
+	t_arg	*arg;
+
+	ret = NULL;
+	ptr = *list;
+	arg = malloc(sizeof(t_arg));
+	arg->content = NULL;
+	while (ptr != NULL)
+	{
+		arg->content = minishell_join(arg->content,
+				((t_arg *)(ptr)->content)->content);
+		ptr = ptr->next;
+	}
+	arg->type = TEXT;
+	ret = ft_lstnew(arg);
+	ft_lstclear(list, free_lstcontent);
+	return (ret);
+}
+
+int	no_whitespace(t_list *list)
+{
+	while (list != NULL)
+	{
+		if (((t_arg *)(list)->content)->type == WHITE_SPACE)
+			return (1);
+		list = list->next;
+	}
+	return (0);
+}
 
 void	*del_whitespace(t_list **list)
 {

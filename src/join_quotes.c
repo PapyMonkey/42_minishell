@@ -5,98 +5,84 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/10 11:49:43 by bgales            #+#    #+#             */
-/*   Updated: 2023/03/13 16:04:17 by bgales           ###   ########.fr       */
+/*   Created: 2023/03/14 11:34:45 by bgales            #+#    #+#             */
+/*   Updated: 2023/03/15 12:49:39 by bgales           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	*mid_jquote2(t_list **ptr, t_arg **new)
+void	join_quotes_2(t_list **save, t_list **ret)
 {
-	while (*ptr != NULL)
+	t_arg	*arg;
+
+	arg = malloc(sizeof(t_arg));
+	arg->content = NULL;
+	while (*save != NULL && ((t_arg *)(*save)->content)->type != WHITE_SPACE)
 	{
-		if (((t_arg *)(*ptr)->content)->type == WHITE_SPACE)
-			break ;
-		if ((((t_arg *)(*ptr)->content)->type != OPEN_D_QUOTE
-			&& ((t_arg *)(*ptr)->content)->type != OPEN_QUOTE
-			&& ((t_arg *)(*ptr)->content)->type != CLOSE_D_QUOTE
-			&& ((t_arg *)(*ptr)->content)->type != CLOSE_QUOTE)
-			&& (*ptr)->next != NULL)
-				(*new)->content = minishell_join((*new)->content,
-					((t_arg *)(*ptr)->content)->content);
-		if (*ptr != NULL)
-			*ptr = (*ptr)->next;
+		while (*save != NULL && ((((t_arg *)
+						(*save)->content)->type == OPEN_QUOTE
+					|| ((t_arg *)(*save)->content)->type == OPEN_D_QUOTE
+				|| ((t_arg *)(*save)->content)->type == CLOSE_QUOTE
+			|| ((t_arg *)(*save)->content)->type == CLOSE_D_QUOTE)))
+			*save = (*save)->next;
+		if (*save != NULL && ((t_arg *)(*save)->content)->type != WHITE_SPACE)
+			arg->content = minishell_join(arg->content,
+					((t_arg *)(*save)->content)->content);
+		if (*save != NULL && ((t_arg *)(*save)->content)->type != WHITE_SPACE)
+			*save = (*save)->next;
 	}
+	arg->type = TEXT;
+	ft_lstadd_back(ret, ft_lstnew(arg));
 }
 
-void	*end_jquote2(t_list **ptr, t_list **list, t_arg **new)
+void	j_quotes_norm(t_list **ptr, t_list **save, t_list **ret)
 {
-	*list = *ptr;
-	(*new)->type = TEXT;
-	ft_lstadd_front(list, ft_lstnew(t_arg_cpy(*new)));
-	free ((*new)->content);
-	free (*new);
-}
-
-t_list	*join_quotes_2(t_list **list)
-{
-	t_arg	*new;
-	t_list	*ptr;
-	t_list	*tmp;
-
-	ptr = *list;
-	new = malloc(sizeof(t_arg));
-	new->content = NULL;
-	mid_jquote2(&ptr, &new);
-	tmp = ptr;
-	ptr = *list;
-	while (ptr != NULL && ((t_arg *)(ptr)->content)->type != WHITE_SPACE)
-	{
-		ptr = ptr->next;
-		ft_lstdelone(*list, free_lstcontent);
-		*list = ptr;
-	}
-	end_jquote2(&ptr, list, &new);
-	return (*list);
-}
-
-void	*norm_jquotes(t_list **ptr, t_list **tmp)
-{
-	while (*ptr != NULL && ((t_arg *)(*ptr)->content)->type != OPEN_D_QUOTE
+	*ptr = (*ptr)->next;
+	*save = *ptr;
+	while (*ptr != NULL && ((t_arg *)(*ptr)->content)->type != WHITE_SPACE
+		&& ((t_arg *)(*ptr)->content)->type != OPEN_D_QUOTE
 		&& ((t_arg *)(*ptr)->content)->type != OPEN_QUOTE)
-	{
-		if (((t_arg *)(*ptr)->content)->type == WHITE_SPACE)
-		{
-			*ptr = (*ptr)->next;
-			*tmp = *ptr;
-			break ;
-		}
 		*ptr = (*ptr)->next;
+	if (*ptr != NULL && (((t_arg *)(*ptr)->content)->type == OPEN_D_QUOTE
+		|| ((t_arg *)(*ptr)->content)->type == OPEN_QUOTE))
+		join_quotes_2(save, ret);
+	else
+	{
+		while (*save != NULL && ((t_arg *)
+				(*save)->content)->type != WHITE_SPACE)
+		{
+			if (*save == NULL)
+				break ;
+			ft_lstadd_back(ret, ft_lstnew(t_arg_cpy(
+						((t_arg *)(*save)->content))));
+			*save = (*save)->next;
+		}
 	}
-	while (*tmp != NULL && ((t_arg *)(*tmp)->content)->type != WHITE_SPACE
-		&& ((t_arg *)(*tmp)->content)->type != OPEN_D_QUOTE
-		&& ((t_arg *)(*tmp)->content)->type != OPEN_QUOTE)
-		*tmp = (*tmp)->next;
+	*ptr = *save;
 }
 
-void	*join_quotes(t_list **list)
+t_list	*join_quotes(t_list **list)
 {
+	t_list	*ret;
 	t_list	*ptr;
-	t_list	*tmp;
+	t_list	*save;
 
 	ptr = *list;
-	tmp = *list;
-	norm_jquotes(&ptr, &tmp);
-	if (tmp == NULL)
-		return (0);
-	if (((t_arg *)(tmp)->content)->type == WHITE_SPACE)
+	ret = NULL;
+	while (ptr != NULL)
 	{
-		join_quotes(&tmp);
-		return (0);
+		if (((t_arg *)(ptr)->content)->type != OPEN_D_QUOTE
+			&& ((t_arg *)(ptr)->content)->type != OPEN_QUOTE
+			&& ((t_arg *)(ptr)->content)->type != CLOSE_QUOTE
+			&& ((t_arg *)(ptr)->content)->type != CLOSE_D_QUOTE)
+			ft_lstadd_back(&ret, ft_lstnew(t_arg_cpy
+					(((t_arg *)(ptr)->content))));
+		if (((t_arg *)(ptr)->content)->type == WHITE_SPACE)
+			j_quotes_norm(&ptr, &save, &ret);
+		if (ptr != NULL && ((t_arg *)(ptr)->content)->type != WHITE_SPACE)
+			ptr = ptr->next;
 	}
-	if (((t_arg *)(tmp)->content)->type == OPEN_D_QUOTE
-		|| ((t_arg *)(tmp)->content)->type == OPEN_QUOTE)
-		join_quotes_2(&ptr);
-	(*list)->next = ptr;
+	ft_lstclear(list, free_lstcontent);
+	return (ret);
 }

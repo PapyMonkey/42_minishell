@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer4.c                                           :+:      :+:    :+:   */
+/*   lexer_utils4.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 18:40:08 by bgales            #+#    #+#             */
-/*   Updated: 2023/03/13 15:58:55 by bgales           ###   ########.fr       */
+/*   Updated: 2023/03/16 13:57:38 by bgales           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	*empty_quotes_2(t_list **ptr, t_list **tmp, t_list**save)
+void	empty_quotes_2(t_list **ptr, t_list **tmp, t_list**save)
 {
 	free (((t_arg *)(*tmp)->content)->content);
 	((t_arg *)(*tmp)->content)->content = ft_strdup("\0");
@@ -24,7 +24,7 @@ void	*empty_quotes_2(t_list **ptr, t_list **tmp, t_list**save)
 	(*save)->next = *ptr;
 }
 
-void	*empty_quotes(t_list **list)
+void	empty_quotes(t_list **list)
 {
 	t_list	*ptr;
 	t_list	*tmp;
