@@ -6,15 +6,16 @@
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 11:34:58 by aguiri            #+#    #+#             */
-/*   Updated: 2023/03/09 17:03:08 by bgales           ###   ########.fr       */
+/*   Updated: 2023/03/15 13:04:20 by bgales           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void free_lstcontent(void *content)
+void	free_lstcontent(void *content)
 {
-	t_arg *arg;
+	t_arg	*arg;
+
 	arg = (t_arg *)content;
 	free(arg->content);
 	free(arg);
@@ -51,10 +52,3 @@ t_arg	*t_arg_cpy(void *arg)
 	ret->type = ptr->type;
 	return (ret);
 }
-// void	print_char_elem(void *content)
-// {
-// 	printf("%s=%s\n",
-// 		(char *)((t_arg *)arg)->key,
-// 		(char *)((t_arg *)arg)->value
-// 		);
-// }

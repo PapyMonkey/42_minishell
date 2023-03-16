@@ -6,7 +6,7 @@
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 16:40:51 by bgales            #+#    #+#             */
-/*   Updated: 2023/03/13 15:52:35 by bgales           ###   ########.fr       */
+/*   Updated: 2023/03/16 13:56:47 by bgales           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,8 @@ int	is_arg(char *str, t_list **list)
 
 	i = 0;
 	while (str[i] && str[i] != '\'' && str[i] != '\"' && str[i] != ' '
-		&& str[i] != '	' && !pipe_redir_finder(str))
+		&& str[i] != '	' && !pipe_redir_finder(&str[i])
+		&& !alias_finder(str[i]))
 		i++;
 	if (!i)
 		return (i);
@@ -109,7 +110,7 @@ t_list	*struct_init(char *str)
 		i += is_quote(&str[i], &ret);
 		i += is_space(&str[i], &ret);
 		i += is_arg(&str[i], &ret);
+		i += is_alias(&str[i], &ret);
 	}
-	ret = struct_init_2(&ret);
 	return (ret);
 }
