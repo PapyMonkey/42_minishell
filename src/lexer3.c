@@ -6,7 +6,7 @@
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 15:33:13 by bgales            #+#    #+#             */
-/*   Updated: 2023/03/16 13:59:28 by bgales           ###   ########.fr       */
+/*   Updated: 2023/03/27 12:36:32 by bgales           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,9 +115,10 @@ t_list	*struct_init_2(t_list **list)
 		*list = join_quotes(list);
 	}
 	join_text(list);
-	define_elem(list);
 	if (!no_whitespace(*list))
 		*list = join_all(list);
-	del_whitespace(list);
+	define_elem(list);
+	*list = del_whitespace(list);
+	ft_lstiter(*list, *print_arg_elem);
 	return (*list);
 }
