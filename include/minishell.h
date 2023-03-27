@@ -6,7 +6,7 @@
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 16:36:19 by mgerbaud          #+#    #+#             */
-/*   Updated: 2023/03/16 13:58:16 by bgales           ###   ########.fr       */
+/*   Updated: 2023/03/27 12:52:30 by bgales           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,7 @@ void	free_var(struct s_var *var);
 /**
 @brief Split char * according to the shell word cutting.
 */
-t_list	*ft_split_args(char *str);
-
+t_list	*ft_split_args(char *str, t_list *env);
 // Functions - lexer_utils.c
 
 /**
@@ -112,13 +111,13 @@ the len to get to it.
 int		itter_enum(char *str);
 
 // t_list	*struct_init(char **split);
-t_list	*struct_init(char *str);
+t_list	*struct_init(char *str, t_list *env);
 t_list	*struct_init_2(t_list **list);
 void	free_lstcontent(void *content);
 t_arg	*t_arg_cpy(void *arg);
 char	*minishell_join(char *s1, char *s2);
 void	*define_elem(t_list **list);
-void	*del_whitespace(t_list **list);
+t_list	*del_whitespace(t_list **list);
 int		no_quote(t_list **list);
 void	empty_quotes(t_list **list);
 void	join_text(t_list **list);
@@ -126,8 +125,8 @@ int		no_quote(t_list **list);
 int		no_whitespace(t_list *list);
 t_list	*join_quotes(t_list **list);
 void	*join_all(t_list **list);
-int		alias_finder(char c);
-void	alias_replace(t_list **list, t_env *env);
+int		alias_finder(char *str);
+t_list	*alias_replace(t_list **list, t_list *l_env);
 int		is_alias(char *str, t_list **list);
 
 #endif // MINISHELL_H

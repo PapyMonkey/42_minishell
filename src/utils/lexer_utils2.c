@@ -6,7 +6,7 @@
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 17:33:15 by bgales            #+#    #+#             */
-/*   Updated: 2023/03/14 16:58:26 by bgales           ###   ########.fr       */
+/*   Updated: 2023/03/27 12:29:34 by bgales           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,10 @@ void	*join_all(t_list **list)
 				((t_arg *)(ptr)->content)->content);
 		ptr = ptr->next;
 	}
-	arg->type = TEXT;
+	if (arg->content[0] != '$')
+		arg->type = TEXT;
+	else
+		arg->type = DOLLAR;
 	ret = ft_lstnew(arg);
 	ft_lstclear(list, free_lstcontent);
 	return (ret);
@@ -45,27 +48,23 @@ int	no_whitespace(t_list *list)
 	return (0);
 }
 
-void	*del_whitespace(t_list **list)
+t_list	*del_whitespace(t_list **list)
 {
+	t_list	*ret;
 	t_list	*ptr;
-	t_list	*tmp;
 	t_arg	*arg;
 
+	ret = NULL;
 	ptr = *list;
 	while (ptr != NULL)
 	{
 		arg = ptr->content;
-		if (arg->type == WHITE_SPACE)
-		{
-			tmp = ptr;
-			ptr = ptr->next;
-			arg = ptr->content;
-			ft_lstremove(list, tmp, free_lstcontent);
-		}
 		if (arg->type != WHITE_SPACE)
-			ptr = ptr->next;
+			ft_lstadd_back(&ret, ft_lstnew(t_arg_cpy(arg)));
+		ptr = ptr->next;
 	}
-	return (0);
+	ft_lstclear(list, free_lstcontent);
+	return (ret);
 }
 
 int	no_quote(t_list **list)

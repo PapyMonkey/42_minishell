@@ -6,7 +6,7 @@
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 19:59:51 by mgerbaud          #+#    #+#             */
-/*   Updated: 2023/03/05 13:28:07 by bgales           ###   ########.fr       */
+/*   Updated: 2023/03/24 11:36:04 by bgales           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	b_routine(const char *str, t_var *var)
 
 	len = ft_strlen(str);
 	if (!ft_strncmp(str, "echo", 4) && ft_isspace(*(str + 4)))
-		b_echo(str);
+		b_echo(str); //echo -n print des caracteres de merde
 	else if (!ft_strncmp(str, "env", len))
 		b_env(var->l_env);
 	else if (!ft_strncmp(str, "pwd", len))
