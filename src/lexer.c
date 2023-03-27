@@ -6,7 +6,7 @@
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 17:49:47 by bgales            #+#    #+#             */
-/*   Updated: 2023/03/16 14:00:13 by bgales           ###   ########.fr       */
+/*   Updated: 2023/03/27 12:36:10 by bgales           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ char	*del_quotes(char *split)
 	return (ret);
 }
 
-t_list	*ft_split_args(char *str)
+t_list	*ft_split_args(char *str, t_list *env)
 {
 	int		i;
 	t_list	*ret;
@@ -103,23 +103,17 @@ t_list	*ft_split_args(char *str)
 	if (!str)
 		return (NULL);
 	if (!!closed_quotes(str))
+	{
+		printf("missing closing quote");
 		return (NULL);
+	}
 	if (str[0] == '\0')
 		return (NULL);
 	str = ft_strtrim(str, " ");
-	ret = struct_init(str);
-	ret = struct_init_2(&ret);
+	ret = struct_init(str, env);
+	if (ret != NULL)
+		ret = struct_init_2(&ret);
 	free(str);
 	i = -1;
 	return (ret);
-}
-
-int	main(int argc, char **argv)
-{
-	t_list	*list;
-
-	list = ft_split_args(argv[1]);
-	system("leaks minishell");
-	ft_lstiter(list, *print_arg_elem);
-
 }

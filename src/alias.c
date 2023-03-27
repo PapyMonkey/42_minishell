@@ -6,41 +6,63 @@
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 13:56:32 by bgales            #+#    #+#             */
-/*   Updated: 2023/03/16 13:57:51 by bgales           ###   ########.fr       */
+/*   Updated: 2023/03/27 12:51:58 by bgales           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// void	alias_replace(t_list **list, t_env *env)
-// {
-// 	t_list	*ptr;
-// 	t_arg	*arg;
-
-// 	ptr = *list;
-// 	while (ptr != NULL)
-// 	{
-// 		arg = ptr->content;
-// 		if (arg->content[0] == '$')
-// 		{
-// 			while (env != NULL && ft_strncmp(arg->content, env->key,
-// 					ft_strlen(arg->content)) != 0)
-// 				env = env->next;
-// 			if (env == NULL)
-// 				ft_lstdelone(ptr, free_lstcontent);
-// 			else
-// 			{
-// 				free (arg->content);
-// 				arg->content = ft_strdup(env->value);
-// 			}
-// 		}
-// 		ptr = ptr->next;
-// 	}
-// }
-
-int	alias_finder(char c)
+int	get_env(t_list *l_env, t_list **ptr, t_list **ret)
 {
-	if (c == '$')
+	t_env	*env;
+	t_arg	*arg;
+	t_arg	*new;
+
+	arg = (*ptr)->content;
+	while (l_env != NULL)
+	{
+		env = l_env->content;
+		if (!ft_strncmp(&arg->content[1], env->key, ft_strlen(arg->content)))
+		{
+			free(arg->content);
+			arg->content = ft_strdup(env->value);
+			arg->type = TEXT;
+			ft_lstadd_back(ret, ft_lstnew(t_arg_cpy(arg)));
+			return (1);
+		}
+		l_env = l_env->next;
+	}
+	return (0);
+}
+
+t_list	*alias_replace(t_list **list, t_list *l_env)
+{
+	t_arg	*arg;
+	t_env	*env;
+	t_list	*ret;
+	t_list	*ptr;
+
+	ptr = *list;
+	ret = NULL;
+	while (ptr != NULL)
+	{
+		if (((t_arg *)ptr->content)->type == DOLLAR)
+			get_env(l_env, &ptr, &ret);
+		else
+			ft_lstadd_back(&ret, ft_lstnew(
+					t_arg_cpy((t_arg*)ptr->content)));
+		ptr = ptr->next;
+	}
+	ft_lstclear(list, free_lstcontent);
+	return (ret);
+}
+
+int	alias_finder(char *str)
+{
+	int	i;
+
+	i = 0;
+	if (str[i] == '$' && ft_isalnum(str[i + 1]))
 		return (1);
 	else
 		return (0);
@@ -55,6 +77,8 @@ int	is_alias(char *str, t_list **list)
 	if (str[i] == '$')
 	{
 		i++;
+		if (!ft_isalnum(str[i]))
+			return (0);
 		while (str[i])
 		{
 			while (str[i] && ft_isalnum(str[i]))

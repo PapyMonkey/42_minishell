@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aguiri <aguiri@student.42nice.fr>          +#+  +:+       +#+        */
+/*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 12:54:24 by aguiri            #+#    #+#             */
-/*   Updated: 2022/12/04 12:49:18 by aguiri           ###   ########.fr       */
+/*   Updated: 2023/03/26 12:41:36 by bgales           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ static void	ft_pipex_core(size_t i, int fd_old, t_cmds cmds)
 // {
 // 	int		fd[2];
 // 	t_cmds	cmds;
-//
+
 // 	if (argc <= 4)
 // 	{
 // 		ft_printf("Error: Invalid arguments\n");

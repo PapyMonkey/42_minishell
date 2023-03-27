@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer4.c                                           :+:      :+:    :+:   */
+/*   lexer_utils3.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 13:48:35 by bgales            #+#    #+#             */
-/*   Updated: 2023/03/09 17:32:57 by bgales           ###   ########.fr       */
+/*   Updated: 2023/03/27 12:35:08 by bgales           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,13 +78,16 @@ void	*define_elem(t_list **list)
 	ptr = *list;
 	arg = ptr->content;
 	while (ptr != NULL && ((t_arg *)ptr->content)->type != EXEC
-		&& ((t_arg *)ptr->content)->type != PIPE)
+		&& ((t_arg *)ptr->content)->type != PIPE
+		&& ((t_arg *)ptr->content)->type != DOLLAR)
 		type_exec(&ptr);
 	if (ptr != NULL && ((t_arg *)ptr->content)->type != FLAG
-		&& ((t_arg *)ptr->content)->type != PIPE)
+		&& ((t_arg *)ptr->content)->type != PIPE
+		&& ((t_arg *)ptr->content)->type != DOLLAR)
 		is_flag(&ptr);
 	if (ptr != NULL && ((t_arg *)ptr->content)->type != ARG
-		&& ((t_arg *)ptr->content)->type != PIPE)
+		&& ((t_arg *)ptr->content)->type != PIPE
+		&& ((t_arg *)ptr->content)->type != DOLLAR)
 		type_arg(&ptr);
 	while (ptr != NULL && ((t_arg *)ptr->content)->type != PIPE)
 		ptr = ptr->next;
