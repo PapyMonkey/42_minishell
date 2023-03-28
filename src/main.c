@@ -6,7 +6,7 @@
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 16:36:09 by mgerbaud          #+#    #+#             */
-/*   Updated: 2023/03/27 18:39:47 by bgales           ###   ########.fr       */
+/*   Updated: 2023/03/28 16:52:50 by bgales           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 		char	*str;
 
 		var = init(env);
-		// get_signo();
+		get_signo();
 		// while (var->l_pth->next)
 		// {
 		// 	tmp = var->l_pth;
@@ -34,6 +34,8 @@
 			if (!str)
 				exit (0);
 			list =  ft_split_args(str, var->l_env);
+			if (ft_strncmp(str, "^C", 2) == 0)
+				str = readline("$> ");
 			if (str[0])
 			{
 				add_history((const char *)str);
