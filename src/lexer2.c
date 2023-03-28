@@ -6,7 +6,7 @@
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 16:40:51 by bgales            #+#    #+#             */
-/*   Updated: 2023/03/27 12:36:30 by bgales           ###   ########.fr       */
+/*   Updated: 2023/03/28 14:38:24 by bgales           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,8 @@ t_list	*struct_init(char *str, t_list *env)
 		i += is_arg(&str[i], &ret);
 		i += is_alias(&str[i], &ret);
 	}
+	if (!no_quote(&ret))
+		open_close_quote(&ret);
 	ret = alias_replace(&ret, env);
 	return (ret);
 }

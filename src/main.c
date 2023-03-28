@@ -6,7 +6,7 @@
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 16:36:09 by mgerbaud          #+#    #+#             */
-/*   Updated: 2023/03/27 12:32:37 by bgales           ###   ########.fr       */
+/*   Updated: 2023/03/27 18:39:47 by bgales           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@
 			free(str);
 			ft_lstiter(list, free_lstcontent);
 			free (list);
-			system("leaks minishell");
 			// if (search_path(&hpaths, &cmd, str))
 			// 	exec_cmd(&cmd, av, env);
 		}
