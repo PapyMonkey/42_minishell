@@ -6,7 +6,7 @@
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 15:33:13 by bgales            #+#    #+#             */
-/*   Updated: 2023/03/27 12:36:32 by bgales           ###   ########.fr       */
+/*   Updated: 2023/03/28 15:51:51 by bgales           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,6 @@ t_list	*struct_init_2(t_list **list)
 {
 	if (!no_quote(list))
 	{
-		open_close_quote(list);
 		*list = join_in_quotes(list);
 		empty_quotes(list);
 		*list = join_quotes(list);
