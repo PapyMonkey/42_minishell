@@ -6,7 +6,7 @@
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 16:36:19 by mgerbaud          #+#    #+#             */
-/*   Updated: 2023/03/28 16:17:22 by bgales           ###   ########.fr       */
+/*   Updated: 2023/03/30 07:44:38 by aguiri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,10 @@
 
 # include "structures.h"
 # include "init.h"
-# include "get.h"
 # include "utils.h"
 # include "builtins.h"
+# include "pipex.h"
+# include "expander.h"
 
 // ****************************************************************************
 // Structures
@@ -61,6 +62,12 @@ void	err_malloc_exit(void);
 */
 void	err_put_exit(void);
 
+/**
+@brief Print on STDOUT a custom error message (errno) and exit the current
+		process with exit(1).
+*/
+void	err_put_exit_command_not_found(char *str);
+
 // ****************************************************************************
 // Functions - free.c
 
@@ -78,13 +85,21 @@ void	free_env(void *env);
 */
 void	free_var(struct s_var *var);
 
+/**
+@brief Frees up the char** array.
+
+@param array Regular char**.
+*/
+void	free_2d_char(char **array);
+
 // ****************************************************************************
 // Functions - lexer.c
 
 /**
 @brief Split char * according to the shell word cutting.
 */
-t_list	*ft_split_args(char *str, t_list *env);
+t_list	*ft_split_args(char *str);
+
 // Functions - lexer_utils.c
 
 /**
@@ -111,13 +126,13 @@ the len to get to it.
 int		itter_enum(char *str);
 
 // t_list	*struct_init(char **split);
-t_list	*struct_init(char *str, t_list *env);
+t_list	*struct_init(char *str);
 t_list	*struct_init_2(t_list **list);
 void	free_lstcontent(void *content);
 t_arg	*t_arg_cpy(void *arg);
 char	*minishell_join(char *s1, char *s2);
 void	*define_elem(t_list **list);
-t_list	*del_whitespace(t_list **list);
+void	*del_whitespace(t_list **list);
 int		no_quote(t_list **list);
 void	empty_quotes(t_list **list);
 void	join_text(t_list **list);
@@ -130,4 +145,5 @@ t_list	*alias_replace(t_list **list, t_list *l_env);
 int		is_alias(char *str, t_list **list);
 void	*open_close_quote(t_list **lst);
 void	get_signo(void);
+
 #endif // MINISHELL_H

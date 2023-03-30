@@ -1,25 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex_error.c                                      :+:      :+:    :+:   */
+/*   get_separator.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aguiri <aguiri@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/31 16:32:03 by aguiri            #+#    #+#             */
-/*   Updated: 2022/05/31 16:36:11 by aguiri           ###   ########.fr       */
+/*   Created: 2023/03/25 23:51:05 by aguiri            #+#    #+#             */
+/*   Updated: 2023/03/30 06:19:33 by aguiri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "minishell.h"
 
-void	ft_error_put_exit(void)
+t_list *get_previous_sep(
+	t_var *var,
+	int	index)
 {
-	ft_printf("Error: %s\n", strerror(errno));
-	exit(EXIT_FAILURE);
-}
+	t_list *tmp;
 
-void	ft_error_put_exit_command_not_found(char *str)
-{
-	ft_printf("Error: command not found: %s\n", str);
-	exit(EXIT_FAILURE);
+	tmp = var->l_arg;
+	while (tmp
+		&& tmp != var->table_cmd[index].cmd_ptr
+		&& !is_separator(tmp))
+		tmp = tmp->next;
+	if (tmp == var->table_cmd[index].cmd_ptr)
+		return (NULL);
+	return(tmp);
 }

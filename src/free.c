@@ -6,7 +6,11 @@
 /*   By: aguiri <aguiri@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 16:57:36 by aguiri            #+#    #+#             */
+<<<<<<< Updated upstream
 /*   Updated: 2022/12/06 05:45:43 by aguiri           ###   ########.fr       */
+=======
+/*   Updated: 2023/03/26 15:04:28 by aguiri           ###   ########.fr       */
+>>>>>>> Stashed changes
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,3 +28,16 @@ void	free_var(struct s_var *var)
 	ft_lstclear(&var->l_env, free_env);
 	free(var);
 }
+<<<<<<< Updated upstream
+=======
+
+void	free_2d_char(char **array)
+{
+	int	i;
+
+	i = 0;
+	while (array[i])
+		free(array[i++]);
+	free(array);
+}
+>>>>>>> Stashed changes
