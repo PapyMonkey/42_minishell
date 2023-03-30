@@ -1,34 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex_here_doc.c                                   :+:      :+:    :+:   */
+/*   count.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aguiri <aguiri@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/11 13:07:04 by aguiri            #+#    #+#             */
-/*   Updated: 2023/03/25 23:21:16 by aguiri           ###   ########.fr       */
+/*   Created: 2023/03/30 07:06:08 by aguiri            #+#    #+#             */
+/*   Updated: 2023/03/30 07:08:05 by aguiri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_pipex_here_doc(size_t i, int *fd, t_cmds cmds)
+int		count_separator(struct s_list *l_arg)
 {
-	char	*limiter;
-	char	*out;
+	int		count;
+	t_list	*tmp;
 
-	limiter = ft_strjoin(cmds.args[i + 1], "\n");
-	out = ft_get_next_line(STDIN_FILENO);
-	if (!out)
-		err_put_exit();
-	while (ft_strncmp(out, limiter, ft_strlen(limiter)))
+	count = 0;
+	tmp = l_arg;
+	while (tmp)
 	{
-		if (write(fd[WRITE_END], out, ft_strlen(out)) == -1)
-			err_put_exit();
-		out = ft_get_next_line(STDIN_FILENO);
+		if (get_arg_type(tmp) == EXEC)
+			count++;
+		tmp = tmp->next;
 	}
-	free(limiter);
-	free(out);
-	close(fd[WRITE_END]);
-	exit(EXIT_SUCCESS);
+	return(count);
 }

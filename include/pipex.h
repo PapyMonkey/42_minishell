@@ -6,7 +6,7 @@
 /*   By: aguiri <aguiri@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 12:53:00 by aguiri            #+#    #+#             */
-/*   Updated: 2022/12/01 19:46:53 by aguiri           ###   ########.fr       */
+/*   Updated: 2023/03/30 07:42:39 by aguiri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,18 @@
 # include <string.h>
 # include <fcntl.h> 
 # include <errno.h> 
-
-# include "libft.h"
+# include <sys/types.h> 
+# include <sys/wait.h> 
 
 # define WRITE_END 1
 # define READ_END 0
 # define HDOC "here_doc"
+
+// ****************************************************************************
+// Personal library
+
+# include "libft.h"
+# include "structures.h"
 
 // ****************************************************************************
 // Structures
@@ -37,21 +43,6 @@ typedef struct s_cmds {
 	char	**envp;
 	char	*pwd;
 }			t_cmds;
-
-// ****************************************************************************
-// Functions - pipex_error.c
-
-/**
- * @brief		Print on STDOUT the corresponding error message (errno) and
- * 				exit the current process with exit(1).
- */
-void		ft_error_put_exit(void);
-
-/**
- * @brief		Print on STDOUT a custom error message (errno) and
- * 				exit the current process with exit(1).
- */
-void		ft_error_put_exit_command_not_found(char *str);
 
 // ****************************************************************************
 // Functions - pipex_io.c
@@ -120,5 +111,16 @@ t_cmds		ft_pipex_construct(int argc, char **argv, char **envp);
 void		ft_pipex_deconstruct(t_cmds cmds);
 
 void		ft_pipex_redirect(int old_fd, int new_fd);
+
+int			ft_pipex_count_exec(struct s_list *l_arg);
+
+int			ft_pipex_count_args(struct s_list *l_arg);
+
+char		**build_env_array(struct s_list *l_env);
+
+void		executor(size_t i, int fd_old, t_var *var);
+
+// TODO: Documentation
+char		**exec_build_cmd(t_list *l_arg);
 
 #endif

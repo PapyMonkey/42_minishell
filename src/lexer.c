@@ -6,7 +6,11 @@
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 17:49:47 by bgales            #+#    #+#             */
+<<<<<<< Updated upstream
 /*   Updated: 2023/03/28 15:52:03 by bgales           ###   ########.fr       */
+=======
+/*   Updated: 2023/03/25 21:50:47 by aguiri           ###   ########.fr       */
+>>>>>>> Stashed changes
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +97,11 @@ char	*del_quotes(char *split)
 	return (ret);
 }
 
+<<<<<<< Updated upstream
 t_list	*ft_split_args(char *str, t_list *env)
+=======
+t_list	*ft_split_args(char *str)
+>>>>>>> Stashed changes
 {
 	int		i;
 	t_list	*ret;
@@ -103,6 +111,7 @@ t_list	*ft_split_args(char *str, t_list *env)
 	if (!str)
 		return (NULL);
 	if (!!closed_quotes(str))
+<<<<<<< Updated upstream
 	{
 		printf("missing closing quote");
 		return (NULL);
@@ -113,7 +122,28 @@ t_list	*ft_split_args(char *str, t_list *env)
 	ret = struct_init(str, env);
 	if (ret != NULL)
 		ret = struct_init_2(&ret);
+=======
+		return (NULL);
+	if (str[0] == '\0')
+		return (NULL);
+	str = ft_strtrim(str, " ");
+	ret = struct_init(str);
+	ret = struct_init_2(&ret);
+>>>>>>> Stashed changes
 	free(str);
 	i = -1;
 	return (ret);
 }
+<<<<<<< Updated upstream
+=======
+
+// int	main(int argc, char **argv)
+// {
+// 	t_list	*list;
+//
+// 	list = ft_split_args(argv[1]);
+// 	system("leaks minishell");
+// 	ft_lstiter(list, *print_arg_elem);
+//
+// }
+>>>>>>> Stashed changes
