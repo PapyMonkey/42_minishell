@@ -6,11 +6,11 @@
 /*   By: aguiri <aguiri@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 21:19:54 by aguiri            #+#    #+#             */
-/*   Updated: 2022/05/31 16:32:15 by aguiri           ###   ########.fr       */
+/*   Updated: 2023/03/25 23:22:00 by aguiri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "minishell.h"
 
 void	ft_pipex_infile_read(int *fd, int fd_infile)
 {
@@ -20,16 +20,16 @@ void	ft_pipex_infile_read(int *fd, int fd_infile)
 	if (out)
 	{
 		if (write(fd[WRITE_END], out, ft_strlen(out)) == -1)
-			ft_error_put_exit();
+			err_put_exit();
 		while (out)
 		{
 			out = ft_get_next_line(fd_infile);
 			if (out)
 				if (write(fd[WRITE_END], out, ft_strlen(out)) == -1)
-					ft_error_put_exit();
+					err_put_exit();
 		}
 		if (write(fd[WRITE_END], "\0", 1) == -1)
-			ft_error_put_exit();
+			err_put_exit();
 	}
 	free(out);
 }
@@ -44,13 +44,13 @@ void	ft_pipex_outfile_write(int *fd, int fd_outfile)
 	if (out)
 	{
 		if (write(fd_outfile, out, ft_strlen(out)) == -1)
-			ft_error_put_exit();
+			err_put_exit();
 		while (out)
 		{
 			out = ft_get_next_line(fd[READ_END]);
 			if (out)
 				if (write(fd_outfile, out, ft_strlen(out)) == -1)
-					ft_error_put_exit();
+					err_put_exit();
 			i++;
 		}
 		exit(EXIT_SUCCESS);
@@ -67,7 +67,7 @@ void	ft_pipex_infile(size_t i, int *fd, t_cmds cmds)
 	fd_infile = open(path, O_RDONLY);
 	free(path);
 	if (fd_infile == -1)
-		ft_error_put_exit();
+		err_put_exit();
 	close(fd[READ_END]);
 	ft_pipex_infile_read(fd, fd_infile);
 	close(fd[WRITE_END]);
@@ -87,7 +87,7 @@ void	ft_pipex_outfile(size_t i, int *fd, t_cmds cmds)
 		fd_outfile = open(path, O_WRONLY | O_CREAT | O_TRUNC, 0777);
 	free(path);
 	if (fd_outfile == -1)
-		ft_error_put_exit();
+		err_put_exit();
 	close(fd[WRITE_END]);
 	ft_pipex_outfile_write(fd, fd_outfile);
 	close(fd[READ_END]);
