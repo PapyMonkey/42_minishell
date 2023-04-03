@@ -6,7 +6,7 @@
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 11:34:58 by aguiri            #+#    #+#             */
-/*   Updated: 2023/03/15 13:04:20 by bgales           ###   ########.fr       */
+/*   Updated: 2023/04/03 17:23:04 by bgales           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ void	print_arg_elem(void *arg)
 		"PIPE", "APPEND", "REDIR_OUT", "HERE_DOC", "REDIR_IN",
 		"OPEN_QUOTE", "CLOSE_QUOTE", "QUOTE", "OPEN_D_QUOTE",
 		"CLOSE_D_QUOTE", "D_QUOTE", "TEXT", "WHITE_SPACE", "IN_D_QUOTES",
-		"OUT_D_QUOTES", "IN_QUOTES", "OUT_QUOTES", "FLAG", "ARG"};
+		"OUT_D_QUOTES", "IN_QUOTES", "OUT_QUOTES", "FLAG", "ARG", "R_FILE",
+		"DELIM"};
 
 	printf("[%s - %d] = %s\n", enum_c[((t_arg *)arg)->type],
 		((t_arg *)arg)->type, ((t_arg *)arg)->content);
