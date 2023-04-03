@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer_utils3.c                                     :+:      :+:    :+:   */
+/*   define_elem.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 13:48:35 by bgales            #+#    #+#             */
-/*   Updated: 2023/03/27 12:35:08 by bgales           ###   ########.fr       */
+/*   Updated: 2023/04/03 17:19:13 by bgales           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,15 @@ void	is_flag(t_list **list)
 	ptr = *list;
 	if (((t_arg *)ptr->content)->type == ARG)
 	{
-		while (ptr != NULL && ((t_arg *)ptr->content)->type != PIPE)
+		while (ptr != NULL && !r_or_p(((t_arg *)ptr->content)->type))
 		{
 			if (((t_arg *)ptr->content)->type == TEXT)
 				((t_arg *)ptr->content)->type = ARG;
 			ptr = ptr->next;
 		}
 	}
-	if (ptr != NULL && ((t_arg *)ptr->content)->type == PIPE)
+	if (ptr != NULL && (((t_arg *)ptr->content)->type == PIPE
+			|| ((t_arg *)ptr->content)->type == DELIM))
 		return ;
 	if (ptr != NULL && ((t_arg *)ptr->content)->type == TEXT
 		&& ((t_arg *)ptr->content)->content[0] == '-')
@@ -45,7 +46,7 @@ void	type_exec(t_list **list)
 	t_arg	*arg;
 
 	arg = (*list)->content;
-	if (arg->type == PIPE)
+	if (arg->type == PIPE || arg->type == DELIM)
 		return ;
 	if (arg->type == TEXT)
 		arg->type = EXEC;
@@ -62,7 +63,7 @@ void	type_arg(t_list **list)
 	while (ptr != NULL)
 	{
 		arg = ptr->content;
-		if (arg->type == PIPE)
+		if (arg->type == PIPE || arg->type == DELIM)
 			return ;
 		if (arg->type == TEXT)
 			arg->type = ARG;
@@ -72,26 +73,26 @@ void	type_arg(t_list **list)
 
 void	*define_elem(t_list **list)
 {
-	t_arg	*arg;
 	t_list	*ptr;
 
 	ptr = *list;
-	arg = ptr->content;
 	while (ptr != NULL && ((t_arg *)ptr->content)->type != EXEC
-		&& ((t_arg *)ptr->content)->type != PIPE
+		&& !r_or_p(((t_arg *)ptr->content)->type)
 		&& ((t_arg *)ptr->content)->type != DOLLAR)
 		type_exec(&ptr);
 	if (ptr != NULL && ((t_arg *)ptr->content)->type != FLAG
-		&& ((t_arg *)ptr->content)->type != PIPE
+		&& !r_or_p(((t_arg *)ptr->content)->type)
 		&& ((t_arg *)ptr->content)->type != DOLLAR)
 		is_flag(&ptr);
 	if (ptr != NULL && ((t_arg *)ptr->content)->type != ARG
-		&& ((t_arg *)ptr->content)->type != PIPE
+		&& !r_or_p(((t_arg *)ptr->content)->type)
 		&& ((t_arg *)ptr->content)->type != DOLLAR)
 		type_arg(&ptr);
-	while (ptr != NULL && ((t_arg *)ptr->content)->type != PIPE)
+	while (ptr != NULL && ((t_arg *)ptr->content)->type != PIPE
+		&& ((t_arg *)ptr->content)->type != DELIM)
 		ptr = ptr->next;
-	if (ptr != NULL && ((t_arg *)ptr->content)->type == PIPE)
+	if (ptr != NULL && (((t_arg *)ptr->content)->type == PIPE
+			|| ((t_arg *)ptr->content)->type == DELIM))
 	{
 		ptr = ptr->next;
 		define_elem(&ptr);

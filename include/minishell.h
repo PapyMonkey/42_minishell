@@ -6,7 +6,7 @@
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 16:36:19 by mgerbaud          #+#    #+#             */
-/*   Updated: 2023/03/30 07:44:38 by aguiri           ###   ########.fr       */
+/*   Updated: 2023/04/03 17:18:30 by bgales           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,7 @@ int		no_quote(t_list **list);
 void	empty_quotes(t_list **list);
 void	join_text(t_list **list);
 int		no_quote(t_list **list);
-int		no_whitespace(t_list *list);
+int		no_redir_no_whitespace(t_list *list);
 t_list	*join_quotes(t_list **list);
 void	*join_all(t_list **list);
 int		alias_finder(char *str);
@@ -145,5 +145,6 @@ t_list	*alias_replace(t_list **list, t_list *l_env);
 int		is_alias(char *str, t_list **list);
 void	*open_close_quote(t_list **lst);
 void	get_signo(void);
-
+void	define_redir(t_list **list);
+int		r_or_p(int type);
 #endif // MINISHELL_H

@@ -6,7 +6,7 @@
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 13:56:32 by bgales            #+#    #+#             */
-/*   Updated: 2023/03/28 15:41:58 by bgales           ###   ########.fr       */
+/*   Updated: 2023/04/03 17:26:52 by bgales           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,30 +38,29 @@ int	get_env(t_list *l_env, t_list **ptr, t_list **ret)
 t_list	*alias_replace(t_list **list, t_list *l_env)
 {
 	t_env	*env;
-	t_list	*ret;
+	t_list	*r;
 	t_list	*ptr;
 
 	ptr = *list;
-	ret = NULL;
+	r = NULL;
 	while (ptr != NULL)
 	{
 		if (((t_arg *)ptr->content)->type == OPEN_QUOTE)
 		{
 			while (((t_arg *)ptr->content)->type != CLOSE_QUOTE)
 			{
-				ft_lstadd_back(&ret, ft_lstnew(t_arg_cpy((t_arg *)ptr->content)));
+				ft_lstadd_back(&r, ft_lstnew(t_arg_cpy((t_arg *)ptr->content)));
 				ptr = ptr->next;
 			}
 		}
 		if (((t_arg *)ptr->content)->type == DOLLAR)
 			get_env(l_env, &ptr, &ret);
 		else
-			ft_lstadd_back(&ret, ft_lstnew(
-					t_arg_cpy((t_arg*)ptr->content)));
+			ft_lstadd_back(&r, ft_lstnew(t_arg_cpy((t_arg *)ptr->content)));
 		ptr = ptr->next;
 	}
 	ft_lstclear(list, free_lstcontent);
-	return (ret);
+	return (r);
 }
 
 int	alias_finder(char *str)

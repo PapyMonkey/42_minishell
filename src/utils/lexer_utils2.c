@@ -6,7 +6,7 @@
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 17:33:15 by bgales            #+#    #+#             */
-/*   Updated: 2023/03/27 12:29:34 by bgales           ###   ########.fr       */
+/*   Updated: 2023/04/03 17:22:41 by bgales           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,16 @@ void	*join_all(t_list **list)
 	return (ret);
 }
 
-int	no_whitespace(t_list *list)
+int	no_redir_no_whitespace(t_list	*list)
 {
+	t_arg	*arg;
+
 	while (list != NULL)
 	{
-		if (((t_arg *)(list)->content)->type == WHITE_SPACE)
+		arg = list->content;
+		if (arg->type == REDIR_IN || arg->type == PIPE || arg->type == REDIR_OUT
+			|| arg->type == APPEND || arg->type == HERE_DOC
+			|| arg->type == WHITE_SPACE)
 			return (1);
 		list = list->next;
 	}
