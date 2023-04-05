@@ -6,7 +6,7 @@
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 16:36:19 by mgerbaud          #+#    #+#             */
-/*   Updated: 2023/04/03 17:56:18 by bgales           ###   ########.fr       */
+/*   Updated: 2023/04/05 21:49:35 by aguiri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,9 @@ void	err_put_exit(void);
 */
 void	err_put_exit_command_not_found(char *str);
 
+// TODO: Documentation
+void	err_put_exit_wrong_fd(void);
+
 // ****************************************************************************
 // Functions - free.c
 
@@ -98,7 +101,7 @@ void	free_2d_char(char **array);
 /**
 @brief Split char * according to the shell word cutting.
 */
-t_list	*ft_split_args(char *str);
+t_list	*ft_split_args(char *str, t_list *env);
 
 // Functions - lexer_utils.c
 
@@ -126,13 +129,13 @@ the len to get to it.
 int		itter_enum(char *str);
 
 // t_list	*struct_init(char **split);
-t_list	*struct_init(char *str);
+t_list	*struct_init(char *str, t_list *env);
 t_list	*struct_init_2(t_list **list);
 void	free_lstcontent(void *content);
 t_arg	*t_arg_cpy(void *arg);
 char	*minishell_join(char *s1, char *s2);
 void	*define_elem(t_list **list);
-void	*del_whitespace(t_list **list);
+t_list	*del_whitespace(t_list **list);
 int		no_quote(t_list **list);
 void	empty_quotes(t_list **list);
 void	join_text(t_list **list);

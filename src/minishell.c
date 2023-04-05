@@ -17,13 +17,16 @@ static void	execute(t_var *var)
 	int		fd[2];
 
 	var->sep_last = var->l_arg;
-	var->sep_count = count_separator(var->l_arg);
-	var->n_cmds = ft_pipex_count_exec(var->l_arg);
+	var->next_command = var->l_arg;
+	var->n_seps = count_separator(var->l_arg);
+	var->n_cmds = count_command(var->l_arg);
+	printf("Number of commands : %d\n", var->n_cmds);
+	printf("Number of separators : %d\n", var->n_seps);
+	printf("---------------------------------------------------------------\n");
 	if (pipe(fd) == -1)
 		err_put_exit();
 	close(fd[WRITE_END]);
-	executor(0, fd[READ_END], var);
-	printf("Number of commands : %d\n", ft_pipex_count_exec(var->l_arg));
+	executor_v2(var, 0, fd[READ_END]);
 	close(fd[READ_END]);
 }
 
@@ -45,7 +48,7 @@ int	main(int argc, char **argv, char **env)
 		input = readline("$> ");
 		if (!input) // ctrl + d
 			exit (0);
-		var->l_arg =  ft_split_args(input);
+		var->l_arg = ft_split_args(input, var->l_env);
 		if (var->l_arg == NULL)
 			printf("Missing closing quote\n");
 		if (input[0])
@@ -53,8 +56,7 @@ int	main(int argc, char **argv, char **env)
 			add_history((const char *)input);
 			b_routine(input, var); // si hors de ce "if", print l'env lorsqu'on presse entree
 		}
-		ft_lstiter(var->l_arg, print_arg_elem);
-		var->table_cmd = exp_construct(var);
+		// ft_lstiter(var->l_arg, print_arg_elem);
 		execute(var);
 		free(input);
 		ft_lstiter(var->l_arg, free_lstcontent);

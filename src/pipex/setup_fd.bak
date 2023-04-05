@@ -17,6 +17,7 @@ void setup_fd(
 	int	index,
 	int fd_old,
 	int fd_new)
+{
 	t_list	*previous_separator;
 
 	previous_separator = get_previous_sep(var, index);
@@ -28,3 +29,4 @@ void setup_fd(
 	{
 
 	}
+}
