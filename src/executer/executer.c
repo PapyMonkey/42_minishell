@@ -1,17 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   executer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 12:54:24 by aguiri            #+#    #+#             */
-/*   Updated: 2023/04/06 00:39:42 by aguiri           ###   ########.fr       */
+/*   Updated: 2023/04/06 01:18:05 by aguiri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "pipex.h"
 
 static void print_current_cmd(t_var *var)
 {
@@ -45,59 +44,17 @@ static void	exec_command(
 	// command = var->table_cmd->cmd_str;
 	path = ft_split(
 		((t_env *)get_env_elem(var->l_env, "PATH")->content)->value, ':');
-	try_access = ft_exec_access(command[0], path);
+	try_access = exec_try_access(command[0], path);
 	free(path);
 	if (!try_access)
 		err_put_exit_command_not_found(command[0]);
-	env = build_env_array(var->l_env);
+	env = exec_build_env(var->l_env);
 	execve(try_access, command, env);
 	free_2d_char(env);
 	free(command);
 	free(try_access);
 	exit(EXIT_SUCCESS);
 }
-
-// static void	exec_routine(
-// 	t_var *var,
-// 	int index,
-// 	int fd_old,
-// 	int *fd)
-// {
-// 	int		fd_child[2];
-
-// 	if (pipe(fd_child) == -1)
-// 		err_put_exit();
-// 	close(fd[READ_END]);
-// 	if (get_arg_type(var->sep_last))
-// 	{
-// 		printf("Coucou les potes\n");
-// 	}
-// 	else
-// 	{
-// 		printf("Coucou les potes\n");
-// 	}
-
-// 	// if (index == var->n_cmds)
-// 	// 	ft_pipex_redirect(fd_old, STDOUT_FILENO);
-// 	// else
-// 	// {
-// 	// 	if (pipe(fd_child) == -1)
-// 	// 		err_put_exit();
-// 	// 	ft_pipex_redirect(fd_old, fd_child[READ_END]);
-// 	// 	ft_pipex_redirect(fd[WRITE_END], fd_child[WRITE_END]);
-// 	// }
-// 	// if (i == 1 && ft_strncmp(cmds.args[i], HDOC, ft_strlen(HDOC)) != 0)
-// 	// 	ft_pipex_infile(i, fd_child, cmds);
-// 	// else if (i == 1 && ft_strncmp(cmds.args[i], HDOC, ft_strlen(HDOC)) == 0)
-// 	// 	ft_pipex_here_doc(i, fd_child, cmds);
-// 	// else if (i == cmds.args_nb - 1)
-// 	// 	ft_pipex_outfile(i, fd_child, cmds);
-// 	// else if (i != 1 && i != cmds.args_nb - 1)
-// 	// exec_command(i, fd_child, var);
-
-// 	printf("Coucou juste avant l'exec\n");
-// 	exec_command(var, fd_child);
-// }
 
 static void exec_child_routine(
 	t_var *var,
@@ -132,7 +89,7 @@ static void exec_child_routine(
 // - else if !separateur
 //       executer commande
 
-void executor_v2(
+void executer(
 	t_var *var,
 	int index,
 	int fd_parent)
@@ -159,7 +116,7 @@ void executor_v2(
 			var->current_arg = get_command_or_redir_next(var->current_arg);
 			printf("Check parents - ");
 			print_current_cmd(var);
-			executor_v2(var, ++index, fd_to_child[READ_END]);
+			executer(var, ++index, fd_to_child[READ_END]);
 		}
 		else
 			close(fd_to_child[READ_END]);

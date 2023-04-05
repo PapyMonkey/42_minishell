@@ -6,7 +6,7 @@
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 16:36:19 by mgerbaud          #+#    #+#             */
-/*   Updated: 2023/04/06 00:28:00 by aguiri           ###   ########.fr       */
+/*   Updated: 2023/04/06 01:30:09 by aguiri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,21 @@
 # include <string.h>
 # include <unistd.h>
 # include <sys/wait.h>
+# include <sys/types.h> 
 # include <stdio.h>
+# include <fcntl.h> 
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <dirent.h>
 # include <signal.h>
 # include <termios.h>
+
+// ****************************************************************************
+// Macros
+
+# define WRITE_END 1
+# define READ_END 0
+# define BUFFER_SIZE 4096
 
 // ****************************************************************************
 // Personal library
@@ -33,25 +42,7 @@
 # include "init.h"
 # include "utils.h"
 # include "builtins.h"
-# include "pipex.h"
-# include "expander.h"
-
-
-// ****************************************************************************
-// Macros
-
-# define BUFFER_SIZE 4096
-
-// ****************************************************************************
-// Structures
-
-struct s_lexer
-{
-	char			*value;
-	int				type;
-	struct s_lexer	*next;
-};
-typedef struct s_lexer	t_lexer;
+# include "executer.h"
 
 // ****************************************************************************
 // Functions - error.c
