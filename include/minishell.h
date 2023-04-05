@@ -65,6 +65,9 @@ void	err_put_exit(void);
 */
 void	err_put_exit_command_not_found(char *str);
 
+// TODO: Documentation
+void	err_put_exit_wrong_fd(void);
+
 // ****************************************************************************
 // Functions - free.c
 

@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "utils.h"
 
 char	**exec_build_cmd(
 	t_list *l_arg)
