@@ -6,7 +6,7 @@
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 18:37:28 by aguiri            #+#    #+#             */
-/*   Updated: 2023/04/03 17:49:02 by bgales           ###   ########.fr       */
+/*   Updated: 2023/04/06 00:35:45 by aguiri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,10 +100,11 @@ typedef struct s_var
 	struct s_list		*l_exp;
 	struct s_list		*l_arg;
 	struct s_list		*sep_last;
-	struct s_list		*next_command;
+	struct s_list		*current_arg;
 	int					n_seps;
 	struct s_cmd_table	*table_cmd;
 	int					n_cmds;
+	int					n_redirs;
 }						t_var;
 
 #endif // STRUCTURES_H
