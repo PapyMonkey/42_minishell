@@ -12,12 +12,12 @@
 
 #include "minishell.h"
 
-t_list *get_command(t_list *l_arg)
+t_list *get_command_next(t_list *l_arg)
 {
 	t_list *tmp;
 
-	tmp = l_arg;
-	while (tmp && is_command(tmp->content))
+	tmp = l_arg->next;
+	while (tmp && !is_command(tmp->content))
 		tmp = tmp->next;
 	return(tmp);
 }

@@ -110,15 +110,11 @@ t_cmds		ft_pipex_construct(int argc, char **argv, char **envp);
 
 void		ft_pipex_deconstruct(t_cmds cmds);
 
-void		ft_pipex_redirect(int old_fd, int new_fd);
-
-int			ft_pipex_count_exec(struct s_list *l_arg);
-
-int			ft_pipex_count_args(struct s_list *l_arg);
+void		exec_redirect_fd(int old_fd, int new_fd);
 
 char		**build_env_array(struct s_list *l_env);
 
-void		executor(size_t i, int fd_old, t_var *var);
+void		executor_v2(t_var *var, int index, int fd_old);
 
 // TODO: Documentation
 char		**exec_build_cmd(t_list *l_arg);

@@ -28,9 +28,7 @@ int	is_separator(t_list *l_arg)
 	t_enum_type	type;
 
 	type = get_arg_type(l_arg);
-	if (
-		// TODO: Implement semicolon (SEMICOLON) check
-		type == PIPE
+	if (type == PIPE
 		|| type == APPEND
 		|| type == REDIR_IN
 		|| type == REDIR_OUT

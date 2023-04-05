@@ -14,10 +14,10 @@
 
 char	*get_arg_content(t_list *l_arg_element)
 {
-	return (((t_arg *)l_arg_element)->content);
+	return (((t_arg *)l_arg_element->content)->content);
 }
 
 t_enum_type	get_arg_type(t_list *l_arg_element)
 {
-	return (((t_arg *)l_arg_element)->type);
+	return (((t_arg *)l_arg_element->content)->type);
 }

@@ -100,7 +100,8 @@ typedef struct s_var
 	struct s_list		*l_exp;
 	struct s_list		*l_arg;
 	struct s_list		*sep_last;
-	int					sep_count;
+	struct s_list		*next_command;
+	int					n_seps;
 	struct s_cmd_table	*table_cmd;
 	int					n_cmds;
 }						t_var;

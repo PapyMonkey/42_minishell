@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "utils.h"
 
 t_cmds	ft_pipex_construct(int argc, char **argv, char **envp)
 {
@@ -40,47 +41,15 @@ void	ft_pipex_deconstruct(t_cmds cmds)
 	free(cmds.pwd);
 }
 
-void	ft_pipex_redirect(int old_fd, int new_fd)
+void	exec_redirect_fd(int old_fd, int new_fd)
 {
-	if (old_fd != new_fd)
+	if (old_fd != new_fd && old_fd != 0)
 	{
 		if (dup2(old_fd, new_fd) == -1)
 			err_put_exit();
 		else
 			close(old_fd);
 	}
-}
-
-int		ft_pipex_count_exec(struct s_list *l_arg)
-{
-	int		count;
-	t_list	*tmp;
-
-	count = 0;
-	tmp = l_arg;
-	while (tmp)
-	{
-		if (((t_arg *)tmp->content)->type == EXEC)
-			count++;
-		tmp = tmp->next;
-	}
-	return(count);
-}
-
-int		ft_pipex_count_args(struct s_list *l_arg)
-{
-	int		count;
-	t_list	*tmp;
-
-	count = 0;
-	tmp = l_arg;
-	while (tmp)
-	{
-		if (!is_next_cmd(tmp->content))
-			count++;
-		tmp = tmp->next;
-	}
-	return(count);
 }
 
 char	**build_env_array(struct s_list *l_env)
