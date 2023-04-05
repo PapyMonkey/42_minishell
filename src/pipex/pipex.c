@@ -6,18 +6,19 @@
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 12:54:24 by aguiri            #+#    #+#             */
-/*   Updated: 2023/04/05 22:32:49 by aguiri           ###   ########.fr       */
+/*   Updated: 2023/04/06 00:39:42 by aguiri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "pipex.h"
 
 static void print_current_cmd(t_var *var)
 {
-	if (!var->next_command)
+	if (!var->current_arg)
 		printf("current cmd : NULL\n");
 	else
-		printf("current cmd : %s\n", get_arg_content(var->next_command));
+		printf("current cmd : %s\n", get_arg_content(var->current_arg));
 }
 
 // Access and execute commands
@@ -37,7 +38,7 @@ static void	exec_command(
 	// ft_putstr_fd("\n", 1);
 	// ft_putstr_fd("var->l_arg->type :", 1);
 	// ft_putstr_fd(ft_itoa((int)get_arg_type(var->l_arg)), 1);
-	command = exec_build_cmd(var->next_command);
+	command = exec_build_cmd(var->current_arg);
 	// printf("command[0] = %s\n", command[0]);
 	// printf("command[1] = %s\n", command[1]);
 	// printf("command[2] = %s\n", command[2]);
@@ -104,25 +105,33 @@ static void exec_child_routine(
 	int fd_parent,
 	int *fd_child)
 {
+	int	result_redirections;
+
 	printf("Check child - ");
 	print_current_cmd(var);
+	close(fd_child[READ_END]);
+	result_redirections = redir_out_handle(var, fd_parent);
+	if (result_redirections == REDIR_OUT || result_redirections == APPEND)
+		return ;
 	exec_redirect_fd(fd_parent, STDIN_FILENO); // Connecte l'entrée standard à fd_parent (sortie précédente)
-    if (index < var->n_cmds - 1) // Si ce n'est pas la dernière commande
+	result_redirections = redir_in_handle(var, fd_child[WRITE_END]);
+	if (result_redirections == REDIR_IN)
+		return ;
+	if (index < var->n_cmds + var->n_redirs - 1) // Si ce n'est pas la dernière commande
 	{
 		printf("Check child - pas la derniere commande\n");
 		exec_redirect_fd(fd_child[WRITE_END], STDOUT_FILENO); // Connecte la sortie standard au pipe d'entrée
 	}
-	close(fd_child[READ_END]);
 	close(fd_child[WRITE_END]);
 	exec_command(var, fd_child);
-	exit(EXIT_FAILURE);
+	exit(EXIT_SUCCESS); // ? Really useful ?
 }
+// Plan :
+// - if redir_in
+// - else if redir_out
+// - else if !separateur
+//       executer commande
 
-// TODO: Function to initialize our fd
-// Check if :
-//		is_there_redirection ? 
-//			YES -> new fd = fd_old
-//			NO	-> new_fd = brand_new_fd
 void executor_v2(
 	t_var *var,
 	int index,
@@ -138,16 +147,16 @@ void executor_v2(
 	if (pid < 0)
 		err_put_exit();
 	else if (pid == 0) // Process fils
-		exec_child_routine(var, index, fd_parent, fd_to_child);
+	exec_child_routine(var, index, fd_parent, fd_to_child);
 	else // Process parent
 	{
 		close(fd_parent);
 		close(fd_to_child[WRITE_END]);
 		if (waitpid(pid, NULL, 0) == -1)
 			exit(EXIT_FAILURE);
-		if (index < var->n_cmds - 1)
+		if (index < var->n_cmds + var->n_redirs - 1)
 		{
-			var->next_command = get_command_next(var->l_arg);
+			var->current_arg = get_command_or_redir_next(var->current_arg);
 			printf("Check parents - ");
 			print_current_cmd(var);
 			executor_v2(var, ++index, fd_to_child[READ_END]);

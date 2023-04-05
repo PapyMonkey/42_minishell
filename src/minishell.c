@@ -6,7 +6,7 @@
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 16:36:09 by mgerbaud          #+#    #+#             */
-/*   Updated: 2023/03/30 07:20:50 by aguiri           ###   ########.fr       */
+/*   Updated: 2023/04/06 00:43:14 by aguiri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,10 @@ static void	execute(t_var *var)
 	int		fd[2];
 
 	var->sep_last = var->l_arg;
-	var->next_command = var->l_arg;
-	var->n_seps = count_separator(var->l_arg);
+	var->current_arg = var->l_arg;
+	var->n_seps = count_separator(var->l_arg); //TODO: A enlever ?
 	var->n_cmds = count_command(var->l_arg);
+	var->n_redirs = count_redirections(var->l_arg);
 	printf("Number of commands : %d\n", var->n_cmds);
 	printf("Number of separators : %d\n", var->n_seps);
 	printf("---------------------------------------------------------------\n");
@@ -51,6 +52,7 @@ int	main(int argc, char **argv, char **env)
 		var->l_arg = ft_split_args(input, var->l_env);
 		if (var->l_arg == NULL)
 			printf("Missing closing quote\n");
+		// TODO: Move this in exec_command function
 		if (input[0])
 		{
 			add_history((const char *)input);
