@@ -14,35 +14,24 @@
 
 char **exec_build_cmd(t_list *l_arg)
 {
-	// t_list	*tmp;
-	// char	**str_previous;
-	// char	**str_current;
-	//
-	// tmp = l_arg;
-	// if (tmp && ((t_arg *)(tmp->content))->type == EXEC)
-	// {
-	// 	str_previous = ft_strjoin(((t_arg *)tmp->content)->content, "");
-	// 	tmp = tmp->next;
-	// }
-	// while (tmp && is_next_cmd(tmp->content))
-	// {
-	// 	// str_current = ft_strdup((((t_arg *)(tmp->content))->content));
-	// 	tmp = tmp->next;
-	// }
 	int		n_args;
 	char	**cmd;
 	t_list	*tmp;
 	int		i;
 
-	n_args = ft_pipex_count_args(l_arg);
+	n_args = count_argument(l_arg);
+	printf("n_args : %d\n", n_args);
 	cmd = malloc(sizeof(char *) * (n_args + 1));
 	if (!cmd)
 		err_malloc_exit();
 	cmd[n_args] = 0;
 	tmp = l_arg;
-	i = -1;
-	while (++i < n_args)
+	i = 0;
+	while (i < n_args)
+	{
 		cmd[i] = get_arg_content(tmp);
-		// cmd[i] = ((t_arg *)tmp->content)->content;
+		tmp = tmp->next;
+		i++;
+	}
 	return (cmd);
 }

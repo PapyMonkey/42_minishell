@@ -23,6 +23,12 @@
 // Functions - count.c
 
 // TODO: Documentation
+int		count_argument(struct s_list *l_arg);
+
+// TODO: Documentation
+int		count_command(struct s_list *l_arg);
+
+// TODO: Documentation
 int		count_separator(struct s_list *l_arg);
 
 // ****************************************************************************
@@ -33,6 +39,9 @@ char		*get_arg_content(t_list *l_arg_element);
 
 // TODO: Documentation
 t_enum_type	get_arg_type(t_list *l_arg_element);
+
+// TODO: Documentation
+t_list		*get_command_next(t_list *l_arg);
 
 // TODO: Documentation
 t_list		*get_previous_sep(t_var *var, int index);
