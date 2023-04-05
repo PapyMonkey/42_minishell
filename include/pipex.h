@@ -6,7 +6,7 @@
 /*   By: aguiri <aguiri@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 12:53:00 by aguiri            #+#    #+#             */
-/*   Updated: 2023/03/30 07:42:39 by aguiri           ###   ########.fr       */
+/*   Updated: 2023/04/06 00:41:08 by aguiri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,5 +118,11 @@ void		executor_v2(t_var *var, int index, int fd_old);
 
 // TODO: Documentation
 char		**exec_build_cmd(t_list *l_arg);
+
+// TODO: Documentation
+int			redir_in_handle(t_var *var, int fd_write);
+
+// TODO: Documentation
+int			redir_out_handle(t_var *var, int fd_read);
 
 #endif

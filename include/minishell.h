@@ -6,7 +6,7 @@
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 16:36:19 by mgerbaud          #+#    #+#             */
-/*   Updated: 2023/04/05 21:49:35 by aguiri           ###   ########.fr       */
+/*   Updated: 2023/04/06 00:28:00 by aguiri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,12 @@
 # include "builtins.h"
 # include "pipex.h"
 # include "expander.h"
+
+
+// ****************************************************************************
+// Macros
+
+# define BUFFER_SIZE 4096
 
 // ****************************************************************************
 // Structures
@@ -67,9 +73,6 @@ void	err_put_exit(void);
 		process with exit(1).
 */
 void	err_put_exit_command_not_found(char *str);
-
-// TODO: Documentation
-void	err_put_exit_wrong_fd(void);
 
 // ****************************************************************************
 // Functions - free.c
