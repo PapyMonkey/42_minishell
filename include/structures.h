@@ -6,7 +6,7 @@
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 18:37:28 by aguiri            #+#    #+#             */
-/*   Updated: 2023/04/06 00:35:45 by aguiri           ###   ########.fr       */
+/*   Updated: 2023/04/06 01:17:03 by aguiri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,30 +14,10 @@
 # define STRUCTURES_H
 
 // ****************************************************************************
-// Structures
-
-/**
-struct s_cmd - Contains all a command related information.
-*/
-typedef struct s_cmd
-{
-	char	*name;
-	char	*path;
-	char	*flags;
-	char	*arg;
-}			t_cmd;
+// Enums
 
 /**
 enum enum_type- Contains the type of the content stored in t_arg.
-*/
-/**
-* Useful types for executor :
-* - BUILTIN
-* - EXEC
-* - TEXT
-* - WHITE_SPACE
-* - FLAG
-* - ARG
 */
 typedef enum enum_type
 {
@@ -67,6 +47,28 @@ typedef enum enum_type
 	DELIM,	// Mot qui vient apres le heredoc
 	RI_FILE, // Apres chevron gauche
 }	t_enum_type;
+
+// ****************************************************************************
+// Structures
+
+/**
+struct s_cmd - Contains all a command related information.
+*/
+typedef struct s_cmd
+{
+	char	*name;
+	char	*path;
+	char	*flags;
+	char	*arg;
+}			t_cmd;
+
+// TODO: Documentation
+typedef struct s_lexer
+{
+	char			*value;
+	int				type;
+	struct s_lexer	*next;
+}					t_lexer;
 
 /**
 struct s_env - Contains the key and linked value of an ENV variable.

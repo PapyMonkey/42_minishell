@@ -6,7 +6,7 @@
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 16:36:09 by mgerbaud          #+#    #+#             */
-/*   Updated: 2023/04/06 00:43:14 by aguiri           ###   ########.fr       */
+/*   Updated: 2023/04/06 01:18:32 by aguiri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	execute(t_var *var)
 	if (pipe(fd) == -1)
 		err_put_exit();
 	close(fd[WRITE_END]);
-	executor_v2(var, 0, fd[READ_END]);
+	executer(var, 0, fd[READ_END]);
 	close(fd[READ_END]);
 }
 
