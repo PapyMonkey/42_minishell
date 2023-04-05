@@ -6,7 +6,7 @@
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 16:36:19 by mgerbaud          #+#    #+#             */
-/*   Updated: 2023/04/03 17:18:30 by bgales           ###   ########.fr       */
+/*   Updated: 2023/04/03 17:56:18 by bgales           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,4 +147,5 @@ void	*open_close_quote(t_list **lst);
 void	get_signo(void);
 void	define_redir(t_list **list);
 int		r_or_p(int type);
+int		delim_or_rifile(int type);
 #endif // MINISHELL_H

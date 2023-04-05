@@ -6,7 +6,7 @@
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 18:37:28 by aguiri            #+#    #+#             */
-/*   Updated: 2023/04/03 13:21:43 by bgales           ###   ########.fr       */
+/*   Updated: 2023/04/03 17:49:02 by bgales           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,8 @@ typedef enum enum_type
 	FLAG,
 	ARG,
 	R_FILE,
-	DELIM
+	DELIM,
+	RI_FILE,
 }	t_enum_type;
 
 /**
