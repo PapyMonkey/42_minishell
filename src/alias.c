@@ -6,7 +6,7 @@
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 13:56:32 by bgales            #+#    #+#             */
-/*   Updated: 2023/04/03 17:26:52 by bgales           ###   ########.fr       */
+/*   Updated: 2023/04/03 17:49:19 by bgales           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ t_list	*alias_replace(t_list **list, t_list *l_env)
 			}
 		}
 		if (((t_arg *)ptr->content)->type == DOLLAR)
-			get_env(l_env, &ptr, &ret);
+			get_env(l_env, &ptr, &r);
 		else
 			ft_lstadd_back(&r, ft_lstnew(t_arg_cpy((t_arg *)ptr->content)));
 		ptr = ptr->next;
