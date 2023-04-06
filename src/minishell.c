@@ -6,7 +6,7 @@
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 16:36:09 by mgerbaud          #+#    #+#             */
-/*   Updated: 2023/04/06 01:18:32 by aguiri           ###   ########.fr       */
+/*   Updated: 2023/04/06 03:10:50 by aguiri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,12 @@ int	main(int argc, char **argv, char **env)
 		var->l_arg = ft_split_args(input, var->l_env);
 		if (var->l_arg == NULL)
 			printf("Missing closing quote\n");
-		// TODO: Move this in exec_command function
 		if (input[0])
 		{
 			add_history((const char *)input);
+			// TODO: Move this in exec_command function
+			// Change the way the routine function is called to handle the 
+			// chained list.
 			b_routine(input, var); // si hors de ce "if", print l'env lorsqu'on presse entree
 		}
 		// ft_lstiter(var->l_arg, print_arg_elem);

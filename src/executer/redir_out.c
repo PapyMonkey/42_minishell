@@ -12,16 +12,16 @@
 
 #include "minishell.h"
 
-static int redir_out(
+static int	redir_out(
 	t_var *var,
 	int fd_read)
 {
-	t_list *file_to_open;
+	t_list	*file_to_open;
 	int		fd_write;
 
 	file_to_open = var->current_arg->next;
 	fd_write = open(get_arg_content(file_to_open),
-		   O_WRONLY | O_CREAT | O_TRUNC, 0644);
+			O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (fd_write < 0)
 		err_put_exit();
 	read_and_write_to_fd(fd_read, fd_write);
@@ -31,16 +31,16 @@ static int redir_out(
 	return (REDIR_OUT);
 }
 
-static int redir_append(
+static int	redir_append(
 	t_var *var,
 	int fd_read)
 {
-	t_list *file_to_open;
+	t_list	*file_to_open;
 	int		fd_write;
 
 	file_to_open = var->current_arg->next;
 	fd_write = open(get_arg_content(file_to_open),
-		   O_WRONLY | O_CREAT | O_APPEND, 0644);
+			O_WRONLY | O_CREAT | O_APPEND, 0644);
 	if (fd_write < 0)
 		err_put_exit();
 	read_and_write_to_fd(fd_read, fd_write);
@@ -50,7 +50,7 @@ static int redir_append(
 	return (APPEND);
 }
 
-int redir_out_handle(
+int	redir_out_handle(
 	t_var *var,
 	int fd_read)
 {

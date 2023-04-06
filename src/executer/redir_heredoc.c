@@ -12,20 +12,20 @@
 
 #include "minishell.h"
 
-static int redir_heredoc(
+static int	redir_heredoc(
 	t_var *var,
 	int fd_write)
 {
-	t_list *heredoc_delimiter;
+	t_list	*heredoc_delimiter;
 
 	heredoc_delimiter = var->current_arg->next;
-	read_and_write_to_fd_heredoc_v2(STDIN_FILENO, fd_write, heredoc_delimiter);
+	read_and_write_to_fd_heredoc(STDIN_FILENO, fd_write, heredoc_delimiter);
 	var->current_arg = heredoc_delimiter->next;
 	close(fd_write);
 	return (HERE_DOC);
 }
 
-int redir_heredoc_handle(
+int	redir_heredoc_handle(
 	t_var *var,
 	int fd_write)
 {

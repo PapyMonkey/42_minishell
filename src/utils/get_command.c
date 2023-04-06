@@ -12,19 +12,19 @@
 
 #include "minishell.h"
 
-t_list *get_command_next(t_list *l_arg)
+t_list	*get_command_next(t_list *l_arg)
 {
-	t_list *tmp;
+	t_list	*tmp;
 
 	tmp = l_arg->next;
 	while (tmp && !is_command(tmp))
 		tmp = tmp->next;
-	return(tmp);
+	return (tmp);
 }
 
-t_list *get_command_or_redir_next(t_list *l_arg)
+t_list	*get_command_or_redir_next(t_list *l_arg)
 {
-	t_list *tmp;
+	t_list	*tmp;
 
 	tmp = l_arg->next;
 	while (tmp
@@ -32,5 +32,5 @@ t_list *get_command_or_redir_next(t_list *l_arg)
 		&& !is_redir_in(tmp)
 		&& !is_redir_out(tmp))
 		tmp = tmp->next;
-	return(tmp);
+	return (tmp);
 }
