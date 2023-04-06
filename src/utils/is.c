@@ -28,7 +28,8 @@ int	is_redir_in(t_list *l_arg)
 	t_enum_type	type;
 
 	type = get_arg_type(l_arg);
-	if (type == REDIR_IN)
+	if (type == REDIR_IN
+		|| type == HERE_DOC)
 		return(1);
 	else
 		return(0);

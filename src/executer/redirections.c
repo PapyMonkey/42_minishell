@@ -38,6 +38,65 @@ static void read_and_write_to_fd(
 		err_put_exit();
 }
 
+static void read_and_write_to_fd_heredoc(
+	int fd_read,
+	int fd_write,
+	const t_list *heredoc_delimiter)
+{
+    ssize_t	bytes_read;
+    char	buffer[BUFFER_SIZE];
+	char	*delimiter_str;
+	// int		delimiter_length;
+	char	*search_str;
+	char	*str_to_write;
+
+    bytes_read = read(fd_read, buffer, BUFFER_SIZE);
+	delimiter_str = get_arg_content(heredoc_delimiter);
+	// delimiter_length = ft_strlen(delimiter_str);
+	search_str = ft_strnstr(buffer, delimiter_str, BUFFER_SIZE);
+    while (bytes_read > 0 && (!search_str || search_str == buffer))
+    {
+		if (!search_str)
+			str_to_write = buffer;
+		else 
+			str_to_write = search_str;
+        if (write(fd_write, buffer, bytes_read - ft_strlen(search_str))
+			!= bytes_read - ft_strlen(search_str))
+			err_put_exit();
+		// TODO: Recuperer l'excedent (apres le delimiter) pour le stocker,
+		// parser et ajouter la liste des commandes a executer
+        bytes_read = read(fd_read, buffer, BUFFER_SIZE);
+    }
+    if (bytes_read < 0)
+		err_put_exit();
+}
+
+static void read_and_write_to_fd_heredoc_v2(
+	int fd_read,
+	int fd_write,
+	const t_list *heredoc_delimiter)
+{
+	char	*out;
+	char	*delimiter_str;
+	int		delimiter_length;
+
+	out = ft_get_next_line(fd_read);
+	delimiter_str = get_arg_content(heredoc_delimiter);
+	delimiter_length = ft_strlen(delimiter_str);
+	if (!out)
+		err_put_exit();
+	while (ft_strncmp(out, delimiter_str, delimiter_length))
+	{
+		if (write(fd_write, out, ft_strlen(out)) == -1)
+			err_put_exit();
+		out = ft_get_next_line(fd_read);
+		// TODO: Recuperer l'excedent (apres le delimiter) pour le stocker,
+		// parser et ajouter la liste des commandes a executer
+	}
+	free(out);
+	close(fd_write);
+}
+
 static int redir_in(
 	t_var *var,
 	int fd_write)
@@ -51,11 +110,41 @@ static int redir_in(
 	if (fd_read < 0)
 		err_put_exit();
 	read_and_write_to_fd(fd_read, fd_write);
-	// exec_redirect_fd(fd_write, STDIN_FILENO);
 	var->current_arg = file_to_open->next;
 	close(fd_read);
 	close(fd_write);
 	return (REDIR_IN);
+}
+
+int redir_in_handle(
+	t_var *var,
+	int fd_write)
+{
+	if (get_arg_type(var->current_arg) == REDIR_IN)
+		return (redir_in(var, fd_write));
+	return (0);
+}
+
+static int redir_heredoc(
+	t_var *var,
+	int fd_write)
+{
+	t_list *heredoc_delimiter;
+
+	heredoc_delimiter = var->current_arg->next;
+	read_and_write_to_fd_heredoc_v2(STDIN_FILENO, fd_write, heredoc_delimiter);
+	var->current_arg = heredoc_delimiter->next;
+	close(fd_write);
+	return (HERE_DOC);
+}
+
+int redir_heredoc_handle(
+	t_var *var,
+	int fd_write)
+{
+	if (get_arg_type(var->current_arg) == HERE_DOC)
+		return (redir_heredoc(var, fd_write));
+	return (0);
 }
 
 static int redir_out(
@@ -71,7 +160,6 @@ static int redir_out(
 	if (fd_write < 0)
 		err_put_exit();
 	read_and_write_to_fd(fd_read, fd_write);
-	// exec_redirect_fd(fd_out, STDOUT_FILENO);
 	var->current_arg = file_to_open->next;
 	close(fd_read);
 	close(fd_write);
@@ -91,30 +179,16 @@ static int redir_append(
 	if (fd_write < 0)
 		err_put_exit();
 	read_and_write_to_fd(fd_read, fd_write);
-	// exec_redirect_fd(fd, STDOUT_FILENO);
 	var->current_arg = file_to_open->next;
 	close(fd_read);
 	close(fd_write);
 	return (APPEND);
 }
 
-int redir_in_handle(
-	t_var *var,
-	int fd_write)
-{
-	printf("Check redir_in - ");
-	print_current_cmd(var);
-	if (get_arg_type(var->current_arg) == REDIR_IN)
-		return (redir_in(var, fd_write));
-	return (0);
-}
-
 int redir_out_handle(
 	t_var *var,
 	int fd_read)
 {
-	printf("Check redir_out - ");
-	print_current_cmd(var);
 	if (get_arg_type(var->current_arg) == REDIR_OUT)
 		return (redir_out(var, fd_read));
 	else if (get_arg_type(var->current_arg) == APPEND)

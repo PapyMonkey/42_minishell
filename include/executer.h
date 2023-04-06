@@ -44,6 +44,9 @@ void		executer(t_var *var, int index, int fd_old);
 // Functions - redirections.c
 
 // TODO: Documentation
+int			redir_heredoc_handle(t_var *var, int fd_write);
+
+// TODO: Documentation
 int			redir_in_handle(t_var *var, int fd_write);
 
 // TODO: Documentation
