@@ -6,7 +6,7 @@
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 16:36:19 by mgerbaud          #+#    #+#             */
-/*   Updated: 2023/04/06 01:30:09 by aguiri           ###   ########.fr       */
+/*   Updated: 2023/04/06 16:43:30 by aguiri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <unistd.h>
 # include <sys/wait.h>
 # include <sys/types.h> 
+# include <sys/ioctl.h>
 # include <stdio.h>
 # include <fcntl.h> 
 # include <readline/readline.h>
@@ -38,11 +39,12 @@
 
 # include "libft.h"
 
-# include "structures.h"
-# include "init.h"
-# include "utils.h"
 # include "builtins.h"
 # include "executer.h"
+# include "init.h"
+# include "lexer.h"
+# include "utils.h"
+# include "structures.h"
 
 // ****************************************************************************
 // Functions - error.c
@@ -90,59 +92,9 @@ void	free_var(struct s_var *var);
 void	free_2d_char(char **array);
 
 // ****************************************************************************
-// Functions - lexer.c
+// Functions - signal.c
 
-/**
-@brief Split char * according to the shell word cutting.
-*/
-t_list	*ft_split_args(char *str, t_list *env);
-
-// Functions - lexer_utils.c
-
-/**
-@brief Check for unclosed_quotes in char*.
-*/
-int		closed_quotes(char *str);
-
-/**
-@brief Itterate to the next quote in char* and returns the len to get to it.
-@param char*  string we'll search in@param char char to
-itterate to inside the char*.
-@param len norm purposes.
-*/
-int		itter_quote(char *str, char c, int *len);
-
-/**
-@brief Find which elem of Enum is contained in a string and returns its number.
-*/
-int		pipe_redir_finder(char *str);
-/**
-@brief Itterate to the next Enum member found in char * and returns
-the len to get to it.
-*/
-int		itter_enum(char *str);
-
-// t_list	*struct_init(char **split);
-t_list	*struct_init(char *str, t_list *env);
-t_list	*struct_init_2(t_list **list);
-void	free_lstcontent(void *content);
-t_arg	*t_arg_cpy(void *arg);
-char	*minishell_join(char *s1, char *s2);
-void	*define_elem(t_list **list);
-t_list	*del_whitespace(t_list **list);
-int		no_quote(t_list **list);
-void	empty_quotes(t_list **list);
-void	join_text(t_list **list);
-int		no_quote(t_list **list);
-int		no_redir_no_whitespace(t_list *list);
-t_list	*join_quotes(t_list **list);
-void	*join_all(t_list **list);
-int		alias_finder(char *str);
-t_list	*alias_replace(t_list **list, t_list *l_env);
-int		is_alias(char *str, t_list **list);
-void	*open_close_quote(t_list **lst);
+// TODO: Documentation
 void	get_signo(void);
-void	define_redir(t_list **list);
-int		r_or_p(int type);
-int		delim_or_rifile(int type);
+
 #endif // MINISHELL_H
