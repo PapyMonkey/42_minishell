@@ -69,11 +69,14 @@ static void exec_child_routine(
 	close(fd_child[READ_END]);
 	result_redirections = redir_out_handle(var, fd_parent);
 	if (result_redirections == REDIR_OUT || result_redirections == APPEND)
-		return ;
+		exit(EXIT_SUCCESS);
+	result_redirections = redir_heredoc_handle(var, fd_child[WRITE_END]);
+	if(result_redirections == HERE_DOC)
+		exit(EXIT_SUCCESS);
 	exec_redirect_fd(fd_parent, STDIN_FILENO); // Connecte l'entrée standard à fd_parent (sortie précédente)
 	result_redirections = redir_in_handle(var, fd_child[WRITE_END]);
 	if (result_redirections == REDIR_IN)
-		return ;
+		exit(EXIT_SUCCESS);
 	if (index < var->n_cmds + var->n_redirs - 1) // Si ce n'est pas la dernière commande
 	{
 		printf("Check child - pas la derniere commande\n");
@@ -83,11 +86,6 @@ static void exec_child_routine(
 	exec_command(var, fd_child);
 	exit(EXIT_SUCCESS); // ? Really useful ?
 }
-// Plan :
-// - if redir_in
-// - else if redir_out
-// - else if !separateur
-//       executer commande
 
 void executer(
 	t_var *var,
