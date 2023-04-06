@@ -6,12 +6,11 @@
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 16:09:03 by bgales            #+#    #+#             */
-/*   Updated: 2023/03/28 17:04:21 by bgales           ###   ########.fr       */
+/*   Updated: 2023/04/06 16:42:08 by aguiri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <sys/ioctl.h>
 
 void	signal_handler(int signo)
 {
