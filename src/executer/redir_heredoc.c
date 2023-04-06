@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-// static void	ft_pipex_here_doc(size_t i, int *fd, t_cmds cmds)
+// void	redir_here_doc(size_t i, int *fd, t_cmds cmds)
 // {
 // 	char	*limiter;
 // 	char	*out;
