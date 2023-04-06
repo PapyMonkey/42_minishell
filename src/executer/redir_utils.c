@@ -12,58 +12,25 @@
 
 #include "minishell.h"
 
-void read_and_write_to_fd(
+void	read_and_write_to_fd(
 	int fd_read,
 	int fd_write)
 {
-    ssize_t bytes_read;
-    char buffer[BUFFER_SIZE];
+	ssize_t	bytes_read;
+	char	buffer[BUFFER_SIZE];
 
-    bytes_read = read(fd_read, buffer, BUFFER_SIZE);
-    while (bytes_read > 0)
-    {
-        if (write(fd_write, buffer, bytes_read) != bytes_read)
+	bytes_read = read(fd_read, buffer, BUFFER_SIZE);
+	while (bytes_read > 0)
+	{
+		if (write(fd_write, buffer, bytes_read) != bytes_read)
 			err_put_exit();
-        bytes_read = read(fd_read, buffer, BUFFER_SIZE);
-    }
-    if (bytes_read < 0)
+		bytes_read = read(fd_read, buffer, BUFFER_SIZE);
+	}
+	if (bytes_read < 0)
 		err_put_exit();
 }
 
-void read_and_write_to_fd_heredoc(
-	int fd_read,
-	int fd_write,
-	const t_list *heredoc_delimiter)
-{
-    ssize_t	bytes_read;
-    char	buffer[BUFFER_SIZE];
-	char	*delimiter_str;
-	// int		delimiter_length;
-	char	*search_str;
-	char	*str_to_write;
-
-    bytes_read = read(fd_read, buffer, BUFFER_SIZE);
-	delimiter_str = get_arg_content(heredoc_delimiter);
-	// delimiter_length = ft_strlen(delimiter_str);
-	search_str = ft_strnstr(buffer, delimiter_str, BUFFER_SIZE);
-    while (bytes_read > 0 && (!search_str || search_str == buffer))
-    {
-		if (!search_str)
-			str_to_write = buffer;
-		else 
-			str_to_write = search_str;
-        if (write(fd_write, buffer, bytes_read - ft_strlen(search_str))
-			!= bytes_read - ft_strlen(search_str))
-			err_put_exit();
-		// TODO: Recuperer l'excedent (apres le delimiter) pour le stocker,
-		// parser et ajouter la liste des commandes a executer
-        bytes_read = read(fd_read, buffer, BUFFER_SIZE);
-    }
-    if (bytes_read < 0)
-		err_put_exit();
-}
-
-void read_and_write_to_fd_heredoc_v2(
+void	read_and_write_to_fd_heredoc(
 	int fd_read,
 	int fd_write,
 	const t_list *heredoc_delimiter)
@@ -88,4 +55,3 @@ void read_and_write_to_fd_heredoc_v2(
 	free(out);
 	close(fd_write);
 }
-
