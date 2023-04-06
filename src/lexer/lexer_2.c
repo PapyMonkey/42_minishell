@@ -1,18 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer2.c                                           :+:      :+:    :+:   */
+/*   lexer_2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 16:40:51 by bgales            #+#    #+#             */
-/*   Updated: 2023/04/03 13:17:28 by bgales           ###   ########.fr       */
+/*   Updated: 2023/04/06 17:39:17 by aguiri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	is_quote(char *str, t_list **list)
+// TODO: Documentation
+static int	is_quote(char *str, t_list **list)
 {
 	t_arg	*arg;
 
@@ -31,7 +32,13 @@ int	is_quote(char *str, t_list **list)
 	return (1);
 }
 
-int	is_pipe_redir(char *str, t_list **list)
+/*
+@brief Checks if the given string is a pipe or a redirection
+@param str The string to check
+@param list Pointer to the list of arguments
+@return 0 if not a pipe or a redirection, 1 if single character, 2 if double characters
+*/
+static int	is_pipe_redir(char *str, t_list **list)
 {
 	t_arg	*arg;
 
@@ -56,7 +63,13 @@ int	is_pipe_redir(char *str, t_list **list)
 	}
 }
 
-int	is_space(char *str, t_list **list)
+/*
+@brief Checks if the given string starts with a space
+@param str The string to check
+@param list Pointer to the list of arguments
+@return 0 if not starting with a space, number of spaces otherwise
+*/
+static int	is_space(char *str, t_list **list)
 {
 	int		i;
 	t_arg	*arg;
@@ -73,7 +86,13 @@ int	is_space(char *str, t_list **list)
 	return (i);
 }
 
-int	is_arg(char *str, t_list **list)
+/*
+@brief Checks if the given string is an argument
+@param str The string to check
+@param list Pointer to the list of arguments
+@return 0 if not an argument, length of argument otherwise
+*/
+static int	is_arg(char *str, t_list **list)
 {
 	int		i;
 	t_arg	*arg;

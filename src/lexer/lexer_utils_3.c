@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer_utils4.c                                     :+:      :+:    :+:   */
+/*   lexer_utils_3.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 18:40:08 by bgales            #+#    #+#             */
-/*   Updated: 2023/03/16 13:57:38 by bgales           ###   ########.fr       */
+/*   Updated: 2023/04/06 17:57:37 by aguiri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	empty_quotes_2(t_list **ptr, t_list **tmp, t_list**save)
+static void	empty_quotes_ext(t_list **ptr, t_list **tmp, t_list**save)
 {
 	free (((t_arg *)(*tmp)->content)->content);
 	((t_arg *)(*tmp)->content)->content = ft_strdup("\0");
@@ -40,7 +40,7 @@ void	empty_quotes(t_list **list)
 			ptr = ptr->next;
 			if (((t_arg *)(ptr)->content)->type == CLOSE_D_QUOTE
 				|| ((t_arg *)(ptr)->content)->type == CLOSE_QUOTE)
-				empty_quotes_2(&ptr, &tmp, &save);
+				empty_quotes_ext(&ptr, &tmp, &save);
 		}
 		if (ptr != NULL)
 			ptr = ptr->next;
