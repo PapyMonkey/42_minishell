@@ -1,18 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer3.c                                           :+:      :+:    :+:   */
+/*   lexer_3.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 15:33:13 by bgales            #+#    #+#             */
-/*   Updated: 2023/04/05 14:15:16 by bgales           ###   ########.fr       */
+/*   Updated: 2023/04/06 17:21:38 by aguiri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	to_next_quote(t_list **lst, char *quote)
+/*
+@brief Advances the pointer to the next quote in the list
+@param lst The list to navigate
+@param quote The quote to match
+*/
+static void	to_next_quote(t_list **lst, char *quote)
 {
 	t_arg	*arg;
 
@@ -37,25 +42,13 @@ void	to_next_quote(t_list **lst, char *quote)
 	}
 }
 
-void	*open_close_quote(t_list **lst)
-{
-	t_arg	*arg;
-	t_list	*ptr;
-
-	ptr = *lst;
-	while (ptr != NULL)
-	{
-		arg = ptr->content;
-		if (!ft_strncmp(arg->content, "\'", 1))
-			to_next_quote(&ptr, arg->content);
-		if (!ft_strncmp(arg->content, "\"", 1))
-			to_next_quote(&ptr, arg->content);
-		ptr = ptr->next;
-	}
-	return (0);
-}
-
-void	*join_in_quotes_2(t_list **dst, t_list **src)
+/*
+@brief Joins the content inside quotes and adds to the destination list
+@param dst Pointer to the destination list
+@param src Pointer to the source list
+@return 0 (null pointer)
+*/
+static void	*join_in_quotes_2(t_list **dst, t_list **src)
 {
 	t_arg	*arg;
 	t_arg	*cpy;
@@ -81,7 +74,12 @@ void	*join_in_quotes_2(t_list **dst, t_list **src)
 	return (0);
 }
 
-void	*join_in_quotes(t_list **lst)
+/*
+@brief Joins content inside quotes in the list
+@param lst Pointer to the list of arguments
+@return The modified list with joined content
+*/
+static void	*join_in_quotes(t_list **lst)
 {
 	t_list	*ret;
 	t_list	*ptr;
@@ -103,6 +101,24 @@ void	*join_in_quotes(t_list **lst)
 	}
 	ft_lstclear(lst, free_lstcontent);
 	return (ret);
+}
+
+void	*open_close_quote(t_list **lst)
+{
+	t_arg	*arg;
+	t_list	*ptr;
+
+	ptr = *lst;
+	while (ptr != NULL)
+	{
+		arg = ptr->content;
+		if (!ft_strncmp(arg->content, "\'", 1))
+			to_next_quote(&ptr, arg->content);
+		if (!ft_strncmp(arg->content, "\"", 1))
+			to_next_quote(&ptr, arg->content);
+		ptr = ptr->next;
+	}
+	return (0);
 }
 
 t_list	*struct_init_2(t_list **list)

@@ -6,13 +6,14 @@
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 13:56:32 by bgales            #+#    #+#             */
-/*   Updated: 2023/04/03 17:49:19 by bgales           ###   ########.fr       */
+/*   Updated: 2023/04/06 17:39:39 by aguiri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	get_env(t_list *l_env, t_list **ptr, t_list **ret)
+// TODO: Documentation
+static int	get_env(t_list *l_env, t_list **ptr, t_list **ret)
 {
 	t_env	*env;
 	t_arg	*arg;

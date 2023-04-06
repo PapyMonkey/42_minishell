@@ -6,7 +6,7 @@
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 15:28:36 by bgales            #+#    #+#             */
-/*   Updated: 2023/03/15 11:58:05 by bgales           ###   ########.fr       */
+/*   Updated: 2023/04/06 17:43:49 by aguiri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,17 +72,6 @@ int	itter_quote(char *str, char c, int *len)
 		*len += 1;
 	}
 	return (i);
-}
-
-int	itter_enum(char *str)
-{
-	if (pipe_redir_finder(str) == PIPE || pipe_redir_finder(str) == REDIR_IN
-		|| pipe_redir_finder(str) == REDIR_OUT)
-		return (1);
-	else if (!pipe_redir_finder(str))
-		return (0);
-	else
-		return (2);
 }
 
 int	closed_quotes(char *str)

@@ -6,13 +6,14 @@
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 13:48:35 by bgales            #+#    #+#             */
-/*   Updated: 2023/04/05 14:26:57 by bgales           ###   ########.fr       */
+/*   Updated: 2023/04/06 17:54:50 by aguiri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	is_flag(t_list **list)
+// TODO: Documentation
+static void	is_flag(t_list **list)
 {
 	t_list	*ptr;
 	t_arg	*arg;
@@ -41,7 +42,8 @@ void	is_flag(t_list **list)
 		is_flag(&ptr);
 }
 
-void	type_exec(t_list **list)
+// TODO: Documentation
+static void	type_exec(t_list **list)
 {
 	t_arg	*arg;
 
@@ -54,7 +56,8 @@ void	type_exec(t_list **list)
 		*list = (*list)->next;
 }
 
-void	type_arg(t_list **list)
+// TODO: Documentation
+static void	type_arg(t_list **list)
 {
 	t_arg	*arg;
 	t_list	*ptr;

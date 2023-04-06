@@ -6,13 +6,14 @@
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 14:07:07 by bgales            #+#    #+#             */
-/*   Updated: 2023/04/05 14:28:58 by bgales           ###   ########.fr       */
+/*   Updated: 2023/04/06 17:55:36 by aguiri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	arg_is_redir(int type)
+// TODO: Documentation
+static int	arg_is_redir(int type)
 {
 	if (type == REDIR_IN || type == HERE_DOC || type == DELIM
 		|| type == REDIR_OUT || type == APPEND)
@@ -36,7 +37,8 @@ int	delim_or_rifile(int type)
 	return (0);
 }
 
-void	define_redir_2(t_list **list)
+// TODO: Documentation
+static void	define_redir_ext(t_list **list)
 {
 	t_arg	*arg;
 	t_list	*ptr;
@@ -86,7 +88,7 @@ void	define_redir(t_list **list)
 					arg->type = DELIM;
 			}
 			else
-				define_redir_2(&ptr->next);
+				define_redir_ext(&ptr->next);
 			arg = ptr->content;
 		}
 		if (ptr != NULL)

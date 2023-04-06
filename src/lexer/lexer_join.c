@@ -1,18 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   join_quotes.c                                      :+:      :+:    :+:   */
+/*   lexer_join.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 11:34:45 by bgales            #+#    #+#             */
-/*   Updated: 2023/03/27 12:35:58 by bgales           ###   ########.fr       */
+/*   Updated: 2023/04/06 17:38:53 by aguiri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	join_quotes_2(t_list **save, t_list **ret)
+// TODO: Documentation
+static void	join_quotes_ext(t_list **save, t_list **ret)
 {
 	t_arg	*arg;
 
@@ -36,7 +37,8 @@ void	join_quotes_2(t_list **save, t_list **ret)
 	ft_lstadd_back(ret, ft_lstnew(arg));
 }
 
-void	j_quotes_norm(t_list **ptr, t_list **save, t_list **ret)
+// TODO: Documentation
+static void	j_quotes_norm(t_list **ptr, t_list **save, t_list **ret)
 {
 	*ptr = (*ptr)->next;
 	*save = *ptr;
@@ -46,7 +48,7 @@ void	j_quotes_norm(t_list **ptr, t_list **save, t_list **ret)
 		*ptr = (*ptr)->next;
 	if (*ptr != NULL && (((t_arg *)(*ptr)->content)->type == OPEN_D_QUOTE
 		|| ((t_arg *)(*ptr)->content)->type == OPEN_QUOTE))
-		join_quotes_2(save, ret);
+		join_quotes_ext(save, ret);
 	else
 	{
 		while (*save != NULL && ((t_arg *)
@@ -85,4 +87,47 @@ t_list	*join_quotes(t_list **list)
 	}
 	ft_lstclear(list, free_lstcontent);
 	return (ret);
+}
+
+// TODO: Documentation
+static void	join_text_ext(t_list **ptr, t_list **tmp, t_list **save)
+{
+	while (*ptr != NULL && ((t_arg *)(*ptr)->content)->type == TEXT)
+	{
+		((t_arg *)(*tmp)->content)->content = minishell_join(
+				((t_arg *)(*tmp)->content)->content,
+				((t_arg *)(*ptr)->content)->content);
+		*ptr = (*ptr)->next;
+	}
+	(*ptr) = (*tmp)->next;
+	while (*ptr != NULL && ((t_arg *)(*ptr)->content)->type == TEXT)
+	{
+		*save = (*ptr)->next;
+		ft_lstdelone(*ptr, free_lstcontent);
+		*ptr = *save;
+	}
+	(*tmp)->next = *save;
+}
+
+void	join_text(t_list **list)
+{
+	t_list	*ptr;
+	t_list	*tmp;
+	t_list	*save;
+
+	ptr = *list;
+	while (ptr != NULL)
+	{
+		while (((t_arg *)(ptr)->content)->type == TEXT)
+		{
+			tmp = ptr;
+			ptr = ptr->next;
+			if (ptr == NULL || ((t_arg *)(ptr)->content)->type != TEXT)
+				break ;
+			join_text_ext(&ptr, &tmp, &save);
+			break ;
+		}
+		if (ptr != NULL)
+			ptr = ptr->next;
+	}
 }
