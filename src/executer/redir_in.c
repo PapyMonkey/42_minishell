@@ -12,11 +12,11 @@
 
 #include "minishell.h"
 
-static int redir_in(
+static int	redir_in(
 	t_var *var,
 	int fd_write)
 {
-	t_list *file_to_open;
+	t_list	*file_to_open;
 	int		fd_read;
 
 	file_to_open = var->current_arg->next;
@@ -31,7 +31,7 @@ static int redir_in(
 	return (REDIR_IN);
 }
 
-int redir_in_handle(
+int	redir_in_handle(
 	t_var *var,
 	int fd_write)
 {
@@ -39,4 +39,3 @@ int redir_in_handle(
 		return (redir_in(var, fd_write));
 	return (0);
 }
-

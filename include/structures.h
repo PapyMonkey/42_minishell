@@ -43,9 +43,9 @@ typedef enum enum_type
 	OUT_QUOTES,
 	FLAG,
 	ARG,
-	R_FILE, // Apres chevron droit, redirection fichier
-	DELIM,	// Mot qui vient apres le heredoc
-	RI_FILE, // Apres chevron gauche
+	R_FILE,
+	DELIM,
+	RI_FILE,
 }	t_enum_type;
 
 // ****************************************************************************

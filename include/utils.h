@@ -23,16 +23,16 @@
 // Functions - count.c
 
 // TODO: Documentation
-int		count_argument(struct s_list *l_arg);
+int			count_argument(struct s_list *l_arg);
 
 // TODO: Documentation
-int		count_command(struct s_list *l_arg);
+int			count_command(struct s_list *l_arg);
 
 // TODO: Documentation
-int		count_redirections(struct s_list *l_arg);
+int			count_redirections(struct s_list *l_arg);
 
 // TODO: Documentation
-int		count_separator(struct s_list *l_arg);
+int			count_separator(struct s_list *l_arg);
 
 // ****************************************************************************
 // Functions - get...
@@ -48,9 +48,6 @@ t_list		*get_command_next(t_list *l_arg);
 
 // TODO: Documentation
 t_list		*get_command_or_redir_next(t_list *l_arg);
-
-// TODO: Documentation
-t_list		*get_previous_sep(t_var *var, int index);
 
 /**
 @brief Searchs and points to a given element of the ENV variables.
@@ -93,9 +90,9 @@ int			is_separator(t_list *l_arg);
 
 @param env Environnement variable, stored as a {key:value} pair.
 */
-void	print_env_elem(void *env);
+void		print_env_elem(void *env);
 
 // TODO: Documentation
-void	print_arg_elem(void *arg);
+void		print_arg_elem(void *arg);
 
 #endif	// UTILS_H

@@ -6,7 +6,7 @@
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 12:54:24 by aguiri            #+#    #+#             */
-/*   Updated: 2023/04/06 01:18:05 by aguiri           ###   ########.fr       */
+/*   Updated: 2023/04/06 03:13:43 by aguiri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ static void	exec_command(
 	// printf("command[1] = %s\n", command[1]);
 	// printf("command[2] = %s\n", command[2]);
 	// command = var->table_cmd->cmd_str;
+	// TODO: Add local path to the path variable
 	path = ft_split(
 		((t_env *)get_env_elem(var->l_env, "PATH")->content)->value, ':');
 	try_access = exec_try_access(command[0], path);

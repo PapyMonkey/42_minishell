@@ -18,9 +18,9 @@ int	is_command(t_list *l_arg)
 
 	type = get_arg_type(l_arg);
 	if (type == EXEC || type == BUILTIN)
-		return(1);
+		return (1);
 	else
-		return(0);
+		return (0);
 }
 
 int	is_redir_in(t_list *l_arg)
@@ -30,9 +30,9 @@ int	is_redir_in(t_list *l_arg)
 	type = get_arg_type(l_arg);
 	if (type == REDIR_IN
 		|| type == HERE_DOC)
-		return(1);
+		return (1);
 	else
-		return(0);
+		return (0);
 }
 
 int	is_redir_out(t_list *l_arg)
@@ -42,9 +42,9 @@ int	is_redir_out(t_list *l_arg)
 	type = get_arg_type(l_arg);
 	if (type == REDIR_OUT
 		|| type == APPEND)
-		return(1);
+		return (1);
 	else
-		return(0);
+		return (0);
 }
 
 int	is_separator(t_list *l_arg)
@@ -57,8 +57,8 @@ int	is_separator(t_list *l_arg)
 		|| type == REDIR_IN
 		|| type == REDIR_OUT
 		|| type == HERE_DOC
-		)
-		return(1);
+	)
+		return (1);
 	else
-		return(0);
+		return (0);
 }

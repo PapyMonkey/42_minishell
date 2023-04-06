@@ -24,10 +24,10 @@ int	count_argument(struct s_list *l_arg)
 		count++;
 		tmp = tmp->next;
 	}
-	return(count);
+	return (count);
 }
 
-int count_command(struct s_list *l_arg)
+int	count_command(struct s_list *l_arg)
 {
 	int			count;
 	t_list		*tmp;
@@ -42,10 +42,10 @@ int count_command(struct s_list *l_arg)
 			count++;
 		tmp = tmp->next;
 	}
-	return(count);
+	return (count);
 }
 
-int count_redirections(struct s_list *l_arg)
+int	count_redirections(struct s_list *l_arg)
 {
 	int			count;
 	t_list		*tmp;
@@ -60,13 +60,13 @@ int count_redirections(struct s_list *l_arg)
 			count++;
 		tmp = tmp->next;
 	}
-	return(count);
+	return (count);
 }
 
-int count_separator(struct s_list *l_arg)
+int	count_separator(struct s_list *l_arg)
 {
-	int		count;
-	t_list	*tmp;
+	int			count;
+	t_list		*tmp;
 	t_enum_type	arg_type;
 
 	count = 0;
@@ -78,5 +78,5 @@ int count_separator(struct s_list *l_arg)
 			count++;
 		tmp = tmp->next;
 	}
-	return(count);
+	return (count);
 }
