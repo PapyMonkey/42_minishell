@@ -12,7 +12,12 @@
 
 #include "minishell.h"
 
-// TODO: Documentation
+/*
+@brief Join quoted sections of the list into single elements
+
+@param save    Pointer to the saved element in the list
+@param ret     Pointer to the output list
+*/
 static void	join_quotes_ext(t_list **save, t_list **ret)
 {
 	t_arg	*arg;
@@ -37,7 +42,13 @@ static void	join_quotes_ext(t_list **save, t_list **ret)
 	ft_lstadd_back(ret, ft_lstnew(arg));
 }
 
-// TODO: Documentation
+/*
+@brief Join quotes in the list based on specific conditions
+
+@param ptr     Pointer to the current element in the list
+@param save    Pointer to the saved element in the list
+@param ret     Pointer to the output list
+*/
 static void	j_quotes_norm(t_list **ptr, t_list **save, t_list **ret)
 {
 	*ptr = (*ptr)->next;
@@ -89,7 +100,13 @@ t_list	*join_quotes(t_list **list)
 	return (ret);
 }
 
-// TODO: Documentation
+/*
+@brief Join text elements in the list
+
+@param ptr     Pointer to the current element in the list
+@param tmp     Pointer to the temporary element in the list
+@param save    Pointer to the saved element in the list
+*/
 static void	join_text_ext(t_list **ptr, t_list **tmp, t_list **save)
 {
 	while (*ptr != NULL && ((t_arg *)(*ptr)->content)->type == TEXT)

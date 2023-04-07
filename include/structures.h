@@ -62,14 +62,6 @@ typedef struct s_cmd
 	char	*arg;
 }			t_cmd;
 
-// TODO: Documentation
-typedef struct s_lexer
-{
-	char			*value;
-	int				type;
-	struct s_lexer	*next;
-}					t_lexer;
-
 /**
 struct s_env - Contains the key and linked value of an ENV variable.
 */
@@ -79,19 +71,17 @@ typedef struct s_env
 	char	*value;
 }			t_env;
 
-// TODO: Documentation
+/*
+@brief Struct representing an argument.
+
+@var content    The content of the argument.
+@var type       The type of the argument (from the t_enum_type enumeration).
+*/
 typedef struct s_arg
 {
 	char		*content;
 	t_enum_type	type;
 }				t_arg;
-
-// TODO: Documentation
-typedef struct s_cmd_table
-{
-	struct s_list	*cmd_ptr;
-	char			**cmd_str;
-}					t_cmd_table;
 
 /**
 struct s_var - Wrapper containing all the useful variables.
@@ -104,7 +94,6 @@ typedef struct s_var
 	struct s_list		*sep_last;
 	struct s_list		*current_arg;
 	int					n_seps;
-	struct s_cmd_table	*table_cmd;
 	int					n_cmds;
 	int					n_redirs;
 }						t_var;

@@ -55,7 +55,7 @@ int	main(int argc, char **argv, char **env)
 		if (input[0])
 		{
 			add_history((const char *)input);
-			// TODO: Move this in exec_command function
+			// FIX: Move this in exec_command function
 			// Change the way the routine function is called to handle the 
 			// chained list.
 			b_routine(input, var); // si hors de ce "if", print l'env lorsqu'on presse entree

@@ -12,7 +12,14 @@
 
 #include "minishell.h"
 
-// TODO: Documentation
+/*
+@brief Get environment variable value and replace the corresponding alias
+
+@param l_env   List of environment variables
+@param ptr     Pointer to the current element in the list
+@param ret     Pointer to the output list
+@return        1 if alias was replaced, 0 otherwise
+*/
 static int	get_env(t_list *l_env, t_list **ptr, t_list **ret)
 {
 	t_env	*env;

@@ -12,7 +12,12 @@
 
 #include "minishell.h"
 
-void	signal_handler(int signo)
+/*
+@brief Handle signals (SIGINT and SIGQUIT).
+
+@param signo   The signal number.
+*/
+static void	signal_handler(int signo)
 {
 	struct termios	t;
 
