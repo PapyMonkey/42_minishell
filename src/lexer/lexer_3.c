@@ -6,7 +6,7 @@
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 15:33:13 by bgales            #+#    #+#             */
-/*   Updated: 2023/04/06 17:21:38 by aguiri           ###   ########.fr       */
+/*   Updated: 2023/04/07 18:49:55 by bgales           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,7 @@ t_list	*struct_init_2(t_list **list)
 	*list = del_whitespace(list);
 	define_redir(list);
 	define_elem(list);
+	define_builtins(list);
 	ft_lstiter(*list, *print_arg_elem);
 	return (*list);
 }
