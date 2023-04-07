@@ -6,7 +6,7 @@
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 19:59:51 by mgerbaud          #+#    #+#             */
-/*   Updated: 2023/03/24 11:36:04 by bgales           ###   ########.fr       */
+/*   Updated: 2023/04/07 17:55:12 by bgales           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ int	b_routine(const char *str, t_var *var)
 	else if (!ft_strncmp(str, "exit", 4)
 		&& (len == 4 || ft_isspace(*(str + 4))))
 		b_exit(var);
+	else if (!ft_strncmp(str, "cd", 2) && ft_isspace(*(str + 2)))
+		b_cd(&var->l_env, (char *)str + 2);
 	else
 		return (0);
 	return (1);

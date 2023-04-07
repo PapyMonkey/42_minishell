@@ -6,7 +6,7 @@
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 16:36:09 by mgerbaud          #+#    #+#             */
-/*   Updated: 2023/04/06 03:10:50 by aguiri           ###   ########.fr       */
+/*   Updated: 2023/04/07 16:03:06 by bgales           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ int	main(int argc, char **argv, char **env)
 	char	*input;
 
 	var = init(env);
-	// get_signo();
 	// while (var->l_pth->next)
 	// {
 	// 	tmp = var->l_pth;
@@ -46,22 +45,26 @@ int	main(int argc, char **argv, char **env)
 	// }
 	while (1)
 	{
+		// ctrl_status(0);
+		get_signo(0);
+		// ctrl_status(0);
+		rl_replace_line("", 0);
 		input = readline("$> ");
+		// get_signo(1);
 		if (!input) // ctrl + d
 			exit (0);
 		var->l_arg = ft_split_args(input, var->l_env);
-		if (var->l_arg == NULL)
-			printf("Missing closing quote\n");
 		if (input[0])
 		{
 			add_history((const char *)input);
-			// FIX: Move this in exec_command function
-			// Change the way the routine function is called to handle the 
+			// TODO: Move this in exec_command function
+			// Change the way the routine function is called to handle the
 			// chained list.
 			b_routine(input, var); // si hors de ce "if", print l'env lorsqu'on presse entree
 		}
 		// ft_lstiter(var->l_arg, print_arg_elem);
-		execute(var);
+		if (var->l_arg != NULL)
+			execute(var);
 		free(input);
 		ft_lstiter(var->l_arg, free_lstcontent);
 		free(var->l_arg);
