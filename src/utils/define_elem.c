@@ -12,7 +12,11 @@
 
 #include "minishell.h"
 
-// TODO: Documentation
+/*
+@brief Set the type of elements in the list to FLAG.
+
+@param list    The list of arguments.
+*/
 static void	is_flag(t_list **list)
 {
 	t_list	*ptr;
@@ -42,7 +46,11 @@ static void	is_flag(t_list **list)
 		is_flag(&ptr);
 }
 
-// TODO: Documentation
+/*
+@brief Set the type of elements in the list to EXEC.
+
+@param list    The list of arguments.
+*/
 static void	type_exec(t_list **list)
 {
 	t_arg	*arg;
@@ -56,7 +64,11 @@ static void	type_exec(t_list **list)
 		*list = (*list)->next;
 }
 
-// TODO: Documentation
+/*
+@brief Set the type of elements in the list to ARG.
+
+@param list    The list of arguments.
+*/
 static void	type_arg(t_list **list)
 {
 	t_arg	*arg;

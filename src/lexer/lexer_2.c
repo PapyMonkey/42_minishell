@@ -12,7 +12,13 @@
 
 #include "minishell.h"
 
-// TODO: Documentation
+/*
+@brief Check if the given string starts with a quote.
+
+@param str     The input string to check.
+@param list    The list to store the quote if found.
+@return        Returns 1 if a quote is found, 0 otherwise.
+*/
 static int	is_quote(char *str, t_list **list)
 {
 	t_arg	*arg;

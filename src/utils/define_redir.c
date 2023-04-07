@@ -12,7 +12,12 @@
 
 #include "minishell.h"
 
-// TODO: Documentation
+/*
+@brief Check if the type is a redirection.
+
+@param type    The argument type to check.
+@return        Returns 1 if the type is a redirection, 0 otherwise.
+*/
 static int	arg_is_redir(int type)
 {
 	if (type == REDIR_IN || type == HERE_DOC || type == DELIM
@@ -37,7 +42,11 @@ int	delim_or_rifile(int type)
 	return (0);
 }
 
-// TODO: Documentation
+/*
+@brief Define the type of elements related to redirection in the list.
+
+@param list    The list of arguments.
+*/
 static void	define_redir_ext(t_list **list)
 {
 	t_arg	*arg;

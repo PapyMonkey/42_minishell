@@ -12,7 +12,12 @@
 
 #include "minishell.h"
 
-// TODO: Documentation
+/*
+@brief Counts the number of words in the given string.
+
+@param str		The input string.
+@return			Returns the word count.
+*/
 static int	word_count(char *str)
 {
 	int		i;
