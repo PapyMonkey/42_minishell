@@ -6,7 +6,7 @@
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 17:34:59 by aguiri            #+#    #+#             */
-/*   Updated: 2023/04/07 16:05:27 by bgales           ###   ########.fr       */
+/*   Updated: 2023/04/07 22:51:52 by aguiri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,9 @@ int			count_separator(struct s_list *l_arg);
 
 // *****************************************************************************
 // Functions - define_*.c
+
+// NOTE: Documentation
+void		define_builtins(t_list **list);
 
 /*
 @brief Define the type of each element in the list.
@@ -113,6 +116,8 @@ void	err_put_exit_command_not_found(char *str);
 // ****************************************************************************
 // Functions - free.c
 
+// NOTE: Documentation
+void	free_command_context(t_var *var, char *input, int fd_read_end);
 /**
 @brief Frees up an env {key:value} pair in a t_list.
 
@@ -169,6 +174,11 @@ t_list		*get_command_next(t_list *l_arg);
 */
 t_list		*get_command_or_redir_next(t_list *l_arg);
 
+// NOTE: Documentation
+char		*get_env_key(const t_list *l_env_element);
+
+// NOTE: Documentation
+char		*get_env_value(const t_list *l_env_element);
 /**
 @brief Searchs and points to a given element of the ENV variables.
 
@@ -176,7 +186,7 @@ t_list		*get_command_or_redir_next(t_list *l_arg);
 @param env_key	Name of the variable to be searched.
 @return			Pointer to the wanted element, NULL if it doesn't exist.
 */
-t_list		*get_env_elem(t_list *const l_env, const char *env_key);
+t_list		*search_env_elem(t_list *const l_env, char *const env_key);
 
 /**
 @brief Searchs for PATH ENV variable and allocates a 2D array containing all
@@ -230,6 +240,12 @@ int			is_separator(t_list *l_arg);
 @param env     The environment element to print.
 */
 void		print_env_elem(void *env);
+
+// NOTE: Documentation
+void		print_env_exp_format(void *env);
+
+// NOTE: Documentation
+void		print_exp_elem(void *exp);
 
 /*
 @brief Print an argument element.

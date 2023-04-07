@@ -1,23 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   b_exit.c                                           :+:      :+:    :+:   */
+/*   init_after_rl.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aguiri <aguiri@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/06 05:55:53 by aguiri            #+#    #+#             */
-/*   Updated: 2022/12/06 05:58:03 by aguiri           ###   ########.fr       */
+/*   Created: 2023/04/07 22:25:20 by aguiri            #+#    #+#             */
+/*   Updated: 2023/04/07 22:55:54 by aguiri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// TODO: change :
-//	- to implement a wrapper for exit
-//	- to implement possible flags
-//	- to implement error code when called with arguments
-void	b_exit(t_var *var)
+int init_command_context(
+	t_var *var,
+	char *const input)
 {
-	free_var(var);
-	exit (EXIT_SUCCESS);
+	int		fd[2];
+
+	var->l_arg = ft_split_args(input, var->l_env);
+	var->current_arg = var->l_arg;
+	var->n_cmds = count_command(var->l_arg);
+	var->n_redirs = count_redirections(var->l_arg);
+	if (pipe(fd) == -1)
+		err_put_exit();
+	close(fd[WRITE_END]);
+	return (fd[READ_END]);
 }

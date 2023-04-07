@@ -81,9 +81,9 @@ static int	is_space(char *str, t_list **list)
 	t_arg	*arg;
 
 	i = -1;
-	if (str[0] != ' ' && str[0] != '	')
+	if (!ft_isspace(str[0]))
 		return (0);
-	while (str[++i] && (str[i] == ' ' || str[i] == '	'))
+	while (str[++i] && ft_isspace(str[i]))
 		;
 	arg = malloc(sizeof(t_arg));
 	arg->type = WHITE_SPACE;
@@ -103,6 +103,7 @@ static int	is_arg(char *str, t_list **list)
 	int		i;
 	t_arg	*arg;
 
+	// FIX: Change the way we detect white_spaces characters
 	i = 0;
 	while (str[i] && str[i] != '\'' && str[i] != '\"' && str[i] != ' '
 		&& str[i] != '	' && !pipe_redir_finder(&str[i])

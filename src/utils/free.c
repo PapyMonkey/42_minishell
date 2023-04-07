@@ -6,11 +6,22 @@
 /*   By: aguiri <aguiri@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 16:57:36 by aguiri            #+#    #+#             */
-/*   Updated: 2023/03/26 15:04:28 by aguiri           ###   ########.fr       */
+/*   Updated: 2023/04/07 22:52:06 by aguiri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	free_command_context(
+	t_var *var,
+	char *input,
+	int fd_read_end)
+{
+	close(fd_read_end);
+	free(input);
+	ft_lstiter(var->l_arg, free_lstcontent);
+	free(var->l_arg);
+}
 
 void	free_env(void *env)
 {
