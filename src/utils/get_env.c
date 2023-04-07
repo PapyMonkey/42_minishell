@@ -12,25 +12,31 @@
 
 #include "minishell.h"
 
-t_list	*get_env_elem(t_list *const l_env, const char *env_key)
+char	*get_env_key(const t_list *l_env_element)
+{
+	return (((t_env *)l_env_element->content)->key);
+}
+
+char	*get_env_value(const t_list *l_env_element)
+{
+	return (((t_env *)l_env_element->content)->value);
+}
+
+t_list	*search_env_elem(t_list *const l_env, char *const env_key)
 {
 	int		env_key_len;
 	t_list	*tmp_env;
-	t_list	*tmp_env_next;
 
 	env_key_len = ft_strlen(env_key);
 	tmp_env = l_env;
 	while (
-		!(!ft_strncmp(((t_env *)(tmp_env->content))->key, env_key, env_key_len)
-		&& ft_strlen(((t_env *)(tmp_env->content))->key) == env_key_len)
+		!(!ft_strncmp(get_env_key(tmp_env), env_key, env_key_len)
+		&& ft_strlen(get_env_key(tmp_env)) == env_key_len)
 		&& tmp_env->next != NULL
 	)
-	{
-		tmp_env_next = tmp_env->next;
-		tmp_env = tmp_env_next;
-	}
+		tmp_env = tmp_env->next;
 	if (
-		!ft_strncmp(((t_env *)(tmp_env->content))->key, env_key, env_key_len)
+		ft_strncmp(get_env_key(tmp_env), env_key, env_key_len)
 		&& tmp_env->next == NULL
 	)
 		return (NULL);

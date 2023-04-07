@@ -49,7 +49,7 @@ void	read_and_write_to_fd_heredoc(
 		if (write(fd_write, out, ft_strlen(out)) == -1)
 			err_put_exit();
 		out = ft_get_next_line(fd_read);
-		// FIX: Recuperer l'excedent (apres le delimiter) pour le stocker,
+		// HACK: Recuperer l'excedent (apres le delimiter) pour le stocker,
 		// parser et ajouter la liste des commandes a executer
 	}
 	free(out);

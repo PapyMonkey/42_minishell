@@ -6,7 +6,7 @@
 /*   By: aguiri <aguiri@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 13:27:52 by aguiri            #+#    #+#             */
-/*   Updated: 2022/12/04 17:56:22 by aguiri           ###   ########.fr       */
+/*   Updated: 2023/04/07 22:53:15 by aguiri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,9 @@
 
 // ****************************************************************************
 // Functions
+
+// NOTE: Documentation
+int		init_command_context(t_var *var, char *const input);
 
 /**
 @brief Creates the t_list that contains all the parsed ENV variables.

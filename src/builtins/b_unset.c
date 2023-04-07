@@ -6,22 +6,23 @@
 /*   By: aguiri <aguiri@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 04:22:56 by aguiri            #+#    #+#             */
-/*   Updated: 2022/12/06 05:46:56 by aguiri           ###   ########.fr       */
+/*   Updated: 2023/04/07 23:26:19 by aguiri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	b_unset(t_list *l_env, const char *str)
+void	b_unset(t_var *var)
 {
-	int		i;
 	t_list	*tmp;
-
-	i = 5;
-	while (ft_isspace(str[i]) && str[i])
-		i++;
-	tmp = get_env_elem(l_env, str + i);
-	if (tmp->next == NULL)
-		return ;
-	ft_lstremove(&l_env, tmp, free_env);
+	int		i;
+	
+	i = 0;
+	while (var->command_array[++i])
+	{
+		tmp = search_env_elem(var->l_env, var->command_array[i]);
+		if (tmp == NULL)
+			continue ;
+		ft_lstremove(&(var->l_env), tmp, free_env);
+	}
 }

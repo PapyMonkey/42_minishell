@@ -32,7 +32,7 @@ void	b_cd(t_list **l_env, char *str)
 	t_env	*env;
 	t_list	*tmp;
 
-	tmp = get_env_elem(*l_env, "PWD");
+	tmp = search_env_elem(*l_env, "PWD");
 	env = tmp->content;
 	i = itter_whitespace(str);
 	while (str[i] && str[i] != ' ' && str[i] != '	')
