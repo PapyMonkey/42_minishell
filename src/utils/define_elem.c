@@ -6,7 +6,7 @@
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 13:48:35 by bgales            #+#    #+#             */
-/*   Updated: 2023/04/06 17:54:50 by aguiri           ###   ########.fr       */
+/*   Updated: 2023/04/07 16:18:37 by bgales           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	is_flag(t_list **list)
 	arg = ptr->content;
 	if (arg->type == ARG)
 	{
-		while (ptr != NULL && !delim_or_rifile(arg->type) && !arg->type)
+		while (ptr != NULL && !delim_or_rifile(arg->type))
 		{
 			arg = ptr->content;
 			if (arg->type == TEXT)
