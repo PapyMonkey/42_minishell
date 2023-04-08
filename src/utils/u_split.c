@@ -109,7 +109,7 @@ static void	ft_write_tab(char **str_split, const char *str, char c)
 	}
 }
 
-char	**u_split(char const *s, char c)
+char	**export_split(char const *s, char c)
 {
 	char	**str_splitted;
 	int		n_words;

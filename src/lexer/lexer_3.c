@@ -136,6 +136,5 @@ t_list	*struct_init_2(t_list **list)
 	define_redir(list);
 	define_elem(list);
 	define_builtins(list);
-	ft_lstiter(*list, *print_arg_elem);
 	return (*list);
 }
