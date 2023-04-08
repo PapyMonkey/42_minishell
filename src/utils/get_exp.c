@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-t_list	*get_exp_elem(t_list *const l_exp, const char *key)
+t_list	*search_exp_elem(t_list *const l_exp, const char *key)
 {
 	t_list	*tmp_exp;
 	t_list	*tmp_next;

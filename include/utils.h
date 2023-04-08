@@ -6,7 +6,7 @@
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 17:34:59 by aguiri            #+#    #+#             */
-/*   Updated: 2023/04/09 14:45:07 by bgales           ###   ########.fr       */
+/*   Updated: 2023/04/11 01:48:52 by aguiri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ int			count_command(struct s_list *l_arg);
 @return        Returns the count of redirections.
 */
 int			count_redirections(struct s_list *l_arg);
-
 
 /*
 @brief Count the number of separators in the list.
@@ -191,6 +190,9 @@ char		*get_env_value(const t_list *l_env_element);
 */
 t_list		*search_env_elem(t_list *const l_env, char *const env_key);
 
+// NOTE: Documentation
+t_list		*search_exp_elem(t_list *const l_exp, const char *key);
+
 /**
 @brief Searchs for PATH ENV variable and allocates a 2D array containing all
 		paths.
@@ -201,6 +203,15 @@ char		**get_path(t_list *const l_env);
 
 // ****************************************************************************
 // Functions - init.c
+
+// NOTE: Documentation
+/**
+@brief Creates a new t_env element, splitting the provided *char on the first
+		'=' character. Stores the output in a {key:value} pair.
+
+@param envp One element of the 2D array storing all the ENV variables.
+*/
+t_env		*init_env_element(char *envp);
 
 // NOTE: Documentation
 int			init_command_context(t_var *var, char *const input);
@@ -294,8 +305,17 @@ t_arg		*t_arg_cpy(void *arg);
 @brief Set signal handlers for SIGINT and SIGQUIT.
 */
 void		get_signo(int no);
-void		ctrl_hide();
-void		ctrl_show();
 
+// NOTE: Documentation
+void		ctrl_hide(void);
+
+// NOTE: Documentation
+void		ctrl_show(void);
+
+// ****************************************************************************
+// Functions - ???.c
+
+// NOTE: Documentation
+char		**export_split(char const *s, char c);
 
 #endif	// UTILS_H

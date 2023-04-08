@@ -38,9 +38,10 @@ int	main(
 		get_signo(1);
 		
 		fd_read_end = init_command_context(var, input);
-		printf("Number of commands : %d\n", var->n_cmds);
-		printf("Number of redirections : %d\n", var->n_redirs);
-		printf("---------------------------------------------------------------\n");
+		// ft_lstiter(var->l_arg, *print_arg_elem);
+		// printf("Number of commands : %d\n", var->n_cmds);
+		// printf("Number of redirections : %d\n", var->n_redirs);
+		// printf("---------------------------------------------------------------\n");
 		if (var->l_arg != NULL)
 			executer(var, 0, fd_read_end);
 		free_command_context(var, input, fd_read_end);

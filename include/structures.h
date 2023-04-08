@@ -17,35 +17,35 @@
 // Enums
 
 /**
-enum enum_type- Contains the type of the content stored in t_arg.
+enum enum_type - Contains the type of the content stored in t_arg.
 */
 typedef enum enum_type
 {
 	BUILTIN = 1,
 	EXEC,
+	ARG,
+	FLAG,
 	DOLLAR,
+	TEXT,
+	WHITE_SPACE,
 	PIPE,
+	REDIR_IN,
 	APPEND,
 	REDIR_OUT,
 	HERE_DOC,
-	REDIR_IN,
+	DELIM,
+	R_FILE,
+	RI_FILE,
+	QUOTE,
 	OPEN_QUOTE,
 	CLOSE_QUOTE,
-	QUOTE,
-	OPEN_D_QUOTE,
-	CLOSE_D_QUOTE,
-	D_QUOTE,
-	TEXT,
-	WHITE_SPACE,
-	IN_D_QUOTES,
-	OUT_D_QUOTES,
 	IN_QUOTES,
 	OUT_QUOTES,
-	FLAG,
-	ARG,
-	R_FILE,
-	DELIM,
-	RI_FILE,
+	D_QUOTE,
+	OPEN_D_QUOTE,
+	CLOSE_D_QUOTE,
+	IN_D_QUOTES,
+	OUT_D_QUOTES,
 }	t_enum_type;
 
 // ****************************************************************************
@@ -55,6 +55,7 @@ typedef enum enum_type
 typedef struct s_process
 {
 	char	*pwd;
+
 	int		pid;
 	int		return_code;
 }			t_process;
@@ -101,9 +102,12 @@ typedef struct s_var
 	struct s_list		*l_env;
 	struct s_list		*l_exp;
 	struct s_list		*l_arg;
+
 	struct s_list		*current_arg;
+
 	int					n_cmds;
 	int					n_redirs;
+
 	char				**command_array;
 }						t_var;
 

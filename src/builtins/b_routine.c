@@ -31,4 +31,6 @@ void	b_routine(t_var *var)
 		b_exit(var);
 	else if (!ft_strncmp(command, "cd", 2))
 		b_cd(var);
+	else if (!ft_strncmp(command, "export", 6))
+		b_export(var);
 }

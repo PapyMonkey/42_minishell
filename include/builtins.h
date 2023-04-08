@@ -50,6 +50,9 @@ void	b_env(t_list *const l_env);
 void	b_exit(t_var *var);
 
 // NOTE: Generate documentation
+void	b_export(t_var *var);
+
+// NOTE: Generate documentation
 /**
 @brief Replicates the bash pwd builtin command. See manual.
 

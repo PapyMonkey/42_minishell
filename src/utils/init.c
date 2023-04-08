@@ -12,13 +12,7 @@
 
 #include "minishell.h"
 
-/**
-@brief Creates a new t_env element, splitting the provided *char on the first
-		'=' character. Stores the output in a {key:value} pair.
-
-@param envp One element of the 2D array storing all the ENV variables.
-*/
-static struct s_env	*init_env_element(char *envp)
+t_env	*init_env_element(char *envp)
 {
 	t_env	*element;
 	int		envp_len;
@@ -88,6 +82,7 @@ t_var	*init(char **envp)
 		err_malloc_exit();
 	init_pwd();
 	var_out->l_env = NULL;
+	var_out->l_exp = NULL;
 	init_env(var_out, envp);
 	return (var_out);
 }
