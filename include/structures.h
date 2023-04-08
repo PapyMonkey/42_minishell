@@ -51,6 +51,16 @@ typedef enum enum_type
 // ****************************************************************************
 // Structures
 
+// NOTE: Documentation
+typedef struct s_process
+{
+	char	*pwd;
+	int		pid;
+	int		return_code;
+}			t_process;
+
+extern t_process	g_process;
+
 /**
 struct s_cmd - Contains all a command related information.
 */

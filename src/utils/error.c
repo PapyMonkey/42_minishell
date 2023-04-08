@@ -12,6 +12,13 @@
 
 #include "minishell.h"
 
+void	err_custom_exit(char *str)
+{
+	ft_putstr_fd(str, 2);
+	exit(EXIT_FAILURE);
+}
+
+// HACK: change the way we display errors
 void	err_malloc_exit(void)
 {
 	ft_printf("Error: malloc failed\n");

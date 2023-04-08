@@ -21,3 +21,18 @@ t_enum_type	get_arg_type(const t_list *l_arg_element)
 {
 	return (((t_arg *)l_arg_element->content)->type);
 }
+
+int	get_number_arguments(t_list *const l_arg)
+{
+	t_list	*tmp;
+	int		count_arguments;
+
+	tmp = l_arg;
+	count_arguments = 0;
+	while (tmp && !is_separator(tmp))
+	{
+		count_arguments++;
+		tmp = tmp->next;
+	}
+	return (count_arguments);
+}

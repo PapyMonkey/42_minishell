@@ -23,6 +23,9 @@
 // Functions
 
 // NOTE: Generate documentation
+void	b_cd(t_var *var);
+
+// NOTE: Generate documentation
 /**
 @brief Replicates the bash echo builtin command. See manual.
 
@@ -52,7 +55,7 @@ void	b_exit(t_var *var);
 
 @param l_env List of ENV variables.
 */
-void	b_pwd(t_list *const l_env);
+void	b_pwd(t_var *const var);
 
 // NOTE: Generate documentation
 /**

@@ -12,6 +12,8 @@
 
 #include "minishell.h"
 
+t_process	g_process = {NULL, 0, 0};
+
 int	main(
 	int argc,
 	char **argv,
@@ -27,7 +29,7 @@ int	main(
 		get_signo(0);
 		rl_replace_line("", 0);
 		input = readline("$> ");
-		if (!input) // ctrl + d
+		if (!input)
 			exit (0);
 		if (input[0])
 			add_history((const char *)input);
@@ -38,7 +40,6 @@ int	main(
 		if (var->l_arg != NULL)
 			executer(var, 0, fd_read_end);
 		free_command_context(var, input, fd_read_end);
-		// system("leaks minishell"); // Checks leaks
 	}
 	return (EXIT_SUCCESS);
 }

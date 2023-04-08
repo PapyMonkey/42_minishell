@@ -95,49 +95,50 @@ void		define_redir(t_list **list);
 // ****************************************************************************
 // Functions - error.c
 
+void		err_custom_exit(char *str);
 /**
 @brief Print on STDOUT "malloc failed" and exit the current process
 		with exit(1).
 */
-void	err_malloc_exit(void);
+void		err_malloc_exit(void);
 
 /**
 @brief Print on STDOUT the corresponding error message (errno) and
 		exit the current process with exit(1).
 */
-void	err_put_exit(void);
+void		err_put_exit(void);
 
 /**
 @brief Print on STDOUT a custom error message (errno) and exit the current
 		process with exit(1).
 */
-void	err_put_exit_command_not_found(char *str);
+void		err_put_exit_command_not_found(char *str);
 
 // ****************************************************************************
 // Functions - free.c
 
 // NOTE: Documentation
-void	free_command_context(t_var *var, char *input, int fd_read_end);
+void		free_command_context(t_var *var, char *input, int fd_read_end);
 /**
 @brief Frees up an env {key:value} pair in a t_list.
 
 @param env Environnement variable, stored as a {key:value} pair.
 */
-void	free_env(void *env);
+void		free_env(void *env);
 
 /**
 @brief Frees up the t_var variable.
 
 @param var Variable that contains all the other useful ones.
 */
-void	free_var(struct s_var *var);
+void		free_var(struct s_var *var);
 
 /**
 @brief Frees up the char** array.
 
 @param array Regular char**.
 */
-void	free_2d_char(char **array);
+void		free_2d_char(char **array);
 
 // *****************************************************************************
 // Functions - get_*.c
@@ -158,6 +159,8 @@ char		*get_arg_content(const t_list *l_arg_element);
 */
 t_enum_type	get_arg_type(const t_list *l_arg_element);
 
+// NOTE: Documentation
+int			get_number_arguments(t_list *const l_arg);
 /*
 @brief Get the next command from the list.
 
@@ -195,6 +198,21 @@ t_list		*search_env_elem(t_list *const l_env, char *const env_key);
 @return 2D array containing all PATHs.
 */
 char		**get_path(t_list *const l_env);
+
+// ****************************************************************************
+// Functions - init.c
+
+// NOTE: Documentation
+int			init_command_context(t_var *var, char *const input);
+
+/**
+@brief Creates the t_var variable that contains all the other useful ones.
+		Calls other subfunctions to build the t_lists.
+
+@param envp 2D array storing all the ENV variables.
+@return Newly created t_var variable.
+*/
+t_var		*init(char **envp);
 
 // *****************************************************************************
 // Functions - is.c
@@ -275,6 +293,6 @@ t_arg		*t_arg_cpy(void *arg);
 /*
 @brief Set signal handlers for SIGINT and SIGQUIT.
 */
-void	get_signo(int no);
+void		get_signo(int no);
 
 #endif	// UTILS_H
