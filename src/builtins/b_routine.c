@@ -24,11 +24,11 @@ void	b_routine(t_var *var)
 	else if (!ft_strncmp(command, "env", 3))
 		b_env(var->l_env);
 	else if (!ft_strncmp(command, "pwd", 3))
-		b_pwd(var->l_env);
+		b_pwd(var);
 	else if (!ft_strncmp(command, "unset", 5))
 		b_unset(var);
 	else if (!ft_strncmp(command, "exit", 4))
 		b_exit(var);
-	// else if (!ft_strncmp(str, "cd", 2) && ft_isspace(*(str + 2)))
-	// 	b_cd(&var->l_env, (char *)str + 2);
+	else if (!ft_strncmp(command, "cd", 2))
+		b_cd(var);
 }

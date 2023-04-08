@@ -12,8 +12,7 @@
 
 #include "minishell.h"
 
-// FIX: Change the way we store PWD to always have it
-void	b_pwd(t_list *const l_env)
+/* void	b_pwd(t_list *const l_env)
 {
 	t_list	*tmp;
 
@@ -24,4 +23,26 @@ void	b_pwd(t_list *const l_env)
 		return ;
 	}
 	printf("%s\n", get_env_value(tmp));
+} */
+
+// NOTE: Documentation
+static int	pwd_is_there_flag(t_list *const l_arg)
+{
+	t_list	*tmp;
+
+	tmp = l_arg;
+	while (tmp && !is_separator(tmp))
+	{
+		if (get_arg_type(tmp) == FLAG)
+			return (1);
+		tmp = tmp->next;
+	}
+	return (0);
+}
+
+void	b_pwd(t_var *const var)
+{
+	if (pwd_is_there_flag(var->current_arg))
+		err_custom_exit("bash: pwd: invalid option\n");
+	printf("%s\n", g_process.pwd);
 }
