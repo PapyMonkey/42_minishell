@@ -6,7 +6,7 @@
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 17:34:59 by aguiri            #+#    #+#             */
-/*   Updated: 2023/04/07 22:51:52 by aguiri           ###   ########.fr       */
+/*   Updated: 2023/04/09 14:45:07 by bgales           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -294,5 +294,8 @@ t_arg		*t_arg_cpy(void *arg);
 @brief Set signal handlers for SIGINT and SIGQUIT.
 */
 void		get_signo(int no);
+void		ctrl_hide();
+void		ctrl_show();
+
 
 #endif	// UTILS_H
