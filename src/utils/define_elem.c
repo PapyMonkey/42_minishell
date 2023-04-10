@@ -6,7 +6,7 @@
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 13:48:35 by bgales            #+#    #+#             */
-/*   Updated: 2023/04/07 16:18:37 by bgales           ###   ########.fr       */
+/*   Updated: 2023/04/10 12:38:27 by bgales           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ static void	is_flag(t_list **list)
 		return ;
 	if (ptr != NULL && arg->type == TEXT && arg->content[0] == '-')
 		arg->type = FLAG;
-	if (ptr != NULL && arg->type == TEXT && arg->content[0] != '-')
-		((t_arg *)ptr->content)->type = ARG;
+	// if (ptr != NULL && arg->type == TEXT && arg->content[0] != '-')
+	// 	((t_arg *)ptr->content)->type = ARG;
 	if (ptr != NULL && arg->type != ARG)
 		ptr = ptr->next;
 	if (ptr != NULL)
