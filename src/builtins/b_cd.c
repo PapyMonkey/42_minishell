@@ -13,27 +13,6 @@
 #include "minishell.h"
 
 // NOTE: Documentation
-
-/* static void	cd_add_env_element(
-	t_list *l_env,
-	char *key,
-	char *value)
-{
-	t_env	*element;
-
-	element = malloc(sizeof(t_env));
-	if (!element)
-		err_malloc_exit();
-	element->key = ft_strdup(key);
-	if (!element->key)
-		err_malloc_exit();
-	element->value = ft_strdup(value);
-	if (!element->value)
-		err_malloc_exit();
-	ft_lstadd_back(&l_env, ft_lstnew(element));
-} */
-
-// NOTE: Documentation
 static void	cd_update_env(
 	t_var *var,
 	char *key,
@@ -50,20 +29,26 @@ static void	cd_update_env(
 
 void	b_cd(t_var *var)
 {
+	t_list	*flag;
 	char	pwd[BUFFER_SIZE];
 
+	if (!get_number_arguments(var->current_arg->next))
+		return (err("cd", "no arguments", 1));
+	flag = check_arg_flag(var->current_arg);
+	if (flag)
+		return (err_d("cd", get_arg_content(flag), "invalid option", 2));
 	if (get_number_arguments(var->current_arg->next) > 1)
-		err_custom_exit("bash: cd: too many arguments\n");
-	if (get_arg_type(var->current_arg->next) != ARG)
-		err_custom_exit("bash: cd: invalid option\n");
+		return (err("cd", "too many arguments", 1));
 	getcwd(pwd, BUFFER_SIZE);
 	cd_update_env(var, "OLDPWD", pwd);
 	if (chdir(var->command_array[1]) != 0)
-		err_put_exit();
+		return (err_d("cd", get_arg_content(var->current_arg->next),
+				strerror(errno), errno));
 	getcwd(pwd, BUFFER_SIZE);
 	cd_update_env(var, "PWD", pwd);
 	free(g_process.pwd);
 	g_process.pwd = ft_strdup(pwd);
 	if (!g_process.pwd)
-		err_malloc_exit();
+		return (err("cd", strerror(errno), errno));
+	g_process.return_code = 0;
 }

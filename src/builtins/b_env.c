@@ -12,10 +12,13 @@
 
 #include "minishell.h"
 
-void	b_env(t_list *const l_env)
+void	b_env(t_var *const var)
 {
 	t_list	*tmp;
 
-	tmp = l_env;
+	if (var->current_arg->next)
+		return (err("env", "invalid option", 125));
+	tmp = var->l_env;
 	ft_lstiter(tmp, print_env_elem);
+	g_process.return_code = 0;
 }

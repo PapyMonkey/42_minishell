@@ -12,8 +12,6 @@
 
 #include "minishell.h"
 
-// FIX: Make an error command to print "<command> takes no flag (<flag>)"
-// FIX: Find a way to get the ENV updated in every process
 void	b_routine(t_var *var)
 {
 	char	*command;
@@ -22,7 +20,7 @@ void	b_routine(t_var *var)
 	if (!ft_strncmp(command, "echo", 4))
 		b_echo(var);
 	else if (!ft_strncmp(command, "env", 3))
-		b_env(var->l_env);
+		b_env(var);
 	else if (!ft_strncmp(command, "pwd", 3))
 		b_pwd(var);
 	else if (!ft_strncmp(command, "unset", 5))

@@ -14,11 +14,15 @@
 
 void	b_unset(t_var *var)
 {
+	t_list	*flag;
 	t_list	*tmp_env;
 	t_list	*tmp_exp;
 	int		i;
 
 	i = 0;
+	flag = check_arg_flag(var->current_arg);
+	if (flag)
+		return (err_d("unset", get_arg_content(flag), "invalid option", 2));
 	while (var->command_array[++i])
 	{
 		tmp_env = search_env_elem(var->l_env, var->command_array[i]);
@@ -28,4 +32,5 @@ void	b_unset(t_var *var)
 		if (tmp_exp != NULL)
 			ft_lstremove(&(var->l_exp), tmp_exp, free);
 	}
+	g_process.return_code = 0;
 }
