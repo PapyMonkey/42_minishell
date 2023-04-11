@@ -38,8 +38,6 @@ static void	is_flag(t_list **list)
 		return ;
 	if (ptr != NULL && arg->type == TEXT && arg->content[0] == '-')
 		arg->type = FLAG;
-	// if (ptr != NULL && arg->type == TEXT && arg->content[0] != '-')
-	// 	((t_arg *)ptr->content)->type = ARG;
 	if (ptr != NULL && arg->type != ARG)
 		ptr = ptr->next;
 	if (ptr != NULL)
