@@ -19,8 +19,7 @@ void	free_command_context(
 {
 	close(fd_read_end);
 	free(input);
-	ft_lstiter(var->l_arg, free_lstcontent);
-	free(var->l_arg);
+	ft_lstclear(&var->l_arg, free_lstcontent);
 }
 
 void	free_env(void *env)
@@ -32,7 +31,10 @@ void	free_env(void *env)
 
 void	free_var(struct s_var *var)
 {
+	ft_lstclear(&var->l_arg, free_lstcontent);
 	ft_lstclear(&var->l_env, free_env);
+	ft_lstclear(&var->l_exp, free);
+	free(var->command_array);
 	free(var);
 }
 

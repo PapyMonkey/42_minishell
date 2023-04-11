@@ -16,8 +16,8 @@ static void	exec_command_not_builtin(t_var *var)
 {
 	char	**command;
 	char	**env;
-	char	*try_access;
 	char	**path;
+	char	*try_access;
 
 	command = var->command_array;
 	env = exec_build_env(var->l_env);
@@ -31,10 +31,10 @@ static void	exec_command_not_builtin(t_var *var)
 			get_env_value(search_env_elem(var->l_env, "PATH")),
 			':');
 		try_access = exec_try_access(command[0], path);
-		free(path);
 		if (!try_access)
 			err_put_exit_command_not_found(command[0]);
 		execve(try_access, command, env);
+		free_2d_char(path);
 		free(try_access);
 	}
 	free_2d_char(env);
