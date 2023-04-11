@@ -31,7 +31,7 @@ t_list	*search_env_elem(t_list *const l_env, char *const env_key)
 	tmp_env = l_env;
 	while (
 		!(!ft_strncmp(get_env_key(tmp_env), env_key, env_key_len)
-		&& ft_strlen(get_env_key(tmp_env)) == env_key_len)
+			&& ft_strlen(get_env_key(tmp_env)) == env_key_len)
 		&& tmp_env->next != NULL
 	)
 		tmp_env = tmp_env->next;

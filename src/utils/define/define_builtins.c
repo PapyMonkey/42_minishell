@@ -13,7 +13,7 @@
 #include "minishell.h"
 
 // NOTE: Documentation
-static int		is_builtin(char *str)
+static int	is_builtin(char *str)
 {
 	if (!str)
 		return (0);
@@ -38,7 +38,6 @@ void	define_builtins(t_list **list)
 	while (ptr != NULL)
 	{
 		arg = ptr->content;
-
 		if (is_builtin(arg->content))
 			arg->type = BUILTIN;
 		ptr = ptr->next;
