@@ -82,6 +82,7 @@ char	*exec_try_access(
 	char **path)
 {
 	int		i;
+	char	*path_tmp;
 	char	*path_join;
 
 	if (!command)
@@ -89,10 +90,12 @@ char	*exec_try_access(
 	i = 0;
 	while (path[i] != NULL)
 	{
-		ft_strlcat(path[i], "/", ft_strlen(path[i]) + 2);
-		path_join = ft_strjoin(path[i], command);
+		path_tmp = ft_strdup(path[i]);
+		ft_strlcat(path_tmp, "/", ft_strlen(path_tmp) + 2);
+		path_join = ft_strjoin(path_tmp, command);
 		if (access(path_join, X_OK) == 0)
 			return (path_join);
+		free(path_tmp);
 		free(path_join);
 		i++;
 	}

@@ -19,5 +19,6 @@
 void	b_exit(t_var *var)
 {
 	free_var(var);
+	ft_putstr_fd("exit\n", 1);
 	exit (EXIT_SUCCESS);
 }
