@@ -77,6 +77,7 @@ void	exec_redirect_fd(
 	}
 }
 
+// FIX: wrong free instruction
 char	*exec_try_access(
 	char *command,
 	char **path)
@@ -90,12 +91,11 @@ char	*exec_try_access(
 	i = 0;
 	while (path[i] != NULL)
 	{
-		path_tmp = ft_strdup(path[i]);
-		ft_strlcat(path_tmp, "/", ft_strlen(path_tmp) + 2);
+		path_tmp = ft_strjoin(path[i], "/");
 		path_join = ft_strjoin(path_tmp, command);
+		free(path_tmp);
 		if (access(path_join, X_OK) == 0)
 			return (path_join);
-		free(path_tmp);
 		free(path_join);
 		i++;
 	}
