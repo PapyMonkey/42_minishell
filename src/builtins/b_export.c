@@ -12,6 +12,7 @@
 
 #include "minishell.h"
 
+// NOTE: Documentation
 /**
 @brief Print the export list to the standard output.
 
@@ -30,6 +31,7 @@ static void	exp_no_args(const t_var *var)
 		ft_lstiter(tmp_exp, print_exp_elem);
 }
 
+// NOTE: Documentation
 /**
 @brief Create and add an export value to the EXP list, only if it does not
 		already exist in the ENV and EXP lists.
@@ -52,19 +54,18 @@ static void	exp_create(t_var *var, char *key)
 		);
 }
 
+// NOTE: Documentation
 /**
 @brief Create and add an environnement variable to the ENV list.
 
 @param var Variable that contains all the other useful ones.
 @param str Argument/input string.
 */
-static void	exp_create_env(t_var *var, char **key_and_value)
+static void	exp_create_env(t_var *var, char *key, int index)
 {
-	char	*key;
 	t_list	*ptr_exp;
 	t_list	*ptr_env;
 
-	key = key_and_value[0];
 	ptr_exp = search_exp_elem(var->l_exp, key);
 	ptr_env = search_env_elem(var->l_env, key);
 	if (ptr_exp)
@@ -73,24 +74,29 @@ static void	exp_create_env(t_var *var, char **key_and_value)
 		ft_lstremove(&var->l_env, ptr_env, &free);
 	ft_lstadd_back(
 		&var->l_env,
-		ft_lstnew(init_env_element(var->command_array[1]))
+		ft_lstnew(init_env_element(var->command_array[index]))
 		);
 }
 
 void	b_export(t_var *var)
 {
-	int		is_env;
+	int		index;
 	char	**key_and_value;
 
-	is_env = 0;
-	if (var->command_array[1] && ft_strchr(var->command_array[1], '='))
-		is_env = 1;
-	key_and_value = export_split(var->command_array[1], '=');
-	if (!key_and_value)
+	if (!var->command_array[1])
+	{
 		exp_no_args(var);
-	else if (!is_env)
-		exp_create(var, key_and_value[0]);
-	else if (is_env)
-		exp_create_env(var, key_and_value);
-	free(key_and_value);
+		return ;
+	}
+	index = 0;
+	while (var->command_array[++index])
+	{
+		key_and_value = export_split(var->command_array[index], '=');
+		if (var->command_array[index]
+			&& ft_strchr(var->command_array[index], '='))
+			exp_create_env(var, key_and_value[0], index);
+		else
+			exp_create(var, key_and_value[0]);
+		free(key_and_value);
+	}
 }
