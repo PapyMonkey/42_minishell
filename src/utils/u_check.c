@@ -12,6 +12,20 @@
 
 #include "minishell.h"
 
+t_list	*check_arg_flag(t_list *const l_arg)
+{
+	t_list	*tmp;
+
+	tmp = l_arg;
+	while (tmp)
+	{
+		if (get_arg_type(tmp) == FLAG)
+			return (tmp);
+		tmp = tmp->next;
+	}
+	return (NULL);
+}
+
 int	check_exp_input(const char *str)
 {
 	if (ft_strchr(str, 39))
@@ -26,27 +40,3 @@ int	check_exp_input(const char *str)
 	}
 	return (EXIT_SUCCESS);
 }
-
-/*
-t_list	*check_env_exist(const t_var *var, const char *str)
-{
-	t_list	*tmp_env;
-	t_list	*tmp_next;
-	int		length;
-
-	tmp_env = var->l_env;
-	length = strlen_custom(str, '=');
-	while (!tmp_env)
-	{
-		if (!ft_strncmp(
-				(char *)(((t_env *)(tmp_env->content))->key),
-				str,
-				length
-				))
-			return (tmp_env);
-		tmp_next = tmp_env->next;
-		tmp_env = tmp_next;
-	}
-	return (NULL);
-}
-*/

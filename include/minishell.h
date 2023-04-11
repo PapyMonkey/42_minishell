@@ -30,9 +30,10 @@
 // ****************************************************************************
 // Macros
 
-# define WRITE_END 1
-# define READ_END 0
-# define BUFFER_SIZE 4096
+# define WRITE_END		1
+# define READ_END		0
+# define BUFFER_SIZE	4096
+# define SHELL_NAME		"minishell"
 
 // ****************************************************************************
 // Personal library

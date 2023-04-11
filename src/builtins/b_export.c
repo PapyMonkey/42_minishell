@@ -80,6 +80,7 @@ static void	exp_create_env(t_var *var, char *key, int index)
 
 void	b_export(t_var *var)
 {
+	t_list	*flag;
 	int		index;
 	char	**key_and_value;
 
@@ -88,6 +89,9 @@ void	b_export(t_var *var)
 		exp_no_args(var);
 		return ;
 	}
+	flag = check_arg_flag(var->current_arg);
+	if (flag)
+		return (err_d("export", get_arg_content(flag), "invalid option", 2));
 	index = 0;
 	while (var->command_array[++index])
 	{
@@ -99,4 +103,5 @@ void	b_export(t_var *var)
 			exp_create(var, key_and_value[0]);
 		free(key_and_value);
 	}
+	g_process.return_code = 0;
 }

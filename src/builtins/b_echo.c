@@ -12,6 +12,11 @@
 
 #include "minishell.h"
 
+// FIX: differents usecases
+// - No argument should print \n
+// - Check flags, if any (except -n) -> errors
+//		- Only check the first flags, rest is treated as text
+// - Flag -n should be first argument, otherwise treated as text
 void	b_echo(const t_var *var)
 {
 	char	**cmd_array;

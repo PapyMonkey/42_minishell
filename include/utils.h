@@ -20,6 +20,12 @@
 # include "structures.h"
 
 // *****************************************************************************
+// Functions - check.c
+
+// NOTE: Documentation
+t_list		*check_arg_flag(t_list *const l_arg);
+
+// *****************************************************************************
 // Functions - count.c
 
 /*
@@ -94,7 +100,21 @@ void		define_redir(t_list **list);
 // ****************************************************************************
 // Functions - error.c
 
+void		err(
+				char *err,
+				char *info,
+				int code);
+
+// NOTE: Documentation
+void		err_d(
+				char *err,
+				char *info,
+				char *info_2,
+				int code);
+
+// NOTE: Documentation
 void		err_custom_exit(char *str);
+
 /**
 @brief Print on STDOUT "malloc failed" and exit the current process
 		with exit(1).
@@ -181,6 +201,7 @@ char		*get_env_key(const t_list *l_env_element);
 
 // NOTE: Documentation
 char		*get_env_value(const t_list *l_env_element);
+
 /**
 @brief Searchs and points to a given element of the ENV variables.
 

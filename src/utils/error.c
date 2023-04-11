@@ -12,6 +12,37 @@
 
 #include "minishell.h"
 
+void	err(
+	char *err,
+	char *info,
+	int code)
+{
+	ft_putstr_fd(SHELL_NAME, 2);
+	ft_putstr_fd(": ", 2);
+	ft_putstr_fd(err, 2);
+	ft_putstr_fd(": ", 2);
+	ft_putstr_fd(info, 2);
+	ft_putstr_fd("\n", 2);
+	g_process.return_code = code;
+}
+
+void	err_d(
+	char *err,
+	char *info,
+	char *info_2,
+	int code)
+{
+	ft_putstr_fd(SHELL_NAME, 2);
+	ft_putstr_fd(": ", 2);
+	ft_putstr_fd(err, 2);
+	ft_putstr_fd(": ", 2);
+	ft_putstr_fd(info, 2);
+	ft_putstr_fd(": ", 2);
+	ft_putstr_fd(info_2, 2);
+	ft_putstr_fd("\n", 2);
+	g_process.return_code = code;
+}
+
 void	err_custom_exit(char *str)
 {
 	ft_putstr_fd(str, 2);

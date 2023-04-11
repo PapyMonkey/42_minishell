@@ -39,7 +39,7 @@ void	b_echo(const t_var *var);
 
 @param l_env List of ENV variables.
 */
-void	b_env(t_list *const l_env);
+void	b_env(t_var *const var);
 
 // NOTE: Generate documentation
 /**
