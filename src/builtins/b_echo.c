@@ -12,34 +12,43 @@
 
 #include "minishell.h"
 
-// FIX: differents usecases
-// - No argument should print \n
-// - Check flags, if any (except -n) -> errors
-//		- Only check the first flags, rest is treated as text
-// - Flag -n should be first argument, otherwise treated as text
-void	b_echo(const t_var *var)
+static int	b_echo_ext(t_var *const var)
 {
-	char	**cmd_array;
-	int		is_flag;
+	int		is_return_line;
 	int		i;
+	char	**cmd_array;
 
-	cmd_array = var->command_array;
-	is_flag = 0;
+	is_return_line = 1;
 	i = 1;
-	if (!cmd_array[i])
-		return ;
+	cmd_array = var->command_array;
 	if (get_arg_type(var->current_arg->next) == FLAG
-		&& !ft_strncmp(var->command_array[i], "-n", ft_strlen(cmd_array[i])))
+		&& !ft_strncmp(var->command_array[i], "-n",
+			ft_strlen(cmd_array[i])))
 	{
-		is_flag++;
+		is_return_line = 0;
 		i++;
 	}
 	while (cmd_array[i])
 	{
-		printf("%s", cmd_array[i++]);
-		if (cmd_array[i])
-			printf(" ");
+		ft_putstr_fd(cmd_array[i], 1);
+		if (cmd_array[++i])
+			ft_putstr_fd(" ", 1);
 	}
-	if (is_flag)
-		printf("\n");
+	return (is_return_line);
+}
+
+// FIX: differents usecases
+// - [X] No argument should print \n
+// - [X] Check flags, if any (except -n) -> errors
+//		- Only check the first flags, rest is treated as text
+// - [X] Flag -n should be first argument, otherwise treated as text
+void	b_echo(t_var *const var)
+{
+	int	is_return_line;
+
+	if (var->current_arg->next)
+		is_return_line = b_echo_ext(var);
+	if (is_return_line)
+		ft_putstr_fd("\n", 1);
+	g_process.return_code = 0;
 }

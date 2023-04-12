@@ -51,7 +51,7 @@ static void	exec_command(t_var *var)
 	else
 		exec_command_not_builtin(var);
 	free(var->command_array);
-	// exit(EXIT_SUCCESS); // NOTE: Really useful ?
+	exit(EXIT_SUCCESS); // NOTE: Really useful ?
 }
 
 // NOTE: Documentation

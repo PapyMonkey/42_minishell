@@ -31,7 +31,7 @@ void	b_cd(t_var *var);
 
 @param str String to be echo-ed.
 */
-void	b_echo(const t_var *var);
+void	b_echo(t_var *const var);
 
 // NOTE: Generate documentation
 /**
