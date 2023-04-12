@@ -95,28 +95,17 @@ void		read_and_write_to_fd_heredoc(
 // ****************************************************************************
 // Functions - redir_*.c
 
-/*
-@brief Handles HERE_DOC redirection.
-
-@param var      Pointer to a t_var struct containing environment variables.
-@param fd_write File descriptor to write the output.
-@return         Returns the HERE_DOC type.
-*/
-int			redir_heredoc_handle(
-				t_var *var,
-				int fd_write);
-
+// NOTE: Documentation
 /*
 @brief Handles REDIR_IN redirection.
 
 @param var      Pointer to a t_var struct containing environment variables.
 @param fd_write File descriptor to write the output.
-@return         Returns the REDIR_IN type.
+@return         Returns the redirection type (REDIR_IN or REDIR_HEREDOC).
 */
-int			redir_in_handle(
-				t_var *var,
-				int fd_write);
+int			redir_in_handle(t_var *var);
 
+// NOTE: Documentation
 /*
 @brief Handles REDIR_OUT and APPEND redirection.
 
@@ -124,8 +113,6 @@ int			redir_in_handle(
 @param fd_read  File descriptor to read the input.
 @return         Returns the redirection type (REDIR_OUT or APPEND).
 */
-int			redir_out_handle(
-				t_var *var,
-				int fd_read);
+int			redir_out_handle(t_var *var);
 
 #endif // EXECUTER_H

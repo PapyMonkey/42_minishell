@@ -104,6 +104,7 @@ typedef struct s_var
 	struct s_list		*l_arg;
 
 	struct s_list		*current_arg;
+	struct s_list		*next_redir_out;
 
 	int					n_cmds;
 	int					n_redirs;
