@@ -14,11 +14,15 @@
 
 char	*get_env_key(const t_list *l_env_element)
 {
+	if (!l_env_element)
+		return (NULL);
 	return (((t_env *)l_env_element->content)->key);
 }
 
 char	*get_env_value(const t_list *l_env_element)
 {
+	if (!l_env_element)
+		return (NULL);
 	return (((t_env *)l_env_element->content)->value);
 }
 

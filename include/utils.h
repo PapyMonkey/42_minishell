@@ -197,6 +197,9 @@ t_list		*get_command_next(t_list *l_arg);
 t_list		*get_command_or_redir_next(t_list *l_arg);
 
 // NOTE: Documentation
+t_list		*get_next_redir_out(t_list *l_arg);
+
+// NOTE: Documentation
 char		*get_env_key(const t_list *l_env_element);
 
 // NOTE: Documentation

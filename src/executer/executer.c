@@ -43,7 +43,7 @@ static void	exec_command_not_builtin(t_var *var)
 
 // Access and execute commands
 // NOTE: Documentation
-static void	exec_command(t_var *var)
+static void	exec_command_wrapper(t_var *var)
 {
 	var->command_array= exec_build_cmd(var->current_arg);
 	if (get_arg_type(var->current_arg) == BUILTIN)
@@ -51,37 +51,44 @@ static void	exec_command(t_var *var)
 	else
 		exec_command_not_builtin(var);
 	free(var->command_array);
-	exit(EXIT_SUCCESS); // NOTE: Really useful ?
+	// exit(EXIT_SUCCESS); // NOTE: Really useful ?
 }
 
 // NOTE: Documentation
-static void exec_child_routine(
+static void exec_redirections(
 	t_var *var,
 	int index,
 	int fd_parent,
 	int *fd_child)
 {
-	int	result_redirections;
+	int	result_redirections_in;
+	int	result_redirections_out;
 
 	close(fd_child[READ_END]);
-	// exec_redirect_fd(fd_parent, STDIN_FILENO);
-	result_redirections = redir_out_handle(var, fd_parent);
-	if (result_redirections == REDIR_OUT || result_redirections == APPEND)
-		return ;
-	result_redirections = redir_heredoc_handle(var, fd_child[WRITE_END]);
-	if(result_redirections == HERE_DOC)
-		return ;
-	exec_redirect_fd(fd_parent, STDIN_FILENO);
-	result_redirections = redir_in_handle(var, fd_child[WRITE_END]);
-	if (result_redirections == REDIR_IN)
-		return ;
-	if (index < var->n_cmds + var->n_redirs - 1)
+	result_redirections_in = -1;
+	result_redirections_out = -1;
+	while (is_redir_in(var->current_arg))
+		result_redirections_in = redir_in_handle(var);
+	if(!(result_redirections_in == HERE_DOC
+		|| result_redirections_in == REDIR_IN))
+		exec_redirect_fd(fd_parent, STDIN_FILENO);
+	while (is_redir_out(var->next_redir_out))
+		result_redirections_out = redir_out_handle(var);
+	if (!(result_redirections_out == REDIR_OUT
+		|| result_redirections_out == APPEND)
+		&& index < var->n_cmds - 1)
 		exec_redirect_fd(fd_child[WRITE_END], STDOUT_FILENO);
+	close(fd_parent);
 	close(fd_child[WRITE_END]);
-	exec_command(var);
 }
 
-// NOTE: Documentation
+// FIX :
+// - [ ] Retour d'erreur en cas de fichier non trouve
+// - [X] Regrouper les redirections en fonction de in ou out
+// - [ ] HEREDOC : utiliser un fichier tampon
+// - [ ] Supprimer les redirections effectuees de la chaine de caractere
+
+// NOTE : Documentation
 static void exec_parent_routine(
 	t_var *var,
 	int index,
@@ -91,15 +98,16 @@ static void exec_parent_routine(
 {
 	close(fd_parent);
 	close(fd_to_child[WRITE_END]);
-	if (index < var->n_cmds + var->n_redirs - 1)
+	if (index < var->n_cmds - 1)
 	{
 		var->current_arg = get_command_or_redir_next(var->current_arg);
+		var->next_redir_out = get_next_redir_out(var->current_arg);
 		executer(var, ++index, fd_to_child[READ_END]);
 	}
+	close(fd_to_child[READ_END]);
 	g_process.pid = pid;
 	waitpid(pid, &g_process.return_code, 0);
 	g_process.return_code = WEXITSTATUS(g_process.return_code);
-	close(fd_to_child[READ_END]);
 }
 
 void executer(
@@ -110,20 +118,23 @@ void executer(
 	int		fd_to_child[2];
 	pid_t	pid;
 
-	if (var->n_cmds == 1 && get_arg_type(var->l_arg) == BUILTIN)
-	{
-		var->command_array = exec_build_cmd(var->current_arg);
-		b_routine(var);
-		free(var->command_array);
-		return ;
-	}
 	if (pipe(fd_to_child) == -1)
 		err_put_exit();
+	if (var->n_cmds == 1 && get_arg_type(var->l_arg) == BUILTIN)
+	{
+		printf("CAS UNE SEULE BUILTIN\n");
+		exec_redirections(var, index, fd_parent, fd_to_child);
+		b_routine(var);
+		return ;
+	}
 	pid = fork();
 	if (pid < 0)
 		err_put_exit();
 	else if (pid == 0)
-		exec_child_routine(var, index, fd_parent, fd_to_child);
+	{
+		exec_redirections(var, index, fd_parent, fd_to_child);
+		exec_command_wrapper(var);
+	}
 	else
 		exec_parent_routine(var, index, fd_parent, fd_to_child, pid);
 }
