@@ -6,12 +6,13 @@
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 12:54:24 by aguiri            #+#    #+#             */
-/*   Updated: 2023/04/07 23:34:01 by aguiri           ###   ########.fr       */
+/*   Updated: 2023/04/12 14:52:53 by aguiri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+// NOTE: Documentation
 static void	exec_command_not_builtin(t_var *var)
 {
 	char	**command;
@@ -41,6 +42,7 @@ static void	exec_command_not_builtin(t_var *var)
 }
 
 // Access and execute commands
+// NOTE: Documentation
 static void	exec_command(t_var *var)
 {
 	var->command_array= exec_build_cmd(var->current_arg);
@@ -52,6 +54,7 @@ static void	exec_command(t_var *var)
 	// exit(EXIT_SUCCESS); // NOTE: Really useful ?
 }
 
+// NOTE: Documentation
 static void exec_child_routine(
 	t_var *var,
 	int index,
@@ -61,16 +64,17 @@ static void exec_child_routine(
 	int	result_redirections;
 
 	close(fd_child[READ_END]);
+	// exec_redirect_fd(fd_parent, STDIN_FILENO);
 	result_redirections = redir_out_handle(var, fd_parent);
 	if (result_redirections == REDIR_OUT || result_redirections == APPEND)
-		exit(EXIT_SUCCESS);
+		return ;
 	result_redirections = redir_heredoc_handle(var, fd_child[WRITE_END]);
 	if(result_redirections == HERE_DOC)
-		exit(EXIT_SUCCESS);
+		return ;
 	exec_redirect_fd(fd_parent, STDIN_FILENO);
 	result_redirections = redir_in_handle(var, fd_child[WRITE_END]);
 	if (result_redirections == REDIR_IN)
-		exit(EXIT_SUCCESS);
+		return ;
 	if (index < var->n_cmds + var->n_redirs - 1)
 		exec_redirect_fd(fd_child[WRITE_END], STDOUT_FILENO);
 	close(fd_child[WRITE_END]);
@@ -87,15 +91,15 @@ static void exec_parent_routine(
 {
 	close(fd_parent);
 	close(fd_to_child[WRITE_END]);
-	if (waitpid(pid, NULL, 0) == -1)
-		exit(EXIT_FAILURE);
 	if (index < var->n_cmds + var->n_redirs - 1)
 	{
 		var->current_arg = get_command_or_redir_next(var->current_arg);
 		executer(var, ++index, fd_to_child[READ_END]);
 	}
-	else
-		close(fd_to_child[READ_END]);
+	g_process.pid = pid;
+	waitpid(pid, &g_process.return_code, 0);
+	g_process.return_code = WEXITSTATUS(g_process.return_code);
+	close(fd_to_child[READ_END]);
 }
 
 void executer(
