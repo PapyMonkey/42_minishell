@@ -54,7 +54,7 @@ static int	is_pipe_redir(char *str, t_list **list)
 	{
 		arg = malloc(sizeof(t_arg));
 		arg->type = pipe_redir_finder(str);
-		if (!(arg->type % 2))
+		if ((arg->type % 2))
 		{
 			arg->content = ft_substr(str, 0, 1);
 			ft_lstadd_back(list, ft_lstnew(arg));

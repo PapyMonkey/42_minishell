@@ -29,8 +29,7 @@ static int	arg_is_redir(int type)
 int	r_or_p(int type)
 {
 	if (type == REDIR_IN || type == HERE_DOC || type == DELIM
-		|| type == REDIR_OUT || type == APPEND || type == PIPE
-		|| type == RI_FILE)
+		|| type == REDIR_OUT || type == APPEND || type == PIPE)
 		return (1);
 	return (0);
 }
@@ -56,23 +55,15 @@ static void	define_redir_ext(t_list **list)
 	if (!ptr)
 		return ;
 	arg = ptr->content;
-	if (arg->type == REDIR_OUT || arg->type == APPEND)
-	{
-		while (ptr != NULL)
-		{
-			arg = ptr->content;
-			if (r_or_p(arg->type))
-				break ;
-			ptr = ptr->next;
-			arg->type = R_FILE;
-		}
-	}
-	else
+	arg->type = R_FILE;
+	ptr = ptr->next;
+	while (ptr != NULL)
 	{
 		arg = ptr->content;
 		if (r_or_p(arg->type))
-			return ;
-		arg->type = RI_FILE;
+			break ;
+		arg->type = ARG;
+		ptr = ptr->next;
 	}
 }
 
