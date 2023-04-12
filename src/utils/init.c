@@ -6,7 +6,7 @@
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 18:53:41 by aguiri            #+#    #+#             */
-/*   Updated: 2023/02/19 16:56:16 by bgales           ###   ########.fr       */
+/*   Updated: 2023/04/12 14:40:28 by aguiri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,5 +101,7 @@ int	init_command_context(
 	if (pipe(fd) == -1)
 		err_put_exit();
 	close(fd[WRITE_END]);
+	if (dup2(STDIN_FILENO, fd[READ_END]) == -1)
+		err_put_exit();
 	return (fd[READ_END]);
 }

@@ -31,12 +31,11 @@ int	main(
 		rl_replace_line("", 0);
 		input = readline("$> ");
 		if (!input)
-			exit (0);
+			break ;
 		if (input[0])
 			add_history((const char *)input);
 		ctrl_show();
 		get_signo(1);
-		
 		fd_read_end = init_command_context(var, input);
 		// ft_lstiter(var->l_arg, *print_arg_elem);
 		// printf("Number of commands : %d\n", var->n_cmds);
@@ -46,8 +45,6 @@ int	main(
 			executer(var, 0, fd_read_end);
 		free_command_context(var, input, fd_read_end);
 	}
+	write(1, "exit\n", 5);
 	return (EXIT_SUCCESS);
 }
-
-// Will cleanup a bit the code :
-// TODO: function to end everything
