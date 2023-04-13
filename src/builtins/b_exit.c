@@ -19,7 +19,7 @@ int	effective_exit(t_var *var)
 	exit(g_process.return_code);
 }
 
-void	b_exit(t_var *var)
+int	b_exit(t_var *var)
 {
 	int	argument_number;
 

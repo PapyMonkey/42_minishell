@@ -63,34 +63,10 @@ char		*exec_try_access(
 // Functions - executer.c
 
 // NOTE: Documentation
-void		executer(
+int			executer(
 				t_var *var,
 				int index,
 				int fd_old);
-
-// ****************************************************************************
-// Functions - redir_utils.c
-
-/*
-@brief Reads from a file descriptor and writes to another.
-
-@param fd_read  File descriptor to read the input.
-@param fd_write File descriptor to write the output.
-*/
-void		read_and_write_to_fd(
-				int fd_read,
-				int fd_write);
-
-/*
-@brief Reads from a file descriptor and writes to another.
-
-@param fd_read  File descriptor to read the input.
-@param fd_write File descriptor to write the output.
-*/
-void		read_and_write_to_fd_heredoc(
-				int fd_read,
-				int fd_write,
-				const t_list *heredoc_delimiter);
 
 // ****************************************************************************
 // Functions - redir_*.c

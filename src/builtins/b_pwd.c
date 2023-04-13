@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-void	b_pwd(t_var *const var)
+int	b_pwd(t_var *const var)
 {
 	t_list	*flag;
 
@@ -21,4 +21,5 @@ void	b_pwd(t_var *const var)
 		return (err_d("pwd", get_arg_content(flag), "invalid option", 2));
 	printf("%s\n", g_process.pwd);
 	g_process.return_code = 0;
+	return (EXIT_SUCCESS);
 }

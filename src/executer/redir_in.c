@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "utils.h"
 
 static int	redir_in(t_var *var)
 {
@@ -20,11 +19,17 @@ static int	redir_in(t_var *var)
 
 	file_to_open = var->next_redir_in->next;
 	if (!file_to_open)
-		err_exit("syntax error near unexpected token `newline`", NULL, 2);
+	{
+		err("syntax error near unexpected token `newline`", NULL, 2);
+		return (EXIT_CODE);
+	}
 	fd_input = open(get_arg_content(file_to_open),
 			O_RDONLY);
 	if (fd_input < 0)
-		err_exit(get_arg_content(file_to_open), strerror(errno), errno);
+	{
+		err(get_arg_content(file_to_open), strerror(errno), errno);
+		return (EXIT_CODE);
+	}
 	exec_redirect_fd(fd_input, STDIN_FILENO);
 	var->next_redir_in = get_next_redir_in(var, var->next_redir_in->next);
 	return (REDIR_IN);
@@ -95,11 +100,17 @@ static int	redir_heredoc(t_var *var)
 
 	heredoc_delimiter = var->next_redir_in->next;
 	if (!heredoc_delimiter)
-		err_exit("syntax error near unexpected token `newline`", NULL, 2);
+	{
+		err("syntax error near unexpected token `newline`", NULL, 2);
+		return (EXIT_CODE);
+	}
 	heredoc_filename = get_heredoc_name();
 	fd_tmp_file = open(heredoc_filename, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (fd_tmp_file < 0)
+	{
 		err_exit(heredoc_filename, strerror(errno), errno);
+		return (EXIT_CODE);
+	}
 	printf("heredoc_filename : %s\n", heredoc_filename);
 	red_line = NULL;
 	while (1)
@@ -139,9 +150,17 @@ int	redir_in_handle(t_var *var)
 	while (var->next_redir_in && is_redir_in(var->next_redir_in))
 	{
 		if (get_arg_type(var->next_redir_in) == REDIR_IN)
+		{
 			result_redirections_in = redir_in(var);
+			if (result_redirections_in == EXIT_CODE)
+				return (EXIT_CODE);
+		}
 		else if (get_arg_type(var->next_redir_in) == HERE_DOC)
+		{
 			result_redirections_in = redir_heredoc(var);
+			if (result_redirections_in == EXIT_CODE)
+				return (EXIT_CODE);
+		}
 	}
 	return (result_redirections_in);
 }
