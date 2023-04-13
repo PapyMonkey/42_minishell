@@ -20,14 +20,13 @@ static void	exec_command_not_builtin(t_var *var)
 	char	*try_access;
 
 	var->command_array = exec_build_cmd(var->cmd_current);
-	printf("\ncommand_array : %s\n", var->command_array[0]);
 	if (!var->command_array[0])
 		return ;
 	env = exec_build_env(var->l_env);
 	if (access(var->command_array[0], X_OK) == 0)
 		execve(var->command_array[0], var->command_array, env);
 	else if (!search_env_elem(var->l_env, "PATH")) 
-		err_exit(var->command_array[0], "No such file or directory", 127);
+		err_exit(var->command_array[0], "command not found", 127);
 	else
 	{
 		path = ft_split(
@@ -35,7 +34,7 @@ static void	exec_command_not_builtin(t_var *var)
 			':');
 		try_access = exec_try_access(var->command_array[0], path);
 		if (!try_access)
-			err_exit(var->command_array[0], strerror(errno), 127);
+			err_exit(var->command_array[0], "command not found", 127);
 		execve(try_access, var->command_array, env);
 		free_2d_char(path);
 		free(try_access);

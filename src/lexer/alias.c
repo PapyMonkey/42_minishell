@@ -43,7 +43,7 @@ static int	get_env(t_list *l_env, t_list **ptr, t_list **ret)
 	if (!ft_strncmp(&arg->content[0], "$?", ft_strlen(arg->content)))
 	{
 		free(arg->content);
-		arg->content = ft_strdup(ft_itoa(g_process.return_code));
+		arg->content = ft_itoa(g_process.return_code);
 		arg->type = TEXT;
 		ft_lstadd_back(ret, ft_lstnew(t_arg_cpy(arg)));
 		return (1);
