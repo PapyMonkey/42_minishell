@@ -19,7 +19,11 @@ int	count_argument(struct s_list *l_arg)
 
 	count = 0;
 	tmp = l_arg;
-	while (tmp && !is_separator(tmp))
+	while (tmp
+		&& !is_separator(tmp)
+		&& get_arg_type(tmp) != R_FILE
+		&& get_arg_type(tmp) != RI_FILE
+		&& get_arg_type(tmp) != DELIM)
 	{
 		count++;
 		tmp = tmp->next;

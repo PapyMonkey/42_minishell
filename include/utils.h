@@ -6,7 +6,7 @@
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 17:34:59 by aguiri            #+#    #+#             */
-/*   Updated: 2023/04/13 11:25:30 by bgales           ###   ########.fr       */
+/*   Updated: 2023/04/13 16:14:36 by aguiri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,24 +172,21 @@ t_enum_type	get_arg_type(const t_list *l_arg_element);
 
 // NOTE: Documentation
 int			get_number_arguments(t_list *const l_arg);
-/*
-@brief Get the next command from the list.
-
-@param l_arg	The list of arguments.
-@return			Returns the next command from the list.
-*/
-t_list		*get_command_next(t_list *l_arg);
-
-/*
-@brief Get the next command or redirection from the list.
-
-@param l_arg	The list of arguments.
-@return			Returns the next command or redirection from the list.
-*/
-t_list		*get_command_or_redir_next(t_list *l_arg);
 
 // NOTE: Documentation
-t_list		*get_next_redir_out(t_list *l_arg);
+t_list		*get_cmd_start(t_var *var);
+t_list		*get_cmd_end(
+				t_var *var,
+				t_list *const start);
+t_list		*get_cmd_current(
+				t_var *var,
+				t_list *const start);
+t_list		*get_next_redir_in(
+				t_var *var,
+				t_list *const start);
+t_list		*get_next_redir_out(
+				t_var *var,
+				t_list *const start);
 
 // NOTE: Documentation
 char		*get_env_key(const t_list *l_env_element);
@@ -251,6 +248,9 @@ t_var		*init(char **envp);
 @return        Returns 1 if the element is a command, 0 otherwise.
 */
 int			is_command(t_list *l_arg);
+
+// NOTE: Documentation
+int			is_redir_and_tokens(t_list *l_arg);
 
 /*
 @brief Check if the list element is a redirection input.
@@ -328,6 +328,10 @@ void		ctrl_hide(void);
 // NOTE: Documentation
 void		ctrl_show(void);
 
+void		set_signals_interactive(void);
+
+void		set_signals_noninteractive(void);
+
 // ****************************************************************************
 // Functions - ???.c
 
@@ -343,5 +347,10 @@ int			r_or_p(int type);
 
 int			arg_is_redir(int type);
 
+// NOTE: Documentation
+// And relocate in the header file
+void		reset_cmd_ptrs(
+				t_var *var,
+				t_list *const start);
 
 #endif	// UTILS_H

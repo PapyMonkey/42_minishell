@@ -21,6 +21,7 @@ char	**exec_build_cmd(
 	int		i;
 
 	n_args = count_argument(l_arg);
+	// printf("exec_build_cmd> n_args = %d\n", n_args);
 	cmd = malloc(sizeof(char *) * (n_args + 1));
 	if (!cmd)
 		err_exit(strerror(errno), NULL, errno);
@@ -29,6 +30,11 @@ char	**exec_build_cmd(
 	i = 0;
 	while (i < n_args)
 	{
+		if (is_redir_and_tokens(tmp))
+		{
+			tmp = tmp->next;
+			continue ;
+		}
 		cmd[i] = get_arg_content(tmp);
 		tmp = tmp->next;
 		i++;
