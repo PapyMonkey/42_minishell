@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-void	b_unset(t_var *var)
+int	b_unset(t_var *var)
 {
 	t_list	*flag;
 	t_list	*tmp_env;
@@ -33,4 +33,5 @@ void	b_unset(t_var *var)
 			ft_lstremove(&(var->l_exp), tmp_exp, free);
 	}
 	g_process.return_code = 0;
+	return (EXIT_SUCCESS);
 }

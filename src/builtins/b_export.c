@@ -78,7 +78,7 @@ static void	exp_create_env(t_var *var, char *key, int index)
 		);
 }
 
-void	b_export(t_var *var)
+int	b_export(t_var *var)
 {
 	t_list	*flag;
 	int		index;
@@ -87,7 +87,7 @@ void	b_export(t_var *var)
 	if (!var->command_array[1])
 	{
 		exp_no_args(var);
-		return ;
+		return (EXIT_SUCCESS);
 	}
 	flag = check_arg_flag(var->cmd_current);
 	if (flag)
@@ -104,4 +104,5 @@ void	b_export(t_var *var)
 		free_2d_char(key_and_value);
 	}
 	g_process.return_code = 0;
+	return (EXIT_SUCCESS);
 }

@@ -12,24 +12,25 @@
 
 #include "minishell.h"
 
-void	b_routine(t_var *var)
+int	b_routine(t_var *var)
 {
 	char	*command;
 
 	var->command_array= exec_build_cmd(var->cmd_current);
 	command = get_arg_content(var->cmd_current);
 	if (!ft_strncmp(command, "echo", 4))
-		b_echo(var);
+		return (b_echo(var));
 	else if (!ft_strncmp(command, "env", 3))
-		b_env(var);
+		return (b_env(var));
 	else if (!ft_strncmp(command, "pwd", 3))
-		b_pwd(var);
+		return (b_pwd(var));
 	else if (!ft_strncmp(command, "unset", 5))
-		b_unset(var);
+		return (b_unset(var));
 	else if (!ft_strncmp(command, "exit", 4))
-		b_exit(var);
+		return (b_exit(var));
 	else if (!ft_strncmp(command, "cd", 2))
-		b_cd(var);
+		return (b_cd(var));
 	else if (!ft_strncmp(command, "export", 6))
-		b_export(var);
+		return (b_export(var));
+	return (EXIT_SUCCESS);
 }

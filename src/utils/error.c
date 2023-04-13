@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-void	err(
+int	err(
 	char *err,
 	char *info,
 	int code)
@@ -27,9 +27,10 @@ void	err(
 	}
 	ft_putstr_fd("\n", 2);
 	g_process.return_code = code;
+	return (code);
 }
 
-void	err_d(
+int	err_d(
 	char *err,
 	char *info,
 	char *info_2,
@@ -44,6 +45,7 @@ void	err_d(
 	ft_putstr_fd(info_2, 2);
 	ft_putstr_fd("\n", 2);
 	g_process.return_code = code;
+	return (code);
 }
 
 void	err_exit(
