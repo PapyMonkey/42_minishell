@@ -6,7 +6,7 @@
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 17:34:59 by aguiri            #+#    #+#             */
-/*   Updated: 2023/04/11 01:48:52 by aguiri           ###   ########.fr       */
+/*   Updated: 2023/04/13 11:25:30 by bgales           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -333,5 +333,15 @@ void		ctrl_show(void);
 
 // NOTE: Documentation
 char		**export_split(char const *s, char c);
+
+// ****************************************************************************
+// Functions - define_redir_utils.c
+
+int			delim_or_rifile(int type);
+
+int			r_or_p(int type);
+
+int			arg_is_redir(int type);
+
 
 #endif	// UTILS_H

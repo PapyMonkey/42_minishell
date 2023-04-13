@@ -6,39 +6,23 @@
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 14:07:07 by bgales            #+#    #+#             */
-/*   Updated: 2023/04/06 17:55:36 by aguiri           ###   ########.fr       */
+/*   Updated: 2023/04/13 11:34:04 by bgales           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/*
-@brief Check if the type is a redirection.
 
-@param type    The argument type to check.
-@return        Returns 1 if the type is a redirection, 0 otherwise.
-*/
-static int	arg_is_redir(int type)
+static void	define_redir_in(t_list **list)
 {
-	if (type == REDIR_IN || type == HERE_DOC || type == DELIM
-		|| type == REDIR_OUT || type == APPEND)
-		return (1);
-	return (0);
-}
+	t_arg	*arg;
+	t_list	*ptr;
 
-int	r_or_p(int type)
-{
-	if (type == REDIR_IN || type == HERE_DOC || type == DELIM
-		|| type == REDIR_OUT || type == APPEND || type == PIPE)
-		return (1);
-	return (0);
-}
-
-int	delim_or_rifile(int type)
-{
-	if (type == RI_FILE || type == DELIM)
-		return (1);
-	return (0);
+	ptr = *list;
+	if (!ptr)
+		return ;
+	arg = ptr->content;
+	arg->type = RI_FILE;
 }
 
 /*
@@ -87,6 +71,8 @@ void	define_redir(t_list **list)
 				if (!r_or_p(arg->type))
 					arg->type = DELIM;
 			}
+			else if (arg->type == REDIR_IN)
+				define_redir_in(&ptr->next);
 			else
 				define_redir_ext(&ptr->next);
 			arg = ptr->content;
