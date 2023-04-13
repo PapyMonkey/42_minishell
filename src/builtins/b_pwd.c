@@ -16,7 +16,7 @@ void	b_pwd(t_var *const var)
 {
 	t_list	*flag;
 
-	flag = check_arg_flag(var->current_arg);
+	flag = check_arg_flag(var->cmd_current);
 	if (flag)
 		return (err_d("pwd", get_arg_content(flag), "invalid option", 2));
 	printf("%s\n", g_process.pwd);

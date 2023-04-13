@@ -20,7 +20,7 @@ void	b_unset(t_var *var)
 	int		i;
 
 	i = 0;
-	flag = check_arg_flag(var->current_arg);
+	flag = check_arg_flag(var->cmd_current);
 	if (flag)
 		return (err_d("unset", get_arg_content(flag), "invalid option", 2));
 	while (var->command_array[++i])
