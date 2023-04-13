@@ -26,6 +26,7 @@ static int	redir_out(t_var *var)
 	exec_redirect_fd(fd_output, STDOUT_FILENO);
 	ft_lstremove(&var->current_arg, file_to_open, free_lstcontent);
 	ft_lstremove(&var->current_arg, var->next_redir_out, free_lstcontent);
+	var->next_redir_out = get_next_redir_out(var->current_arg);
 	return (REDIR_OUT);
 }
 
@@ -36,7 +37,6 @@ static int	redir_append(t_var *var)
 	int		fd_output;
 
 	file_to_open = var->next_redir_out->next;
-	printf("file_to_open (append) : %s\n", get_arg_content(file_to_open));
 	fd_output = open(get_arg_content(file_to_open),
 			O_WRONLY | O_CREAT | O_APPEND, 0644);
 	if (fd_output < 0)
@@ -44,6 +44,7 @@ static int	redir_append(t_var *var)
 	exec_redirect_fd(fd_output, STDOUT_FILENO);
 	ft_lstremove(&var->current_arg, file_to_open, free_lstcontent);
 	ft_lstremove(&var->current_arg, var->next_redir_out, free_lstcontent);
+	var->next_redir_out = get_next_redir_out(var->current_arg);
 	return (APPEND);
 }
 

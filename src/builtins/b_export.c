@@ -101,7 +101,7 @@ void	b_export(t_var *var)
 			exp_create_env(var, key_and_value[0], index);
 		else
 			exp_create(var, key_and_value[0]);
-		free(key_and_value);
+		free_2d_char(key_and_value);
 	}
 	g_process.return_code = 0;
 }

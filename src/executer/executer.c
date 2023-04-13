@@ -20,6 +20,7 @@ static void	exec_command_not_builtin(t_var *var)
 	char	**path;
 	char	*try_access;
 
+	var->command_array= exec_build_cmd(var->current_arg);
 	command = var->command_array;
 	env = exec_build_env(var->l_env);
 	if (access(command[0], X_OK) == 0)
@@ -41,17 +42,14 @@ static void	exec_command_not_builtin(t_var *var)
 	free_2d_char(env);
 }
 
-// Access and execute commands
 // NOTE: Documentation
 static void	exec_command_wrapper(t_var *var)
 {
-	var->command_array= exec_build_cmd(var->current_arg);
 	if (get_arg_type(var->current_arg) == BUILTIN)
 		b_routine(var);
 	else
 		exec_command_not_builtin(var);
-	free(var->command_array);
-	// exit(EXIT_SUCCESS); // NOTE: Really useful ?
+	exit(g_process.return_code);
 }
 
 // NOTE: Documentation
@@ -67,12 +65,12 @@ static void exec_redirections(
 	close(fd_child[READ_END]);
 	result_redirections_in = -1;
 	result_redirections_out = -1;
-	while (is_redir_in(var->current_arg))
+	while (var->current_arg && is_redir_in(var->current_arg))
 		result_redirections_in = redir_in_handle(var);
 	if(!(result_redirections_in == HERE_DOC
 		|| result_redirections_in == REDIR_IN))
 		exec_redirect_fd(fd_parent, STDIN_FILENO);
-	while (is_redir_out(var->next_redir_out))
+	while (var->next_redir_out && is_redir_out(var->next_redir_out))
 		result_redirections_out = redir_out_handle(var);
 	if (!(result_redirections_out == REDIR_OUT
 		|| result_redirections_out == APPEND)
@@ -116,15 +114,19 @@ void executer(
 	int fd_parent)
 {
 	int		fd_to_child[2];
+	int		original_stdout;
 	pid_t	pid;
 
 	if (pipe(fd_to_child) == -1)
 		err_put_exit();
 	if (var->n_cmds == 1 && get_arg_type(var->l_arg) == BUILTIN)
 	{
-		printf("CAS UNE SEULE BUILTIN\n");
+		original_stdout = dup(STDOUT_FILENO);
 		exec_redirections(var, index, fd_parent, fd_to_child);
+		// exec_command_wrapper(var);
 		b_routine(var);
+		close(STDOUT_FILENO);
+		exec_redirect_fd(original_stdout, STDOUT_FILENO);
 		return ;
 	}
 	pid = fork();

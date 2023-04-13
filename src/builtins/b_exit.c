@@ -12,6 +12,13 @@
 
 #include "minishell.h"
 
+int	effective_exit(t_var *var)
+{
+	free_var(var);
+	write(1, "exit\n", 5);
+	exit(g_process.return_code);
+}
+
 // FIX: Change the flag error to a general argument error
 // TODO: change :
 //	- to implement a wrapper for exit
@@ -27,8 +34,6 @@ void	b_exit(t_var *var)
 		err_d("exit", get_arg_content(flag), "invalid option", 2);
 		return ;
 	}
-	free_var(var);
-	ft_putstr_fd("exit\n", 1);
 	g_process.return_code = 0;
-	exit (EXIT_SUCCESS);
+	effective_exit(var);
 }

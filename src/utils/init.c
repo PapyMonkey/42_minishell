@@ -95,6 +95,7 @@ int	init_command_context(
 
 	g_process.pid = 0;
 	var->l_arg = ft_split_args(input, var->l_env);
+	var->command_array = NULL;
 	var->current_arg = var->l_arg;
 	var->next_redir_out = get_next_redir_out(var->current_arg);
 	var->n_cmds = count_command(var->l_arg);

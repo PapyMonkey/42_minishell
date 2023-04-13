@@ -31,10 +31,12 @@ void	free_env(void *env)
 
 void	free_var(struct s_var *var)
 {
-	ft_lstclear(&var->l_arg, free_lstcontent);
+	if (var->l_arg)
+		ft_lstclear(&var->l_arg, free_lstcontent);
 	ft_lstclear(&var->l_env, free_env);
 	ft_lstclear(&var->l_exp, free);
-	free(var->command_array);
+	if (var->command_array)
+		free(var->command_array);
 	free(var);
 }
 
