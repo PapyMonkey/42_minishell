@@ -29,20 +29,22 @@ static void	cd_update_env(
 
 void	b_cd(t_var *var)
 {
+	int		count;
 	t_list	*flag;
 	char	pwd[BUFFER_SIZE];
 
-	if (!get_number_arguments(var->current_arg->next))
+	count = count_argument(var->cmd_current);
+	if (count == 1)
 		return (err("cd", "no arguments", 1));
-	flag = check_arg_flag(var->current_arg);
+	flag = check_arg_flag(var->cmd_current);
 	if (flag)
 		return (err_d("cd", get_arg_content(flag), "invalid option", 2));
-	if (get_number_arguments(var->current_arg->next) > 1)
+	if (count > 2)
 		return (err("cd", "too many arguments", 1));
 	getcwd(pwd, BUFFER_SIZE);
 	cd_update_env(var, "OLDPWD", pwd);
 	if (chdir(var->command_array[1]) != 0)
-		return (err_d("cd", get_arg_content(var->current_arg->next),
+		return (err_d("cd", var->command_array[1],
 				strerror(errno), errno));
 	getcwd(pwd, BUFFER_SIZE);
 	cd_update_env(var, "PWD", pwd);
