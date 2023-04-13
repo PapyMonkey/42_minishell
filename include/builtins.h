@@ -23,7 +23,7 @@
 // Functions
 
 // NOTE: Generate documentation
-void	b_cd(t_var *var);
+int		b_cd(t_var *var);
 
 // NOTE: Generate documentation
 /**
@@ -31,7 +31,7 @@ void	b_cd(t_var *var);
 
 @param str String to be echo-ed.
 */
-void	b_echo(t_var *const var);
+int		b_echo(t_var *const var);
 
 // NOTE: Generate documentation
 /**
@@ -39,7 +39,7 @@ void	b_echo(t_var *const var);
 
 @param l_env List of ENV variables.
 */
-void	b_env(t_var *const var);
+int		b_env(t_var *const var);
 
 // NOTE: Generate documentation
 /**
@@ -47,10 +47,10 @@ void	b_env(t_var *const var);
 
 @param var Variable that contains all the other useful ones.
 */
-void	b_exit(t_var *var);
+int		b_exit(t_var *var);
 
 // NOTE: Generate documentation
-void	b_export(t_var *var);
+int		b_export(t_var *var);
 
 // NOTE: Generate documentation
 /**
@@ -58,7 +58,7 @@ void	b_export(t_var *var);
 
 @param l_env List of ENV variables.
 */
-void	b_pwd(t_var *const var);
+int		b_pwd(t_var *const var);
 
 // NOTE: Generate documentation
 /**
@@ -67,13 +67,13 @@ void	b_pwd(t_var *const var);
 @param l_env List of ENV variables.
 @param str Argument/input string.
 */
-void	b_unset(t_var *var);
+int		b_unset(t_var *var);
 
 // ****************************************************************************
 // Functions - b_utils.c
 
 // NOTE: Generate documentation
-void	b_routine(t_var *var);
+int		b_routine(t_var *var);
 
 // NOTE: Generate documentation
 int		effective_exit(t_var *var);

@@ -100,13 +100,13 @@ void		define_redir(t_list **list);
 // ****************************************************************************
 // Functions - error.c
 
-void		err(
+int			err(
 				char *err,
 				char *info,
 				int code);
 
 // NOTE: Documentation
-void		err_d(
+int			err_d(
 				char *err,
 				char *info,
 				char *info_2,

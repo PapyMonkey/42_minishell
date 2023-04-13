@@ -32,6 +32,7 @@
 
 # define WRITE_END 1
 # define READ_END 0
+# define EXIT_CODE 999999
 # define BUFFER_SIZE 4096
 # define SHELL_NAME "minishell"
 # define HEREDOC_NAME "/tmp/.minishell_hd_"

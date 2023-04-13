@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-void	b_env(t_var *const var)
+int	b_env(t_var *const var)
 {
 	int	argument_number;
 	t_list	*tmp;
@@ -24,4 +24,5 @@ void	b_env(t_var *const var)
 	tmp = var->l_env;
 	ft_lstiter(tmp, print_env_elem);
 	g_process.return_code = 0;
+	return (EXIT_SUCCESS);
 }

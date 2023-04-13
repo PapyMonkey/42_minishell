@@ -26,7 +26,7 @@ static void	cd_update_env(
 	((t_env *)ptr_elem->content)->value = ft_strdup(value);
 }
 
-static void	cd_exec(
+static int	cd_exec(
 	t_var *var,
 	char * tmp_path)
 {
@@ -44,10 +44,10 @@ static void	cd_exec(
 	if (!g_process.pwd)
 		return (err("cd", strerror(errno), errno));
 	g_process.return_code = 0;
-	return ;
+	return (EXIT_SUCCESS);
 }
 
-void	b_cd(t_var *var)
+int	b_cd(t_var *var)
 {
 	int		count;
 	t_list	*home;

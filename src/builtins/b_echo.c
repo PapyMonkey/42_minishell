@@ -37,13 +37,15 @@ static int	b_echo_ext(t_var *const var)
 	return (is_return_line);
 }
 
-void	b_echo(t_var *const var)
+int	b_echo(t_var *const var)
 {
 	int	is_return_line;
 
+	is_return_line = 1;
 	if (var->cmd_current->next)
 		is_return_line = b_echo_ext(var);
 	if (is_return_line)
 		ft_putstr_fd("\n", 1);
 	g_process.return_code = 0;
+	return (g_process.return_code);
 }
