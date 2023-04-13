@@ -34,7 +34,9 @@
 # define READ_END 0
 # define BUFFER_SIZE 4096
 # define SHELL_NAME "minishell"
+# define HEREDOC_NAME "/tmp/.minishell_hd_"
 # define READLINE_PROMPT "(minishell)$> "
+# define HEREDOC_PROMPT ">"
 
 // ****************************************************************************
 // Personal library

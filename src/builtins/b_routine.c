@@ -16,8 +16,8 @@ void	b_routine(t_var *var)
 {
 	char	*command;
 
-	var->command_array= exec_build_cmd(var->current_arg);
-	command = get_arg_content(var->current_arg);
+	var->command_array= exec_build_cmd(var->cmd_current);
+	command = get_arg_content(var->cmd_current);
 	if (!ft_strncmp(command, "echo", 4))
 		b_echo(var);
 	else if (!ft_strncmp(command, "env", 3))

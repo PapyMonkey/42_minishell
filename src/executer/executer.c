@@ -6,7 +6,7 @@
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 12:54:24 by aguiri            #+#    #+#             */
-/*   Updated: 2023/04/12 14:52:53 by aguiri           ###   ########.fr       */
+/*   Updated: 2023/04/13 16:24:37 by aguiri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ static void	exec_command_not_builtin(t_var *var)
 	char	**path;
 	char	*try_access;
 
-	var->command_array = exec_build_cmd(var->current_arg);
+	var->command_array = exec_build_cmd(var->cmd_current);
+	printf("\ncommand_array : %s\n", var->command_array[0]);
 	if (!var->command_array[0])
 		return ;
 	env = exec_build_env(var->l_env);
@@ -45,7 +46,7 @@ static void	exec_command_not_builtin(t_var *var)
 // NOTE: Documentation
 static void	exec_command_wrapper(t_var *var)
 {
-	if (get_arg_type(var->current_arg) == BUILTIN)
+	if (get_arg_type(var->cmd_current) == BUILTIN)
 		b_routine(var);
 	else
 		exec_command_not_builtin(var);
@@ -63,36 +64,21 @@ static void exec_redirections(
 	int	result_redirections_out;
 
 	close(fd_child[READ_END]);
-	result_redirections_in = -1;
-	result_redirections_out = -1;
-	while (var->current_arg && is_redir_in(var->current_arg))
-		result_redirections_in = redir_in_handle(var);
-	printf("result_redirections in : %d\n", result_redirections_in);
-	if(!(result_redirections_in == HERE_DOC
-		|| result_redirections_in == REDIR_IN))
-	{
-		printf("Check REDIR_IN\n");
+	result_redirections_in = redir_in_handle(var);
+	if(!(result_redirections_in == HERE_DOC || result_redirections_in == REDIR_IN))
 		exec_redirect_fd(fd_parent, STDIN_FILENO);
-	}
-	while (var->next_redir_out && is_redir_out(var->next_redir_out))
-		result_redirections_out = redir_out_handle(var);
-	printf("result_redirections out : %d\n", result_redirections_out);
+	result_redirections_out = redir_out_handle(var);
 	if (!(result_redirections_out == REDIR_OUT
 		|| result_redirections_out == APPEND)
 		&& index < var->n_cmds - 1)
-	{
-		printf("Check REDIR_OUT\n");
 		exec_redirect_fd(fd_child[WRITE_END], STDOUT_FILENO);
-	}
 	close(fd_parent);
 	close(fd_child[WRITE_END]);
-	printf("CHECK PRINT\n");
-	ft_lstiter(var->l_arg, *print_arg_elem);
 	g_process.return_code = 0;
 }
 
 // FIX :
-// - [ ] Retour d'erreur en cas de fichier non trouve
+// - [X] Retour d'erreur en cas de fichier non trouve
 // - [X] Regrouper les redirections en fonction de in ou out
 // - [ ] HEREDOC : utiliser un fichier tampon
 // - [X] Supprimer les redirections out effectuees de la chaine de caractere
@@ -109,8 +95,7 @@ static void exec_parent_routine(
 	close(fd_to_child[WRITE_END]);
 	if (index < var->n_cmds - 1)
 	{
-		var->current_arg = get_command_or_redir_next(var->current_arg);
-		var->next_redir_out = get_next_redir_out(var->current_arg);
+		reset_cmd_ptrs(var, get_cmd_start(var));
 		executer(var, ++index, fd_to_child[READ_END]);
 	}
 	close(fd_to_child[READ_END]);
@@ -130,6 +115,11 @@ void executer(
 
 	if (pipe(fd_to_child) == -1)
 		err_exit(strerror(errno), NULL, errno);
+	// printf("var->cmd_start = %s\n", get_arg_content(var->cmd_start));
+	// printf("var->cmd_end = %s\n", get_arg_content(var->cmd_end));
+	// printf("var->cmd_current = %s\n", get_arg_content(var->cmd_current));
+	// printf("var->next_redir_in = %s\n", get_arg_content(var->next_redir_in));
+	// printf("var->next_redir_out = %s\n", get_arg_content(var->next_redir_out));
 	if (var->n_cmds == 1 && get_arg_type(var->l_arg) == BUILTIN)
 	{
 		original_stdout = dup(STDOUT_FILENO);
