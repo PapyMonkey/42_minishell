@@ -31,7 +31,7 @@ int	main(
 		rl_replace_line("", 0);
 		input = readline("$> ");
 		if (!input)
-			break ;
+			effective_exit(var);
 		if (input[0])
 			add_history((const char *)input);
 		ctrl_show();
@@ -45,6 +45,5 @@ int	main(
 			executer(var, 0, fd_read_end);
 		free_command_context(var, input, fd_read_end);
 	}
-	write(1, "exit\n", 5);
-	return (EXIT_SUCCESS);
+	return (effective_exit(var));
 }

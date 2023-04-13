@@ -25,6 +25,7 @@ static int	redir_in(t_var *var)
 	exec_redirect_fd(fd_input, STDIN_FILENO);
 	ft_lstremove(&var->current_arg, file_to_open, free_lstcontent);
 	ft_lstremove(&var->current_arg, var->next_redir_out, free_lstcontent);
+	var->next_redir_out = get_next_redir_out(var->current_arg);
 	return (REDIR_IN);
 }
 

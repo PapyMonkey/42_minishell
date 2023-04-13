@@ -75,4 +75,7 @@ void	b_unset(t_var *var);
 // NOTE: Generate documentation
 void	b_routine(t_var *var);
 
+// NOTE: Generate documentation
+int		effective_exit(t_var *var);
+
 #endif // BUILTINS_H

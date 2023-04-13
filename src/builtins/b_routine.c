@@ -16,6 +16,7 @@ void	b_routine(t_var *var)
 {
 	char	*command;
 
+	var->command_array= exec_build_cmd(var->current_arg);
 	command = get_arg_content(var->current_arg);
 	if (!ft_strncmp(command, "echo", 4))
 		b_echo(var);
@@ -31,4 +32,5 @@ void	b_routine(t_var *var)
 		b_cd(var);
 	else if (!ft_strncmp(command, "export", 6))
 		b_export(var);
+	free(var->command_array);
 }
