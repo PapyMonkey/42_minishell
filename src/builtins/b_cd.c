@@ -12,7 +12,6 @@
 
 #include "minishell.h"
 
-// NOTE: Documentation
 static void	cd_update_env(
 	t_var *var,
 	char *key,
@@ -27,24 +26,16 @@ static void	cd_update_env(
 	((t_env *)ptr_elem->content)->value = ft_strdup(value);
 }
 
-void	b_cd(t_var *var)
+static void	cd_exec(
+	t_var *var,
+	char * tmp_path)
 {
-	int		count;
-	t_list	*flag;
 	char	pwd[BUFFER_SIZE];
 
-	count = count_argument(var->cmd_current);
-	if (count == 1)
-		return (err("cd", "no arguments", 1));
-	flag = check_arg_flag(var->cmd_current);
-	if (flag)
-		return (err_d("cd", get_arg_content(flag), "invalid option", 2));
-	if (count > 2)
-		return (err("cd", "too many arguments", 1));
 	getcwd(pwd, BUFFER_SIZE);
 	cd_update_env(var, "OLDPWD", pwd);
-	if (chdir(var->command_array[1]) != 0)
-		return (err_d("cd", var->command_array[1],
+	if (chdir(tmp_path) != 0)
+		return (err_d("cd", tmp_path,
 				strerror(errno), errno));
 	getcwd(pwd, BUFFER_SIZE);
 	cd_update_env(var, "PWD", pwd);
@@ -53,4 +44,29 @@ void	b_cd(t_var *var)
 	if (!g_process.pwd)
 		return (err("cd", strerror(errno), errno));
 	g_process.return_code = 0;
+	return ;
+}
+
+void	b_cd(t_var *var)
+{
+	int		count;
+	t_list	*home;
+	t_list	*flag;
+	char	*tmp_path;
+
+	tmp_path = var->command_array[1];
+	count = count_argument(var->cmd_current);
+	if (count == 1 )
+	{
+		home = search_env_elem(var->l_env, "HOME");
+		if (!home)
+			return (err("cd", "HOME is not set", 1));
+		tmp_path = get_env_value(home);
+	}
+	flag = check_arg_flag(var->cmd_current);
+	if (flag)
+		return (err_d("cd", get_arg_content(flag), "invalid option", 2));
+	if (count > 2)
+		return (err("cd", "too many arguments", 1));
+	return (cd_exec(var, tmp_path));
 }
