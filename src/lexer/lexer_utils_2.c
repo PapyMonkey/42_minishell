@@ -28,10 +28,7 @@ void	*join_all(t_list **list)
 				((t_arg *)(ptr)->content)->content);
 		ptr = ptr->next;
 	}
-	if (arg->content[0] != '$')
-		arg->type = TEXT;
-	else
-		arg->type = DOLLAR;
+	arg->type = TEXT;
 	ret = ft_lstnew(arg);
 	ft_lstclear(list, free_lstcontent);
 	return (ret);
