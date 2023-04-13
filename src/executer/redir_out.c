@@ -20,7 +20,7 @@ static int	redir_out(t_var *var)
 
 	file_to_open = var->next_redir_out->next;
 	if (!file_to_open)
-		err_exit(strerror(errno), NULL, errno);
+		err_exit("syntax error near unexpected token `newline`", NULL, 2);
 	fd_output = open(get_arg_content(file_to_open),
 			O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (fd_output < 0)
@@ -40,7 +40,7 @@ static int	redir_append(t_var *var)
 
 	file_to_open = var->next_redir_out->next;
 	if (!file_to_open)
-		err_exit(strerror(errno), NULL, errno);
+		err_exit("syntax error near unexpected token `newline`", NULL, 2);
 	fd_output = open(get_arg_content(file_to_open),
 			O_WRONLY | O_CREAT | O_APPEND, 0644);
 	if (fd_output < 0)
