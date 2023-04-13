@@ -43,6 +43,7 @@ t_env	*init_env_element(char *envp)
 static void	init_env(t_var *var, char **envp)
 {
 	int		i;
+	char	*tmp_str;
 
 	i = -1;
 	while (envp[++i])
@@ -52,13 +53,21 @@ static void	init_env(t_var *var, char **envp)
 			ft_lstnew(init_env_element(envp[i]))
 			);
 	}
+	if (!var->l_env)
+	{
+		tmp_str = ft_strjoin("PWD=", g_process.pwd);
+		ft_lstadd_back(
+			&var->l_env,
+			ft_lstnew(init_env_element(tmp_str))
+		);
+		free(tmp_str);
+	}
 }
 
 // NOTE: Documentation
 static void	init_pwd(void)
 {
 	char	pwd[BUFFER_SIZE];
-	char	*tmp;
 
 	if (getcwd(pwd, BUFFER_SIZE) == 0)
 	{
@@ -66,11 +75,9 @@ static void	init_pwd(void)
 			err("pathname length exceeds the buffer size", NULL, 1);
 		return ;
 	}
-	tmp = ft_strjoin("PWD=", pwd);
 	g_process.pwd = ft_strdup(pwd);
 	if (!g_process.pwd)
 		err_exit(strerror(errno), NULL, errno);
-	free(tmp);
 }
 
 t_var	*init(char **envp)
