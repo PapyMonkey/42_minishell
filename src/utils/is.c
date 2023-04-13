@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "structures.h"
 
 int	is_command(t_list *l_arg)
 {
@@ -19,6 +20,21 @@ int	is_command(t_list *l_arg)
 	type = get_arg_type(l_arg);
 	if (type == EXEC || type == BUILTIN)
 		return (1);
+	else
+		return (0);
+}
+
+int	is_redir_and_tokens(t_list *l_arg)
+{
+	t_enum_type	type;
+
+	type = get_arg_type(l_arg);
+	if (is_redir_in(l_arg)
+		|| is_redir_in(l_arg)
+		|| type == R_FILE
+		|| type == RI_FILE
+		|| type == DELIM)
+			return (1);
 	else
 		return (0);
 }

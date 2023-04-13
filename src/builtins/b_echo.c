@@ -6,7 +6,7 @@
 /*   By: aguiri <aguiri@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 16:22:44 by aguiri            #+#    #+#             */
-/*   Updated: 2023/04/07 23:23:15 by aguiri           ###   ########.fr       */
+/*   Updated: 2023/04/13 15:47:13 by aguiri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	b_echo_ext(t_var *const var)
 	is_return_line = 1;
 	i = 1;
 	cmd_array = var->command_array;
-	if (get_arg_type(var->current_arg->next) == FLAG
+	if (get_arg_type(var->cmd_current->next) == FLAG
 		&& !ft_strncmp(var->command_array[i], "-n",
 			ft_strlen(cmd_array[i])))
 	{
@@ -41,7 +41,7 @@ void	b_echo(t_var *const var)
 {
 	int	is_return_line;
 
-	if (var->current_arg->next)
+	if (var->cmd_current->next)
 		is_return_line = b_echo_ext(var);
 	if (is_return_line)
 		ft_putstr_fd("\n", 1);

@@ -1,27 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   b_env.c                                            :+:      :+:    :+:   */
+/*   build.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aguiri <aguiri@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/30 12:21:38 by aguiri            #+#    #+#             */
-/*   Updated: 2023/04/13 16:27:17 by aguiri           ###   ########.fr       */
+/*   Created: 2023/04/13 15:43:56 by aguiri            #+#    #+#             */
+/*   Updated: 2023/04/13 15:57:18 by aguiri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	b_env(t_var *const var)
+void	reset_cmd_ptrs(
+	t_var *var,
+	t_list *const start)
 {
-	int	argument_number;
-	t_list	*tmp;
-
-	argument_number = count_argument(var->cmd_current);
-	if (argument_number > 1)
-		return (err_d("env", var->command_array[argument_number - 1],
-			"invalid option", 125));
-	tmp = var->l_env;
-	ft_lstiter(tmp, print_env_elem);
-	g_process.return_code = 0;
+	var->cmd_start = start;
+	var->cmd_end = get_cmd_end(var, start);
+	var->cmd_current = get_cmd_current(var, start);
+	var->next_redir_in = get_next_redir_in(var, start);
+	var->next_redir_out = get_next_redir_out(var, start);
 }

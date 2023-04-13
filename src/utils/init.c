@@ -6,7 +6,7 @@
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 18:53:41 by aguiri            #+#    #+#             */
-/*   Updated: 2023/04/12 14:40:28 by aguiri           ###   ########.fr       */
+/*   Updated: 2023/04/13 16:13:58 by aguiri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,10 @@ t_var	*init(char **envp)
 	var_out->l_arg = NULL;
 	var_out->l_env = NULL;
 	var_out->l_exp = NULL;
-	var_out->current_arg = NULL;
+	var_out->cmd_start = NULL;
+	var_out->cmd_end = NULL;
+	var_out->cmd_current = NULL;
+	var_out->next_redir_in = NULL;
 	var_out->next_redir_out = NULL;
 	var_out->n_cmds = 0;
 	var_out->command_array = NULL;
@@ -101,8 +104,7 @@ int	init_command_context(
 	g_process.pid = 0;
 	var->l_arg = ft_split_args(input, var->l_env);
 	var->command_array = NULL;
-	var->current_arg = var->l_arg;
-	var->next_redir_out = get_next_redir_out(var->current_arg);
+	reset_cmd_ptrs(var, var->l_arg);
 	var->n_cmds = count_command(var->l_arg);
 	if (pipe(fd) == -1)
 		err_exit(strerror(errno), NULL, errno);
