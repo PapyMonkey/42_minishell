@@ -107,7 +107,6 @@ typedef struct s_var
 	struct s_list		*next_redir_out;
 
 	int					n_cmds;
-	int					n_redirs;
 
 	char				**command_array;
 }						t_var;

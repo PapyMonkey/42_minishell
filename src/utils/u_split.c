@@ -102,7 +102,7 @@ static void	ft_write_tab(char **str_split, const char *str, char c)
 				j++;
 			str_split[n_word] = malloc(sizeof(char) * (j + 1));
 			if (!str_split[n_word])
-				err_malloc_exit();
+				err_exit(strerror(errno), NULL, errno);
 			ft_write_words(str_split[n_word++], str + i, j);
 			i += j;
 		}
@@ -119,7 +119,7 @@ char	**export_split(char const *s, char c)
 	n_words = u_count_words((char *) s, c);
 	str_splitted = malloc(sizeof(char *) * (n_words + 1));
 	if (!str_splitted)
-		err_malloc_exit();
+		err_exit(strerror(errno), NULL, errno);
 	str_splitted[n_words] = 0;
 	ft_write_tab(str_splitted, s, c);
 	return (str_splitted);

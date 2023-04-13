@@ -15,27 +15,27 @@
 // NOTE: Documentation
 static void	exec_command_not_builtin(t_var *var)
 {
-	char	**command;
 	char	**env;
 	char	**path;
 	char	*try_access;
 
-	var->command_array= exec_build_cmd(var->current_arg);
-	command = var->command_array;
+	var->command_array = exec_build_cmd(var->current_arg);
+	if (!var->command_array[0])
+		return ;
 	env = exec_build_env(var->l_env);
-	if (access(command[0], X_OK) == 0)
-		execve(command[0], command, env);
+	if (access(var->command_array[0], X_OK) == 0)
+		execve(var->command_array[0], var->command_array, env);
 	else if (!search_env_elem(var->l_env, "PATH")) 
-		ft_printf("minishell: %s: no such file or directory\n", command[0]);
+		err_exit(var->command_array[0], "No such file or directory", 127);
 	else
 	{
 		path = ft_split(
 			get_env_value(search_env_elem(var->l_env, "PATH")),
 			':');
-		try_access = exec_try_access(command[0], path);
+		try_access = exec_try_access(var->command_array[0], path);
 		if (!try_access)
-			err_put_exit_command_not_found(command[0]);
-		execve(try_access, command, env);
+			err_exit(var->command_array[0], strerror(errno), 127);
+		execve(try_access, var->command_array, env);
 		free_2d_char(path);
 		free(try_access);
 	}
@@ -67,24 +67,35 @@ static void exec_redirections(
 	result_redirections_out = -1;
 	while (var->current_arg && is_redir_in(var->current_arg))
 		result_redirections_in = redir_in_handle(var);
+	printf("result_redirections in : %d\n", result_redirections_in);
 	if(!(result_redirections_in == HERE_DOC
 		|| result_redirections_in == REDIR_IN))
+	{
+		printf("Check REDIR_IN\n");
 		exec_redirect_fd(fd_parent, STDIN_FILENO);
+	}
 	while (var->next_redir_out && is_redir_out(var->next_redir_out))
 		result_redirections_out = redir_out_handle(var);
+	printf("result_redirections out : %d\n", result_redirections_out);
 	if (!(result_redirections_out == REDIR_OUT
 		|| result_redirections_out == APPEND)
 		&& index < var->n_cmds - 1)
+	{
+		printf("Check REDIR_OUT\n");
 		exec_redirect_fd(fd_child[WRITE_END], STDOUT_FILENO);
+	}
 	close(fd_parent);
 	close(fd_child[WRITE_END]);
+	printf("CHECK PRINT\n");
+	ft_lstiter(var->l_arg, *print_arg_elem);
+	g_process.return_code = 0;
 }
 
 // FIX :
 // - [ ] Retour d'erreur en cas de fichier non trouve
 // - [X] Regrouper les redirections en fonction de in ou out
 // - [ ] HEREDOC : utiliser un fichier tampon
-// - [ ] Supprimer les redirections effectuees de la chaine de caractere
+// - [X] Supprimer les redirections out effectuees de la chaine de caractere
 
 // NOTE : Documentation
 static void exec_parent_routine(
@@ -118,7 +129,7 @@ void executer(
 	pid_t	pid;
 
 	if (pipe(fd_to_child) == -1)
-		err_put_exit();
+		err_exit(strerror(errno), NULL, errno);
 	if (var->n_cmds == 1 && get_arg_type(var->l_arg) == BUILTIN)
 	{
 		original_stdout = dup(STDOUT_FILENO);
@@ -131,7 +142,7 @@ void executer(
 	}
 	pid = fork();
 	if (pid < 0)
-		err_put_exit();
+		err_exit(strerror(errno), NULL, errno);
 	else if (pid == 0)
 	{
 		exec_redirections(var, index, fd_parent, fd_to_child);
