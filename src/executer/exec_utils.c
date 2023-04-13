@@ -23,7 +23,7 @@ char	**exec_build_cmd(
 	n_args = count_argument(l_arg);
 	cmd = malloc(sizeof(char *) * (n_args + 1));
 	if (!cmd)
-		err_malloc_exit();
+		err_exit(strerror(errno), NULL, errno);
 	cmd[n_args] = 0;
 	tmp = l_arg;
 	i = 0;
@@ -49,7 +49,7 @@ char	**exec_build_env(
 	env_size = ft_lstsize(tmp);
 	env_array = malloc(sizeof(char *) * (env_size + 1));
 	if (!env_array)
-		err_malloc_exit();
+			err_exit(strerror(errno), NULL, errno);
 	env_array[env_size] = 0;
 	tmp = l_env;
 	i = -1;
@@ -71,13 +71,12 @@ void	exec_redirect_fd(
 	if (old_fd != new_fd && old_fd != 0)
 	{
 		if (dup2(old_fd, new_fd) == -1)
-			err_put_exit();
+			err_exit(strerror(errno), NULL, errno);
 		else
 			close(old_fd);
 	}
 }
 
-// FIX: wrong free instruction
 char	*exec_try_access(
 	char *command,
 	char **path)

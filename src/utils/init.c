@@ -20,17 +20,17 @@ t_env	*init_env_element(char *envp)
 
 	element = malloc(sizeof(t_env));
 	if (!element)
-		err_malloc_exit();
+		err_exit(strerror(errno), NULL, errno);
 	envp_len = ft_strlen(envp);
 	envp_pos_sep = 0;
 	while (envp[envp_pos_sep] != '=')
 		envp_pos_sep++;
 	element->key = ft_substr(envp, 0, envp_pos_sep);
 	if (!element->key)
-		err_malloc_exit();
+		err_exit(strerror(errno), NULL, errno);
 	element->value = ft_substr(envp, envp_pos_sep + 1, envp_len);
 	if (!element->value)
-		err_malloc_exit();
+		err_exit(strerror(errno), NULL, errno);
 	return (element);
 }
 
@@ -62,14 +62,14 @@ static void	init_pwd(void)
 
 	if (getcwd(pwd, BUFFER_SIZE) == 0)
 	{
-		// FIX: change this to get consistent error
 		if (errno == ERANGE)
-			exit (EXIT_FAILURE); // err("bash", "pathname length exceeds the buffer size", 1);
+			err("pathname length exceeds the buffer size", NULL, 1);
+		return ;
 	}
 	tmp = ft_strjoin("PWD=", pwd);
 	g_process.pwd = ft_strdup(pwd);
 	if (!g_process.pwd)
-		err_malloc_exit();
+		err_exit(strerror(errno), NULL, errno);
 	free(tmp);
 }
 
@@ -79,10 +79,15 @@ t_var	*init(char **envp)
 
 	var_out = malloc(sizeof(t_var));
 	if (!var_out)
-		err_malloc_exit();
+		err_exit(strerror(errno), NULL, errno);
 	init_pwd();
+	var_out->l_arg = NULL;
 	var_out->l_env = NULL;
 	var_out->l_exp = NULL;
+	var_out->current_arg = NULL;
+	var_out->next_redir_out = NULL;
+	var_out->n_cmds = 0;
+	var_out->command_array = NULL;
 	init_env(var_out, envp);
 	return (var_out);
 }
@@ -99,11 +104,10 @@ int	init_command_context(
 	var->current_arg = var->l_arg;
 	var->next_redir_out = get_next_redir_out(var->current_arg);
 	var->n_cmds = count_command(var->l_arg);
-	var->n_redirs = count_redirections(var->l_arg);
 	if (pipe(fd) == -1)
-		err_put_exit();
+		err_exit(strerror(errno), NULL, errno);
 	close(fd[WRITE_END]);
 	if (dup2(STDIN_FILENO, fd[READ_END]) == -1)
-		err_put_exit();
+		err_exit(strerror(errno), NULL, errno);
 	return (fd[READ_END]);
 }

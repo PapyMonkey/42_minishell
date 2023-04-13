@@ -20,8 +20,11 @@ void	err(
 	ft_putstr_fd(SHELL_NAME, 2);
 	ft_putstr_fd(": ", 2);
 	ft_putstr_fd(err, 2);
-	ft_putstr_fd(": ", 2);
-	ft_putstr_fd(info, 2);
+	if (info)
+	{
+		ft_putstr_fd(": ", 2);
+		ft_putstr_fd(info, 2);
+	}
 	ft_putstr_fd("\n", 2);
 	g_process.return_code = code;
 }
@@ -43,27 +46,11 @@ void	err_d(
 	g_process.return_code = code;
 }
 
-void	err_custom_exit(char *str)
+void	err_exit(
+	char *error,
+	char *info,
+	int code)
 {
-	ft_putstr_fd(str, 2);
-	exit(EXIT_FAILURE);
-}
-
-// HACK: change the way we display errors
-void	err_malloc_exit(void)
-{
-	ft_printf("Error: malloc failed\n");
-	exit(EXIT_FAILURE);
-}
-
-void	err_put_exit(void)
-{
-	ft_printf("Error: %s\n", strerror(errno));
-	exit(EXIT_FAILURE);
-}
-
-void	err_put_exit_command_not_found(char *str)
-{
-	ft_printf("Error: command not found: %s\n", str);
-	exit(EXIT_FAILURE);
+	err(error, info, code);
+	exit(g_process.return_code);
 }

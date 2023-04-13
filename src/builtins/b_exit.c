@@ -19,21 +19,14 @@ int	effective_exit(t_var *var)
 	exit(g_process.return_code);
 }
 
-// FIX: Change the flag error to a general argument error
-// TODO: change :
-//	- to implement a wrapper for exit
-//	- to implement possible flags
-//	- to implement error code when called with arguments
 void	b_exit(t_var *var)
 {
-	t_list	*flag;
+	int	argument_number;
 
-	flag = check_arg_flag(var->current_arg);
-	if (flag)
-	{
-		err_d("exit", get_arg_content(flag), "invalid option", 2);
-		return ;
-	}
+	argument_number = count_argument(var->current_arg);
+	if (argument_number > 1)
+		return (err_d("exit", var->command_array[argument_number - 1],
+			"invalid option", 2));
 	g_process.return_code = 0;
 	effective_exit(var);
 }

@@ -113,31 +113,23 @@ void		err_d(
 				int code);
 
 // NOTE: Documentation
-void		err_custom_exit(char *str);
-
-/**
-@brief Print on STDOUT "malloc failed" and exit the current process
-		with exit(1).
-*/
-void		err_malloc_exit(void);
-
-/**
-@brief Print on STDOUT the corresponding error message (errno) and
-		exit the current process with exit(1).
-*/
-void		err_put_exit(void);
-
-/**
-@brief Print on STDOUT a custom error message (errno) and exit the current
-		process with exit(1).
-*/
-void		err_put_exit_command_not_found(char *str);
+void		err_exit(
+				char *error,
+				char *info,
+				int code);
 
 // ****************************************************************************
 // Functions - free.c
 
 // NOTE: Documentation
-void		free_command_context(t_var *var, char *input, int fd_read_end);
+void		safe_free(void *ptr);
+
+// NOTE: Documentation
+void		free_command_context(
+				t_var *var,
+				char *input,
+				int fd_read_end);
+
 /**
 @brief Frees up an env {key:value} pair in a t_list.
 

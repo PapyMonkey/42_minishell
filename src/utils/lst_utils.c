@@ -17,8 +17,8 @@ void	free_lstcontent(void *content)
 	t_arg	*arg;
 
 	arg = (t_arg *)content;
-	free(arg->content);
-	free(arg);
+	safe_free(arg->content);
+	safe_free(arg);
 }
 
 t_arg	*t_arg_cpy(void *arg)

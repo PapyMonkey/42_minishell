@@ -18,14 +18,15 @@ static int	redir_in(t_var *var)
 	int		fd_input;
 
 	file_to_open = var->current_arg->next;
+	if (!file_to_open)
+		err_exit("syntax error near unexpected token `newline`", NULL, 2);
+	printf("file_to_open=%s\n", get_arg_content(file_to_open));
 	fd_input = open(get_arg_content(file_to_open),
 			O_RDONLY);
 	if (fd_input < 0)
-		err("", strerror(errno), errno);
+		err_exit(get_arg_content(file_to_open), strerror(errno), errno);
 	exec_redirect_fd(fd_input, STDIN_FILENO);
-	ft_lstremove(&var->current_arg, file_to_open, free_lstcontent);
-	ft_lstremove(&var->current_arg, var->next_redir_out, free_lstcontent);
-	var->next_redir_out = get_next_redir_out(var->current_arg);
+	var->current_arg = get_command_or_redir_next(var->current_arg);
 	return (REDIR_IN);
 }
 

@@ -37,11 +37,6 @@ static int	b_echo_ext(t_var *const var)
 	return (is_return_line);
 }
 
-// FIX: differents usecases
-// - [X] No argument should print \n
-// - [X] Check flags, if any (except -n) -> errors
-//		- Only check the first flags, rest is treated as text
-// - [X] Flag -n should be first argument, otherwise treated as text
 void	b_echo(t_var *const var)
 {
 	int	is_return_line;

@@ -23,11 +23,11 @@ void	read_and_write_to_fd(
 	while (bytes_read > 0)
 	{
 		if (write(fd_write, buffer, bytes_read) != bytes_read)
-			err_put_exit();
+			err_exit(strerror(errno), NULL, errno);
 		bytes_read = read(fd_read, buffer, BUFFER_SIZE);
 	}
 	if (bytes_read < 0)
-		err_put_exit();
+		err_exit(strerror(errno), NULL, errno);
 }
 
 void	read_and_write_to_fd_heredoc(
@@ -43,11 +43,11 @@ void	read_and_write_to_fd_heredoc(
 	delimiter_str = get_arg_content(heredoc_delimiter);
 	delimiter_length = ft_strlen(delimiter_str);
 	if (!out)
-		err_put_exit();
+		err_exit(strerror(errno), NULL, errno);
 	while (ft_strncmp(out, delimiter_str, delimiter_length))
 	{
 		if (write(fd_write, out, ft_strlen(out)) == -1)
-			err_put_exit();
+			err_exit(strerror(errno), NULL, errno);
 		out = ft_get_next_line(fd_read);
 		// HACK: Recuperer l'excedent (apres le delimiter) pour le stocker,
 		// parser et ajouter la liste des commandes a executer

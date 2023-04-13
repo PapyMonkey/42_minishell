@@ -29,7 +29,7 @@ int	main(
 		ctrl_hide();
 		get_signo(0);
 		rl_replace_line("", 0);
-		input = readline("$> ");
+		input = readline(READLINE_PROMPT);
 		if (!input)
 			effective_exit(var);
 		if (input[0])
