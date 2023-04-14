@@ -50,7 +50,8 @@ static int	heredoc_evaluate_line(
 	if (!(*line))
 		return (err("warning",
 				"here-document delimited by end-of-file: wanted", 0));
-	if (!ft_strncmp(*line, heredoc_delimiter, ft_strlen(*line)))
+	if (!ft_strncmp(*line, heredoc_delimiter, ft_strlen(*line))
+		&& ft_strlen(*line) == ft_strlen(heredoc_delimiter))
 		return (0);
 	if (ft_strchr(*line, '$'))
 	{
