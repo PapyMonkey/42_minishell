@@ -22,11 +22,20 @@ int	effective_exit(t_var *var)
 int	b_exit(t_var *var)
 {
 	int	argument_number;
+	int	i;
 
 	argument_number = count_argument(var->cmd_current);
-	if (argument_number > 1)
-		return (err_d("exit", var->command_array[argument_number - 1],
-				"invalid option", 2));
-	g_process.return_code = 0;
+	if (argument_number > 2)
+		return (err("exit", "too many arguments", 1));
+	i = 0;
+	while (argument_number == 2 && var->command_array[1][++i])
+	{
+		if (!ft_isdigit(var->command_array[1][i]))
+			return (err("exit", "numeric argument required", 255));
+	}
+	if (argument_number == 2)
+		g_process.return_code = ft_atoi(var->command_array[1]) % MODULO_EXIT;
+	else
+		g_process.return_code = 0;
 	return (effective_exit(var));
 }
