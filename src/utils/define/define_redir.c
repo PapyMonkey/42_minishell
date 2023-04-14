@@ -6,12 +6,11 @@
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 14:07:07 by bgales            #+#    #+#             */
-/*   Updated: 2023/04/13 11:34:04 by bgales           ###   ########.fr       */
+/*   Updated: 2023/04/14 02:07:11 by aguiri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 
 static void	define_redir_in(t_list **list)
 {
@@ -51,6 +50,33 @@ static void	define_redir_ext(t_list **list)
 	}
 }
 
+// NOTE: Documentation
+static void	handle_here_doc(t_list **ptr)
+{
+	t_arg	*arg;
+
+	*ptr = (*ptr)->next;
+	if (*ptr == NULL)
+		return ;
+	arg = (*ptr)->content;
+	if (!r_or_p(arg->type))
+		arg->type = DELIM;
+}
+
+// NOTE: Documentation
+static void	handle_redirections(t_list **ptr)
+{
+	t_arg	*arg;
+
+	arg = (*ptr)->content;
+	if (arg->type == HERE_DOC)
+		handle_here_doc(ptr);
+	else if (arg->type == REDIR_IN)
+		define_redir_in(&(*ptr)->next);
+	else
+		define_redir_ext(&(*ptr)->next);
+}
+
 void	define_redir(t_list **list)
 {
 	t_list	*ptr;
@@ -62,19 +88,7 @@ void	define_redir(t_list **list)
 		arg = ptr->content;
 		if (arg_is_redir(arg->type))
 		{
-			if (arg->type == HERE_DOC)
-			{
-				ptr = ptr->next;
-				if (ptr == NULL)
-					return ;
-				arg = ptr->content;
-				if (!r_or_p(arg->type))
-					arg->type = DELIM;
-			}
-			else if (arg->type == REDIR_IN)
-				define_redir_in(&ptr->next);
-			else
-				define_redir_ext(&ptr->next);
+			handle_redirections(&ptr);
 			arg = ptr->content;
 		}
 		if (ptr != NULL)

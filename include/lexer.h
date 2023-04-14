@@ -6,7 +6,7 @@
 /*   By: aguiri <aguiri@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 16:38:28 by aguiri            #+#    #+#             */
-/*   Updated: 2023/04/06 17:56:35 by aguiri           ###   ########.fr       */
+/*   Updated: 2023/04/14 02:07:25 by aguiri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@
 @return        A new list with aliases replaced.
 */
 t_list	*alias_replace(t_list **list, t_list *l_env);
-
 
 /*
 @brief Check if a string has an alias.

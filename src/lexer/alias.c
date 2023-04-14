@@ -6,11 +6,21 @@
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 13:56:32 by bgales            #+#    #+#             */
-/*   Updated: 2023/04/13 14:31:52 by bgales           ###   ########.fr       */
+/*   Updated: 2023/04/14 02:12:52 by aguiri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+// NOTE: Documentation
+static int	handle_env_value(t_arg *arg, t_list **ret, char *const value)
+{
+	free(arg->content);
+	arg->content = ft_strdup(value);
+	arg->type = TEXT;
+	ft_lstadd_back(ret, ft_lstnew(t_arg_cpy(arg)));
+	return (1);
+}
 
 /*
 @brief Get environment variable value and replace the corresponding alias
@@ -20,11 +30,13 @@
 @param ret     Pointer to the output list
 @return        1 if alias was replaced, 0 otherwise
 */
-static int	get_env(t_list *l_env, t_list **ptr, t_list **ret)
+static int	get_env(
+	t_list *l_env,
+	t_list **ptr,
+	t_list **ret)
 {
 	t_env	*env;
 	t_arg	*arg;
-	t_arg	*new;
 
 	arg = (*ptr)->content;
 	while (l_env != NULL)
@@ -32,26 +44,20 @@ static int	get_env(t_list *l_env, t_list **ptr, t_list **ret)
 		env = l_env->content;
 		if (!ft_strncmp(&arg->content[1], env->key, ft_strlen(arg->content)))
 		{
-			free(arg->content);
-			arg->content = ft_strdup(env->value);
-			arg->type = TEXT;
-			ft_lstadd_back(ret, ft_lstnew(t_arg_cpy(arg)));
-			return (1);
+			return (handle_env_value(arg, ret, env->value));
 		}
 		l_env = l_env->next;
 	}
 	if (!ft_strncmp(&arg->content[0], "$?", ft_strlen(arg->content)))
 	{
-		free(arg->content);
-		arg->content = ft_itoa(g_process.return_code);
-		arg->type = TEXT;
-		ft_lstadd_back(ret, ft_lstnew(t_arg_cpy(arg)));
-		return (1);
+		return (handle_env_value(arg, ret, ft_itoa(g_process.return_code)));
 	}
 	return (0);
 }
 
-t_list	*alias_replace(t_list **list, t_list *l_env)
+t_list	*alias_replace(
+	t_list **list,
+	t_list *l_env)
 {
 	t_env	*env;
 	t_list	*r;
@@ -106,7 +112,7 @@ int	is_alias(char *str, t_list **list)
 			while (str[i] && (ft_isalnum(str[i]) || str[i] == '?'))
 			{
 				if (str[i] == '?' && i++ != -1)
-					break;
+					break ;
 				i++;
 			}
 			arg = malloc(sizeof(t_arg));
@@ -118,4 +124,3 @@ int	is_alias(char *str, t_list **list)
 	}
 	return (0);
 }
-

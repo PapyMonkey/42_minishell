@@ -6,7 +6,7 @@
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 19:59:51 by mgerbaud          #+#    #+#             */
-/*   Updated: 2023/04/07 23:22:01 by aguiri           ###   ########.fr       */
+/*   Updated: 2023/04/14 01:51:03 by aguiri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	b_routine(t_var *var)
 {
 	char	*command;
 
-	var->command_array= exec_build_cmd(var->cmd_current);
+	var->command_array = exec_build_cmd(var->cmd_current);
 	command = get_arg_content(var->cmd_current);
 	if (!ft_strncmp(command, "echo", 4))
 		return (b_echo(var));

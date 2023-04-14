@@ -6,7 +6,7 @@
 /*   By: aguiri <aguiri@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 17:50:02 by aguiri            #+#    #+#             */
-/*   Updated: 2023/02/27 14:13:27 by aguiri           ###   ########.fr       */
+/*   Updated: 2023/04/14 01:58:03 by aguiri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,18 +94,16 @@ static void	ft_write_tab(char **str_split, const char *str, char c)
 		{
 			i++;
 			sep_passed = 1;
+			continue ;
 		}
-		else
-		{
-			j = 0;
-			while (!u_char_is_sep(str[i + j], c))
-				j++;
-			str_split[n_word] = malloc(sizeof(char) * (j + 1));
-			if (!str_split[n_word])
-				err_exit(strerror(errno), NULL, errno);
-			ft_write_words(str_split[n_word++], str + i, j);
-			i += j;
-		}
+		j = 0;
+		while (!u_char_is_sep(str[i + j], c))
+			j++;
+		str_split[n_word] = malloc(sizeof(char) * (j + 1));
+		if (!str_split[n_word])
+			err_exit(strerror(errno), NULL, errno);
+		ft_write_words(str_split[n_word++], str + i, j);
+		i += j;
 	}
 }
 

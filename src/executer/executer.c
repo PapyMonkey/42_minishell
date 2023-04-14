@@ -6,18 +6,17 @@
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 12:54:24 by aguiri            #+#    #+#             */
-/*   Updated: 2023/04/13 16:24:37 by aguiri           ###   ########.fr       */
+/*   Updated: 2023/04/14 01:48:49 by aguiri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 // NOTE: Documentation
-static int	exec_command_not_builtin(t_var *var)
+static int	exec_command_not_builtin(
+	t_var *var)
 {
 	char	**env;
-	char	**path;
-	char	*try_access;
 
 	var->command_array = exec_build_cmd(var->cmd_current);
 	if (!var->command_array[0])
@@ -25,18 +24,10 @@ static int	exec_command_not_builtin(t_var *var)
 	env = exec_build_env(var->l_env);
 	if (access(var->command_array[0], X_OK) == 0)
 		execve(var->command_array[0], var->command_array, env);
-	else if (!search_env_elem(var->l_env, "PATH"))
-		return (err(var->command_array[0], "command not found", 127));
 	else
 	{
-		path = ft_split(get_env_value(search_env_elem(var->l_env, "PATH")),
-				':');
-		try_access = exec_try_access(var->command_array[0], path);
-		if (!try_access)
-			return (err(var->command_array[0], "command not found", 127));
-		execve(try_access, var->command_array, env);
-		free_2d_char(path);
-		free(try_access);
+		if (execute_command_with_path(var, env) == 127)
+			return (127);
 	}
 	free_2d_char(env);
 	return (EXIT_SUCCESS);
@@ -71,12 +62,6 @@ static int	exec_redirections(
 	g_process.return_code = 0;
 	return (EXIT_SUCCESS);
 }
-
-// FIX :
-// - [X] Retour d'erreur en cas de fichier non trouve
-// - [X] Regrouper les redirections en fonction de in ou out
-// - [ ] HEREDOC : utiliser un fichier tampon
-// - [X] Supprimer les redirections out effectuees de la chaine de caractere
 
 // NOTE : Documentation
 static void	exec_parent_routine(

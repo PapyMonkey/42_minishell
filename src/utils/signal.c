@@ -6,13 +6,13 @@
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 16:09:03 by bgales            #+#    #+#             */
-/*   Updated: 2023/04/09 14:43:19 by bgales           ###   ########.fr       */
+/*   Updated: 2023/04/14 01:59:02 by aguiri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ctrl_hide()
+void	ctrl_hide(void)
 {
 	struct termios	t;
 
@@ -21,7 +21,7 @@ void	ctrl_hide()
 	tcsetattr(0, TCSANOW, &t);
 }
 
-void	ctrl_show()
+void	ctrl_show(void)
 {
 	struct termios	t;
 
@@ -29,6 +29,7 @@ void	ctrl_show()
 	t.c_lflag |= ECHOCTL;
 	tcsetattr(0, TCSANOW, &t);
 }
+
 /*
 @brief Handle signals (SIGINT and SIGQUIT).
 
@@ -36,7 +37,6 @@ void	ctrl_show()
 */
 static void	signal_handler(int signo)
 {
-
 	if (signo == SIGINT)
 	{
 		write(STDOUT_FILENO, "\n", 1);
@@ -73,7 +73,6 @@ void	get_signo(int no)
 		signal(SIGINT, signal_handler);
 		signal(SIGQUIT, signal_handler);
 	}
-
 	if (no)
 	{
 		signal(SIGINT, signal_handler2);
