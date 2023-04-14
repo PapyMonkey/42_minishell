@@ -6,17 +6,16 @@
 /*   By: aguiri <aguiri@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 15:35:35 by aguiri            #+#    #+#             */
-/*   Updated: 2023/02/27 13:19:34 by aguiri           ###   ########.fr       */
+/*   Updated: 2023/04/14 02:35:22 by aguiri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// NOTE: Documentation
-/**
-@brief Print the export list to the standard output.
+/*
+@brief Display environment and exported variables with no arguments.
 
-@param var Variable that contains all the other useful ones.
+@param var     Variable structure.
 */
 static void	exp_no_args(const t_var *var)
 {
@@ -31,13 +30,11 @@ static void	exp_no_args(const t_var *var)
 		ft_lstiter(tmp_exp, print_exp_elem);
 }
 
-// NOTE: Documentation
-/**
-@brief Create and add an export value to the EXP list, only if it does not
-		already exist in the ENV and EXP lists.
+/*
+@brief Create an exported variable.
 
-@param var Variable that contains all the other useful ones.
-@param str Argument/input string.
+@param var     Variable structure.
+@param key     Key of the variable to export.
 */
 static void	exp_create(t_var *var, char *key)
 {
@@ -54,12 +51,12 @@ static void	exp_create(t_var *var, char *key)
 		);
 }
 
-// NOTE: Documentation
-/**
-@brief Create and add an environnement variable to the ENV list.
+/*
+@brief Create an environment variable from an exported variable.
 
-@param var Variable that contains all the other useful ones.
-@param str Argument/input string.
+@param var     Variable structure.
+@param key     Key of the variable to create.
+@param index   Index of the variable in the command_array.
 */
 static void	exp_create_env(t_var *var, char *key, int index)
 {

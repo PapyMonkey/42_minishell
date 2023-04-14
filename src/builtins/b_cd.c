@@ -6,12 +6,19 @@
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 15:25:16 by bgales            #+#    #+#             */
-/*   Updated: 2023/04/14 01:53:31 by aguiri           ###   ########.fr       */
+/*   Updated: 2023/04/14 02:32:48 by aguiri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/*
+@brief Update environment variables.
+
+@param var     Variable structure containing environment variables.
+@param key     The key of the environment variable to update.
+@param value   The new value for the environment variable.
+*/
 static void	cd_update_env(
 	t_var *var,
 	char *key,
@@ -26,6 +33,12 @@ static void	cd_update_env(
 	((t_env *)ptr_elem->content)->value = ft_strdup(value);
 }
 
+/*
+@brief Change the current directory.
+
+@param var     Variable structure.
+@return             Exit status.
+*/
 static int	cd_exec(
 	t_var *var,
 	char *tmp_path)

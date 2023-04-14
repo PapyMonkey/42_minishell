@@ -6,7 +6,7 @@
 /*   By: mgerbaud <mgerbaud@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 19:48:45 by mgerbaud          #+#    #+#             */
-/*   Updated: 2023/04/07 23:24:13 by aguiri           ###   ########.fr       */
+/*   Updated: 2023/04/14 03:01:22 by aguiri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,60 +22,79 @@
 // ****************************************************************************
 // Functions
 
-// NOTE: Generate documentation
+/*
+@brief Built-in command: cd.
+
+@param var     Variable structure.
+@return             Exit status.
+*/
 int		b_cd(t_var *var);
 
-// NOTE: Generate documentation
-/**
-@brief Replicates the bash echo builtin command. See manual.
+/*
+@brief Built-in command: echo.
 
-@param str String to be echo-ed.
+@param var     Variable structure.
+@return             Exit status.
 */
 int		b_echo(t_var *const var);
 
-// NOTE: Generate documentation
-/**
-@brief Replicates the bash env builtin command. See manual.
+/*
+@brief Built-in command: env.
 
-@param l_env List of ENV variables.
+@param var     Variable structure.
+@return             Exit status.
 */
 int		b_env(t_var *const var);
 
-// NOTE: Generate documentation
-/**
-@brief Exit the program properly (calls free functions)
+/*
+@brief Built-in command: exit.
 
-@param var Variable that contains all the other useful ones.
+@param var     Variable structure.
+@return             Exit status.
 */
 int		b_exit(t_var *var);
 
-// NOTE: Generate documentation
+/*
+@brief Built-in command: export.
+
+@param var     Variable structure.
+@return             Exit status.
+*/
 int		b_export(t_var *var);
 
-// NOTE: Generate documentation
-/**
-@brief Replicates the bash pwd builtin command. See manual.
+/*
+@brief Prints the current working directory.
 
-@param l_env List of ENV variables.
+@param var    A pointer to a t_var structure.
+@return           EXIT_SUCCESS on success.
 */
 int		b_pwd(t_var *const var);
 
-// NOTE: Generate documentation
-/**
-@brief Unset an ENV variable.
+/*
+@brief Unset environment variable.
 
-@param l_env List of ENV variables.
-@param str Argument/input string.
+@param var    Pointer to a t_var structure.
+@return             EXIT_SUCCESS if successful, error code if an error occurs.
 */
 int		b_unset(t_var *var);
 
 // ****************************************************************************
 // Functions - b_utils.c
 
-// NOTE: Generate documentation
+/*
+@brief Executes built-in commands.
+
+@param var    A pointer to a t_var structure.
+@return           EXIT_SUCCESS on success.
+*/
 int		b_routine(t_var *var);
 
-// NOTE: Generate documentation
+/*
+@brief Exit program with the effective exit.
+
+@param var     Variable structure.
+@return             Exit status.
+*/
 int		effective_exit(t_var *var);
 
 #endif // BUILTINS_H

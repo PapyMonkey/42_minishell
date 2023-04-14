@@ -6,13 +6,20 @@
 /*   By: aguiri <aguiri@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 00:28:18 by aguiri            #+#    #+#             */
-/*   Updated: 2023/04/14 01:38:47 by aguiri           ###   ########.fr       */
+/*   Updated: 2023/04/14 03:01:32 by aguiri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// NOTE: Documentation
+/*
+@brief Retrieves the value of a variable from the environment.
+
+@param l_env    A pointer to a list of environment variables (not used).
+@param key      The key of the variable to be retrieved.
+@param var      A pointer to a t_var structure.
+@return             The value of the variable as a string.
+*/
 static char	*recover_val(
 	t_list *l_env,
 	char *key,
@@ -30,7 +37,14 @@ static char	*recover_val(
 	return (value);
 }
 
-// NOTE: Documentation
+/*
+@brief Replaces a variable reference with its value in a string.
+
+@param orig_str  The original string containing the variable reference.
+@param val_str   The value of the variable as a string.
+@param index     The index of the variable reference in the original string.
+@return               The modified string with the variable reference replaced.
+*/
 static char	*replace_str_heredoc(
 	char *orig_str,
 	char *val_str,
@@ -52,7 +66,12 @@ static char	*replace_str_heredoc(
 	return (new_str);
 }
 
-// NOTE: Documentation
+/*
+@brief Constructs a string from an array of words.
+
+@param words  An array of words.
+@return           The constructed string.
+*/
 static char	*make_str_from_tab(char **words)
 {
 	char	*result;
@@ -81,7 +100,13 @@ static char	*make_str_from_tab(char **words)
 	return (result);
 }
 
-// NOTE: Documentation
+/*
+@brief Expands variables in a string.
+
+@param var    A pointer to a t_var structure.
+@param str    The string containing variable references.
+@return           The expanded string with variable values.
+*/
 static char	*heredoc_expander(
 	t_var *var,
 	char *str)

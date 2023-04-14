@@ -6,13 +6,17 @@
 /*   By: aguiri <aguiri@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 16:24:16 by aguiri            #+#    #+#             */
-/*   Updated: 2023/04/14 01:54:44 by aguiri           ###   ########.fr       */
+/*   Updated: 2023/04/14 02:25:56 by aguiri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// NOTE: Documentation
+/*
+@brief Reset prompt on SIGINT signal.
+
+@param signo    The signal number.
+*/
 static void	signal_reset_prompt(int signo)
 {
 	(void)signo;
@@ -22,7 +26,9 @@ static void	signal_reset_prompt(int signo)
 	rl_redisplay();
 }
 
-// NOTE: Documentation
+/*
+@brief Ignore the SIGQUIT signal.
+*/
 static void	ignore_sigquit(void)
 {
 	struct sigaction	act;
@@ -42,7 +48,11 @@ void	set_signals_interactive(void)
 	sigaction(SIGINT, &act, NULL);
 }
 
-// NOTE: Documentation
+/*
+@brief Print a newline on SIGINT or SIGQUIT signals.
+
+@param signal    The signal number.
+*/
 static void	signal_print_newline(int signal)
 {
 	(void)signal;

@@ -6,7 +6,7 @@
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 14:07:07 by bgales            #+#    #+#             */
-/*   Updated: 2023/04/14 02:07:11 by aguiri           ###   ########.fr       */
+/*   Updated: 2023/04/14 03:00:23 by aguiri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,11 @@ static void	define_redir_ext(t_list **list)
 	}
 }
 
-// NOTE: Documentation
+/*
+@brief Handle HERE_DOC redirections for the given list.
+
+@param ptr      Pointer to the list element.
+*/
 static void	handle_here_doc(t_list **ptr)
 {
 	t_arg	*arg;
@@ -63,7 +67,11 @@ static void	handle_here_doc(t_list **ptr)
 		arg->type = DELIM;
 }
 
-// NOTE: Documentation
+/*
+@brief Handle different types of redirections for the given list.
+
+@param ptr      Pointer to the list element.
+*/
 static void	handle_redirections(t_list **ptr)
 {
 	t_arg	*arg;
