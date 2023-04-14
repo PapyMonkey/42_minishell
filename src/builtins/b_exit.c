@@ -6,7 +6,7 @@
 /*   By: aguiri <aguiri@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 05:55:53 by aguiri            #+#    #+#             */
-/*   Updated: 2023/04/13 16:26:44 by aguiri           ###   ########.fr       */
+/*   Updated: 2023/04/14 01:52:55 by aguiri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	b_exit(t_var *var)
 	argument_number = count_argument(var->cmd_current);
 	if (argument_number > 1)
 		return (err_d("exit", var->command_array[argument_number - 1],
-			"invalid option", 2));
+				"invalid option", 2));
 	g_process.return_code = 0;
-	effective_exit(var);
+	return (effective_exit(var));
 }

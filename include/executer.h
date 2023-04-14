@@ -6,7 +6,7 @@
 /*   By: aguiri <aguiri@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 12:53:00 by aguiri            #+#    #+#             */
-/*   Updated: 2023/04/06 03:08:09 by aguiri           ###   ########.fr       */
+/*   Updated: 2023/04/14 01:49:54 by aguiri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,11 @@ char		*exec_try_access(
 				char *command,
 				char **path);
 
+// NOTE: Documentation
+int			execute_command_with_path(
+				t_var *var,
+				char **env);
+
 // ****************************************************************************
 // Functions - executer.c
 
@@ -90,5 +95,13 @@ int			redir_in_handle(t_var *var);
 @return         Returns the redirection type (REDIR_OUT or APPEND).
 */
 int			redir_out_handle(t_var *var);
+
+// NOTE: Documentation
+int			redir_heredoc(t_var *var);
+
+// NOTE: Documentation
+char		*heredoc_split_to_expander(
+				t_var *var,
+				char *line);
 
 #endif // EXECUTER_H

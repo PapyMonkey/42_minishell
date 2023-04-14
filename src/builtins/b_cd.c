@@ -6,7 +6,7 @@
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 15:25:16 by bgales            #+#    #+#             */
-/*   Updated: 2023/04/07 17:59:25 by bgales           ###   ########.fr       */
+/*   Updated: 2023/04/14 01:53:31 by aguiri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	cd_update_env(
 
 static int	cd_exec(
 	t_var *var,
-	char * tmp_path)
+	char *tmp_path)
 {
 	char	pwd[BUFFER_SIZE];
 
@@ -56,7 +56,7 @@ int	b_cd(t_var *var)
 
 	tmp_path = var->command_array[1];
 	count = count_argument(var->cmd_current);
-	if (count == 1 )
+	if (count == 1)
 	{
 		home = search_env_elem(var->l_env, "HOME");
 		if (!home)

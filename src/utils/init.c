@@ -6,7 +6,7 @@
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 18:53:41 by aguiri            #+#    #+#             */
-/*   Updated: 2023/04/13 16:13:58 by aguiri           ###   ########.fr       */
+/*   Updated: 2023/04/14 01:59:38 by aguiri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static void	init_env(t_var *var, char **envp)
 		ft_lstadd_back(
 			&var->l_env,
 			ft_lstnew(init_env_element(tmp_str))
-		);
+			);
 		free(tmp_str);
 	}
 }

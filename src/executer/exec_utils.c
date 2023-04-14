@@ -6,7 +6,7 @@
 /*   By: aguiri <aguiri@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 11:49:59 by aguiri            #+#    #+#             */
-/*   Updated: 2023/04/06 01:06:41 by aguiri           ###   ########.fr       */
+/*   Updated: 2023/04/14 01:46:54 by aguiri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ char	**exec_build_cmd(
 	int		i;
 
 	n_args = count_argument(l_arg);
-	// printf("exec_build_cmd> n_args = %d\n", n_args);
 	cmd = malloc(sizeof(char *) * (n_args + 1));
 	if (!cmd)
 		err_exit(strerror(errno), NULL, errno);
@@ -55,7 +54,7 @@ char	**exec_build_env(
 	env_size = ft_lstsize(tmp);
 	env_array = malloc(sizeof(char *) * (env_size + 1));
 	if (!env_array)
-			err_exit(strerror(errno), NULL, errno);
+		err_exit(strerror(errno), NULL, errno);
 	env_array[env_size] = 0;
 	tmp = l_env;
 	i = -1;
@@ -105,4 +104,34 @@ char	*exec_try_access(
 		i++;
 	}
 	return (NULL);
+}
+
+int	execute_command_with_path(
+	t_var *var,
+	char **env)
+{
+	char	**path;
+	char	*try_access;
+
+	if (!search_env_elem(var->l_env, "PATH"))
+	{
+		free_2d_char(env);
+		return (err(var->command_array[0], "command not found", 127));
+	}
+	else
+	{
+		path = ft_split(
+				get_env_value(search_env_elem(var->l_env, "PATH")), ':');
+		try_access = exec_try_access(var->command_array[0], path);
+		if (!try_access)
+		{
+			free_2d_char(path);
+			free_2d_char(env);
+			return (err(var->command_array[0], "command not found", 127));
+		}
+		execve(try_access, var->command_array, env);
+		free_2d_char(path);
+		free(try_access);
+	}
+	return (EXIT_SUCCESS);
 }

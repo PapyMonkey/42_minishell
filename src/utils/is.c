@@ -6,7 +6,7 @@
 /*   By: aguiri <aguiri@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 23:51:05 by aguiri            #+#    #+#             */
-/*   Updated: 2023/04/06 00:03:12 by aguiri           ###   ########.fr       */
+/*   Updated: 2023/04/14 01:55:09 by aguiri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	is_redir_and_tokens(t_list *l_arg)
 		|| type == R_FILE
 		|| type == RI_FILE
 		|| type == DELIM)
-			return (1);
+		return (1);
 	else
 		return (0);
 }

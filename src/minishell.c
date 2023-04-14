@@ -6,13 +6,18 @@
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 16:36:09 by mgerbaud          #+#    #+#             */
-/*   Updated: 2023/04/09 14:44:30 by bgales           ###   ########.fr       */
+/*   Updated: 2023/04/14 01:51:36 by aguiri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 t_process	g_process = {NULL, 0, 0};
+
+/* printf("---------------------------------------------------------------\n");
+ft_lstiter(var->l_arg, *print_arg_elem);
+printf("Number of commands : %d\n", var->n_cmds);
+printf("---------------------------------------------------------------\n"); */
 
 int	main(
 	int argc,
@@ -37,10 +42,6 @@ int	main(
 		ctrl_show();
 		get_signo(1);
 		fd_read_end = init_command_context(var, input);
-		// ft_lstiter(var->l_arg, *print_arg_elem);
-		// printf("Number of commands : %d\n", var->n_cmds);
-		// printf("Number of redirections : %d\n", var->n_redirs);
-		// printf("---------------------------------------------------------------\n");
 		if (var->l_arg != NULL)
 			executer(var, 0, fd_read_end);
 		free_command_context(var, input, fd_read_end);

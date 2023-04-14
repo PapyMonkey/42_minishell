@@ -6,7 +6,7 @@
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 16:40:51 by bgales            #+#    #+#             */
-/*   Updated: 2023/04/06 17:39:17 by aguiri           ###   ########.fr       */
+/*   Updated: 2023/04/14 02:03:42 by aguiri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ static int	is_quote(char *str, t_list **list)
 @brief Checks if the given string is a pipe or a redirection
 @param str The string to check
 @param list Pointer to the list of arguments
-@return 0 if not a pipe or a redirection, 1 if single character, 2 if double characters
+@return 0 if not a pipe or a redirection, 1 if single character,
+	2 if double characters
 */
 static int	is_pipe_redir(char *str, t_list **list)
 {
@@ -92,6 +93,7 @@ static int	is_space(char *str, t_list **list)
 	return (i);
 }
 
+// FIX: Change the way we detect white_spaces characters
 /*
 @brief Checks if the given string is an argument
 @param str The string to check
@@ -103,7 +105,6 @@ static int	is_arg(char *str, t_list **list)
 	int		i;
 	t_arg	*arg;
 
-	// FIX: Change the way we detect white_spaces characters
 	i = 0;
 	while (str[i] && str[i] != '\'' && str[i] != '\"' && str[i] != ' '
 		&& str[i] != '	' && !pipe_redir_finder(&str[i])
