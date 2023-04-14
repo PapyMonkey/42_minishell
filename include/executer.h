@@ -6,7 +6,7 @@
 /*   By: aguiri <aguiri@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 12:53:00 by aguiri            #+#    #+#             */
-/*   Updated: 2023/04/14 01:49:54 by aguiri           ###   ########.fr       */
+/*   Updated: 2023/04/14 02:42:01 by aguiri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,13 @@ void		exec_redirect_fd(
 char		*exec_try_access(
 				char *command,
 				char **path);
+/*
+@brief Execute a command with a specified path.
 
-// NOTE: Documentation
+@param var    The t_var structure containing the command and environment.
+@param env    The environment variables.
+@return             The exit status of the command execution.
+*/
 int			execute_command_with_path(
 				t_var *var,
 				char **env);
@@ -67,7 +72,14 @@ int			execute_command_with_path(
 // ****************************************************************************
 // Functions - executer.c
 
-// NOTE: Documentation
+/*
+@brief Execute the commands in the pipeline.
+
+@param var                The t_var structure containing the command.
+@param index              The index of the command in the pipeline.
+@param fd_parent     The file descriptor of the parent process.
+@return             The exit status of the command execution.
+*/
 int			executer(
 				t_var *var,
 				int index,
@@ -76,30 +88,37 @@ int			executer(
 // ****************************************************************************
 // Functions - redir_*.c
 
-// NOTE: Documentation
 /*
-@brief Handles REDIR_IN redirection.
+@brief Handles input redirection.
 
-@param var      Pointer to a t_var struct containing environment variables.
-@param fd_write File descriptor to write the output.
-@return         Returns the redirection type (REDIR_IN or REDIR_HEREDOC).
+@param var    A pointer to a t_var structure.
+@return           EXIT_CODE on error, REDIR_IN on success.
 */
 int			redir_in_handle(t_var *var);
 
-// NOTE: Documentation
 /*
-@brief Handles REDIR_OUT and APPEND redirection.
+@brief Handles output redirection.
 
-@param var      Pointer to a t_var struct containing environment variables.
-@param fd_read  File descriptor to read the input.
-@return         Returns the redirection type (REDIR_OUT or APPEND).
+@param var    A pointer to a t_var structure.
+@return           EXIT_CODE on error, REDIR_OUT or APPEND on success.
 */
 int			redir_out_handle(t_var *var);
 
-// NOTE: Documentation
+/*
+@brief Handles heredoc input redirection.
+
+@param var    A pointer to a t_var structure.
+@return           EXIT_CODE on error, HERE_DOC on success.
+*/
 int			redir_heredoc(t_var *var);
 
-// NOTE: Documentation
+/*
+@brief Splits a line and expands variables in each word.
+
+@param var    A pointer to a t_var structure.
+@param line   The line to be split and expanded.
+@return           The modified line with expanded variables.
+*/
 char		*heredoc_split_to_expander(
 				t_var *var,
 				char *line);

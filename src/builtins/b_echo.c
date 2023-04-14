@@ -6,12 +6,18 @@
 /*   By: aguiri <aguiri@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 16:22:44 by aguiri            #+#    #+#             */
-/*   Updated: 2023/04/13 15:47:13 by aguiri           ###   ########.fr       */
+/*   Updated: 2023/04/14 02:33:14 by aguiri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/*
+@brief Echo command extension.
+
+@param var     Variable structure.
+@return             1 if return line should be printed, 0 otherwise.
+*/
 static int	b_echo_ext(t_var *const var)
 {
 	int		is_return_line;

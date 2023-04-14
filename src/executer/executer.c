@@ -6,13 +6,18 @@
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 12:54:24 by aguiri            #+#    #+#             */
-/*   Updated: 2023/04/14 01:48:49 by aguiri           ###   ########.fr       */
+/*   Updated: 2023/04/14 02:28:30 by aguiri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// NOTE: Documentation
+/*
+@brief Execute a non-builtin command.
+
+@param var    The t_var structure containing the command.
+@return             The exit status of the command execution.
+*/
 static int	exec_command_not_builtin(
 	t_var *var)
 {
@@ -33,7 +38,15 @@ static int	exec_command_not_builtin(
 	return (EXIT_SUCCESS);
 }
 
-// NOTE: Documentation
+/*
+@brief Execute command redirections.
+
+@param var                The t_var structure containing the command.
+@param index              The index of the command in the pipeline.
+@param fd_parent     The file descriptor of the parent process.
+@param fd_child       A pointer to the file descriptor of the child process.
+@return             The exit status of the redirection execution.
+*/
 static int	exec_redirections(
 	t_var *var,
 	int index,
@@ -63,7 +76,14 @@ static int	exec_redirections(
 	return (EXIT_SUCCESS);
 }
 
-// NOTE : Documentation
+/*
+@brief Execute the parent process routine.
+
+@param var                The t_var structure containing the command.
+@param index              The index of the command in the pipeline.
+@param fd_to_child    A pointer to the file descriptor to the child process.
+@param pid                 The process ID of the child process.
+*/
 static void	exec_parent_routine(
 	t_var *var,
 	int index,
@@ -82,7 +102,15 @@ static void	exec_parent_routine(
 	g_process.return_code = WEXITSTATUS(g_process.return_code);
 }
 
-// NOTE : Documentation
+/*
+@brief Execute built-in commands.
+
+@param var                The t_var structure containing the command.
+@param index              The index of the command in the pipeline.
+@param fd_parent     The file descriptor of the parent process.
+@param fd_to_child    A pointer to the file descriptor of the child process.
+@return             The exit status of the built-in command execution.
+*/
 static int	exec_builtins(
 	t_var *var,
 	int index,

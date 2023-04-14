@@ -6,13 +6,17 @@
 /*   By: aguiri <aguiri@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 00:12:43 by aguiri            #+#    #+#             */
-/*   Updated: 2023/04/14 01:35:41 by aguiri           ###   ########.fr       */
+/*   Updated: 2023/04/14 02:40:46 by aguiri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// NOTE: Documentation
+/*
+@brief Generates a unique heredoc filename.
+
+@return           A unique heredoc filename string.
+*/
 char	*get_heredoc_name(void)
 {
 	static int	static_int;
@@ -30,7 +34,14 @@ char	*get_heredoc_name(void)
 	return (random_name);
 }
 
-// NOTE: Documentation
+/*
+@brief Evaluates a line from the heredoc input.
+
+@param var                A pointer to a t_var structure.
+@param line               A pointer to the line to be evaluated.
+@param heredoc_delimiter  The heredoc delimiter string.
+@return                       0 if the line matches the delimiter, 1 otherwise.
+*/
 static int	heredoc_evaluate_line(
 	t_var *var,
 	char **line,
@@ -53,7 +64,14 @@ static int	heredoc_evaluate_line(
 	return (1);
 }
 
-// NOTE: Documentation
+/*
+@brief Creates a heredoc temporary file.
+
+@param var          A pointer to a t_var structure.
+@param filename     The heredoc temporary file's name.
+@param delim        The heredoc delimiter.
+@return                 EXIT_SUCCESS on success, EXIT_CODE on error.
+*/
 static int	create_heredoc_file(
 	t_var *var,
 	char *filename,

@@ -6,13 +6,20 @@
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 13:56:32 by bgales            #+#    #+#             */
-/*   Updated: 2023/04/14 02:12:52 by aguiri           ###   ########.fr       */
+/*   Updated: 2023/04/14 03:00:37 by aguiri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// NOTE: Documentation
+/*
+@brief Handle environment value for the given argument and list.
+
+@param arg      Pointer to the t_arg structure.
+@param ret      Pointer to the list element.
+@param value    Value of the environment variable.
+@return         1 if environment value was handled successfully.
+*/
 static int	handle_env_value(t_arg *arg, t_list **ret, char *const value)
 {
 	free(arg->content);

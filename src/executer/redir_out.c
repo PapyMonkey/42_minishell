@@ -6,13 +6,18 @@
 /*   By: aguiri <aguiri@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 02:59:43 by aguiri            #+#    #+#             */
-/*   Updated: 2023/04/13 16:27:11 by aguiri           ###   ########.fr       */
+/*   Updated: 2023/04/14 02:47:29 by aguiri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// NOTE: Documentation
+/*
+@brief Redirect output to a file.
+
+@param var    Pointer to a t_var structure.
+@return             REDIR_OUT if successful, EXIT_CODE if an error occurs.
+*/
 static int	redir_out(t_var *var)
 {
 	t_list	*file_to_open;
@@ -36,7 +41,12 @@ static int	redir_out(t_var *var)
 	return (REDIR_OUT);
 }
 
-// NOTE: Documentation
+/*
+@brief Redirect output to a file in append mode.
+
+@param var    Pointer to a t_var structure.
+@return             APPEND if successful, EXIT_CODE if an error occurs.
+*/
 static int	redir_append(t_var *var)
 {
 	t_list	*file_to_open;

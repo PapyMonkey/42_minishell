@@ -6,7 +6,7 @@
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 17:34:59 by aguiri            #+#    #+#             */
-/*   Updated: 2023/04/13 16:14:36 by aguiri           ###   ########.fr       */
+/*   Updated: 2023/04/14 03:01:15 by aguiri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,11 @@ int			count_separator(struct s_list *l_arg);
 // *****************************************************************************
 // Functions - define_*.c
 
-// NOTE: Documentation
+/*
+@brief Define the builtin commands in the command list.
+
+@param list    Pointer to the command list.
+*/
 void		define_builtins(t_list **list);
 
 /*
@@ -100,19 +104,42 @@ void		define_redir(t_list **list);
 // ****************************************************************************
 // Functions - error.c
 
+/*
+@brief Print an error message and set the return code.
+
+@param err    Error message.
+@param info    Additional information.
+@param code    Return code.
+@return             The provided return code.
+*/
 int			err(
 				char *err,
 				char *info,
 				int code);
 
-// NOTE: Documentation
+/*
+@brief Print an error message with two additional information arguments
+	and set the return code.
+
+@param err        Error message.
+@param info        First additional information.
+@param info_2    Second additional information.
+@param code        Return code.
+@return                 The provided return code.
+*/
 int			err_d(
 				char *err,
 				char *info,
 				char *info_2,
 				int code);
 
-// NOTE: Documentation
+/*
+@brief Prints an error message and exits the program.
+
+@param error  Error string.
+@param info   Additional information string.
+@param code   Error code.
+*/
 void		err_exit(
 				char *error,
 				char *info,
@@ -121,10 +148,20 @@ void		err_exit(
 // ****************************************************************************
 // Functions - free.c
 
-// NOTE: Documentation
+/*
+@brief Safely frees memory.
+
+@param ptr    Pointer to memory block.
+*/
 void		safe_free(void *ptr);
 
-// NOTE: Documentation
+/*
+@brief Frees command context.
+
+@param var          Pointer to t_var structure.
+@param input        Input string.
+@param fd_read_end  File descriptor read end.
+*/
 void		free_command_context(
 				t_var *var,
 				char *input,
@@ -170,40 +207,91 @@ char		*get_arg_content(const t_list *l_arg_element);
 */
 t_enum_type	get_arg_type(const t_list *l_arg_element);
 
-// NOTE: Documentation
+/*
+@brief Returns the number of arguments in a list.
+
+@param l_arg  Pointer to a list of arguments.
+@return             Number of arguments.
+*/
 int			get_number_arguments(t_list *const l_arg);
 
-// NOTE: Documentation
+/*
+@brief Returns the command start.
+
+@param var    Pointer to t_var structure.
+@return             Pointer to the start of the command.
+*/
 t_list		*get_cmd_start(t_var *var);
+
+/*
+@brief Returns the command end.
+
+@param var    Pointer to t_var structure.
+@param start  Pointer to the start of the command.
+@return             Pointer to the end of the command.
+*/
 t_list		*get_cmd_end(
 				t_var *var,
 				t_list *const start);
+
+/*
+@brief Returns the current command.
+
+@param var    Pointer to t_var structure.
+@param start  Pointer to the start of the command.
+@return             Pointer to the current command.
+*/
 t_list		*get_cmd_current(
 				t_var *var,
 				t_list *const start);
+
+/*
+@brief Returns the current command.
+
+@param var    Pointer to t_var structure.
+@param start  Pointer to the start of the command.
+@return             Pointer to the current command.
+*/
 t_list		*get_next_redir_in(
 				t_var *var,
 				t_list *const start);
+
 t_list		*get_next_redir_out(
 				t_var *var,
 				t_list *const start);
 
-// NOTE: Documentation
+/*
+@brief Get the environment key from a list element.
+
+@param l_env_element    List element containing the environment key.
+@return                 Pointer to the environment key string or NULL.
+*/
 char		*get_env_key(const t_list *l_env_element);
 
-// NOTE: Documentation
+/*
+@brief Get the environment value from a list element.
+
+@param l_env_element    List element containing the environment value.
+@return                 Pointer to the environment value string or NULL.
+*/
 char		*get_env_value(const t_list *l_env_element);
 
-/**
-@brief Searchs and points to a given element of the ENV variables.
+/*
+@brief Search for an environment element in the list.
 
-@param l_env	List of ENV variables.
-@param env_key	Name of the variable to be searched.
-@return			Pointer to the wanted element, NULL if it doesn't exist.
+@param l_env            List of environment elements.
+@param env_key          Key of the environment element to search for.
+@return                 Pointer to the list element or NULL if not found.
 */
 t_list		*search_env_elem(t_list *const l_env, char *const env_key);
 
-// NOTE: Documentation
+/*
+@brief Search for an export element in the list.
+
+@param l_exp            List of export elements.
+@param key              Key of the export element to search for.
+@return                 Pointer to the list element or NULL if not found.
+*/
 t_list		*search_exp_elem(t_list *const l_exp, const char *key);
 
 /**
@@ -217,16 +305,21 @@ char		**get_path(t_list *const l_env);
 // ****************************************************************************
 // Functions - init.c
 
-// NOTE: Documentation
-/**
-@brief Creates a new t_env element, splitting the provided *char on the first
-		'=' character. Stores the output in a {key:value} pair.
+/*
+@brief Initialize an environment element with the given environment string.
 
-@param envp One element of the 2D array storing all the ENV variables.
+@param envp             Environment string in the format "KEY=VALUE".
+@return                 Pointer to the initialized environment element.
 */
 t_env		*init_env_element(char *envp);
 
-// NOTE: Documentation
+/*
+@brief Initialize the command context for the given input string.
+
+@param var              Pointer to a t_var structure.
+@param input            Input string to be parsed.
+@return                 File descriptor for the read end of the pipe.
+*/
 int			init_command_context(t_var *var, char *const input);
 
 /**
@@ -249,7 +342,12 @@ t_var		*init(char **envp);
 */
 int			is_command(t_list *l_arg);
 
-// NOTE: Documentation
+/*
+@brief Check if a list element is a redirection or a special token.
+
+@param l_arg            List element containing the argument.
+@return                 1 if the element is a redirection or token, 0 otherwise.
+*/
 int			is_redir_and_tokens(t_list *l_arg);
 
 /*
@@ -286,10 +384,18 @@ int			is_separator(t_list *l_arg);
 */
 void		print_env_elem(void *env);
 
-// NOTE: Documentation
+/*
+@brief Print the environment element in a formatted style.
+
+@param env              Pointer to the environment element.
+*/
 void		print_env_exp_format(void *env);
 
-// NOTE: Documentation
+/*
+@brief Print the export element in a formatted style.
+
+@param exp              Pointer to the export element.
+*/
 void		print_exp_elem(void *exp);
 
 /*
@@ -322,20 +428,36 @@ t_arg		*t_arg_cpy(void *arg);
 */
 void		get_signo(int no);
 
-// NOTE: Documentation
+/*
+@brief Hide control characters from the terminal.
+*/
 void		ctrl_hide(void);
 
-// NOTE: Documentation
+/*
+@brief Show control characters in the terminal.
+*/
 void		ctrl_show(void);
 
+/*
+@brief Ignore the SIGQUIT signal.
+*/
 void		set_signals_interactive(void);
 
+/*
+@brief Set signals for non-interactive mode.
+*/
 void		set_signals_noninteractive(void);
 
 // ****************************************************************************
 // Functions - ???.c
 
-// NOTE: Documentation
+/*
+@brief Split the input string into an array of strings using the given delimiter.
+
+@param s        Input string to split.
+@param c        Delimiter character used to split the input string.
+@return         Pointer to the array of strings or NULL if the input is NULL.
+*/
 char		**export_split(char const *s, char c);
 
 // ****************************************************************************
@@ -347,8 +469,12 @@ int			r_or_p(int type);
 
 int			arg_is_redir(int type);
 
-// NOTE: Documentation
-// And relocate in the header file
+/*
+@brief Reset command pointers for the given command context.
+
+@param var      Pointer to a t_var structure.
+@param start    Pointer to the starting list element.
+*/
 void		reset_cmd_ptrs(
 				t_var *var,
 				t_list *const start);

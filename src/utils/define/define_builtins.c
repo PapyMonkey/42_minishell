@@ -6,13 +6,18 @@
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 18:47:53 by bgales            #+#    #+#             */
-/*   Updated: 2023/04/07 23:09:32 by aguiri           ###   ########.fr       */
+/*   Updated: 2023/04/14 02:48:40 by aguiri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// NOTE: Documentation
+/*
+@brief Determine if a given string is a builtin command.
+
+@param str    The string to check.
+@return             1 if the string is a builtin command, 0 otherwise.
+*/
 static int	is_builtin(char *str)
 {
 	if (!str)
