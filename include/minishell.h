@@ -18,6 +18,7 @@
 # include <unistd.h>
 # include <sys/wait.h>
 # include <sys/types.h> 
+# include <sys/stat.h> 
 # include <sys/ioctl.h>
 # include <stdio.h>
 # include <fcntl.h> 

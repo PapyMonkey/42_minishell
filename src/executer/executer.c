@@ -21,19 +21,27 @@
 static int	exec_command_not_builtin(
 	t_var *var)
 {
-	char	**env;
+	char		**env;
+	struct stat	info;
 
 	var->command_array = exec_build_cmd(var->cmd_current);
 	if (!var->command_array[0])
 		return (EXIT_FAILURE);
 	env = exec_build_env(var->l_env);
-	if (access(var->command_array[0], X_OK) == 0)
-		execve(var->command_array[0], var->command_array, env);
-	else
+	if (!stat(var->command_array[0], &info))
 	{
+		if (S_ISDIR(info.st_mode))
+		{
+			free_2d_char(env);
+			return (err(var->command_array[0], "Is a directory", 126));
+		}
+		else if (S_ISREG(info.st_mode)
+			&& access(var->command_array[0], X_OK) == 0)
+			execve(var->command_array[0], var->command_array, env);
+	}
+	else
 		if (execute_command_with_path(var, env) == 127)
 			return (127);
-	}
 	free_2d_char(env);
 	return (EXIT_SUCCESS);
 }
