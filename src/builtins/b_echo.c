@@ -13,6 +13,29 @@
 #include "minishell.h"
 
 /*
+@brief Test if the input string contains a valid echo flag.
+
+@param str    Input string to test for the echo flag.
+@return       EXIT_SUCCESS if the input string contains a valid echo flag,
+              EXIT_FAILURE otherwise.
+*/
+static int	b_echo_test_flag(char *str)
+{
+	int	i;
+
+	i = 0;
+	if (str[i++] != '-')
+		return (EXIT_FAILURE);
+	while (str[i])
+	{
+		if (str[i] != 'n')
+			return (EXIT_FAILURE);
+		i++;
+	}
+	return (EXIT_SUCCESS);
+}
+
+/*
 @brief Echo command extension.
 
 @param var     Variable structure.
@@ -28,8 +51,7 @@ static int	b_echo_ext(t_var *const var)
 	i = 1;
 	cmd_array = var->command_array;
 	if (get_arg_type(var->cmd_current->next) == FLAG
-		&& !ft_strncmp(var->command_array[i], "-n",
-			ft_strlen(cmd_array[i])))
+		&& !b_echo_test_flag(var->command_array[i]))
 	{
 		is_return_line = 0;
 		i++;
