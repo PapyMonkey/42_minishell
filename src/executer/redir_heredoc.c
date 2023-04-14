@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir_heredoc.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aguiri <aguiri@student.42nice.fr>          +#+  +:+       +#+        */
+/*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 00:12:43 by aguiri            #+#    #+#             */
-/*   Updated: 2023/04/14 02:40:46 by aguiri           ###   ########.fr       */
+/*   Updated: 2023/04/14 17:32:59 by bgales           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ static int	create_heredoc_file(
 	red_line = NULL;
 	while (1)
 	{
+		ctrl_hide();
 		set_signals_interactive();
 		red_line = readline(HEREDOC_PROMPT);
 		set_signals_noninteractive();

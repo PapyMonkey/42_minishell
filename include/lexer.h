@@ -6,7 +6,7 @@
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 16:38:28 by aguiri            #+#    #+#             */
-/*   Updated: 2023/04/14 14:18:48 by bgales           ###   ########.fr       */
+/*   Updated: 2023/04/14 17:32:47 by bgales           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,6 +189,5 @@ void	here_doc_skip(t_list **ret, t_list **ptr);
 
 //TODO: DOC
 void	quote_skip(t_list **ret, t_list **ptr);
-
 
 #endif // LEXER_H
