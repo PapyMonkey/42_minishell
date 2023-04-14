@@ -6,7 +6,7 @@
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 13:56:32 by bgales            #+#    #+#             */
-/*   Updated: 2023/04/14 03:00:37 by aguiri           ###   ########.fr       */
+/*   Updated: 2023/04/14 14:15:55 by bgales           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ t_list	*alias_replace(
 	t_list **list,
 	t_list *l_env)
 {
-	t_env	*env;
 	t_list	*r;
 	t_list	*ptr;
 
@@ -77,19 +76,17 @@ t_list	*alias_replace(
 	r = NULL;
 	while (ptr != NULL)
 	{
-		if (((t_arg *)ptr->content)->type == OPEN_QUOTE)
-		{
-			while (((t_arg *)ptr->content)->type != CLOSE_QUOTE)
-			{
-				ft_lstadd_back(&r, ft_lstnew(t_arg_cpy((t_arg *)ptr->content)));
-				ptr = ptr->next;
-			}
-		}
-		if (((t_arg *)ptr->content)->type == DOLLAR)
+		if (((t_arg *)ptr->content)->type == HERE_DOC)
+			here_doc_skip(&r, &ptr);
+		if (ptr != NULL && ((t_arg *)ptr->content)->type == OPEN_QUOTE)
+			quote_skip(&r, &ptr);
+		if (ptr != NULL && ((t_arg *)ptr->content)->type == DOLLAR)
 			get_env(l_env, &ptr, &r);
 		else
-			ft_lstadd_back(&r, ft_lstnew(t_arg_cpy((t_arg *)ptr->content)));
-		ptr = ptr->next;
+			if (ptr != NULL)
+				ft_lstadd_back(&r, ft_lstnew(t_arg_cpy((t_arg *)ptr->content)));
+		if (ptr != NULL)
+			ptr = ptr->next;
 	}
 	ft_lstclear(list, free_lstcontent);
 	return (r);

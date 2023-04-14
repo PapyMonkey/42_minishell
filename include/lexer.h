@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aguiri <aguiri@student.42nice.fr>          +#+  +:+       +#+        */
+/*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 16:38:28 by aguiri            #+#    #+#             */
-/*   Updated: 2023/04/14 02:07:25 by aguiri           ###   ########.fr       */
+/*   Updated: 2023/04/14 14:18:48 by bgales           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEXER_H
-# define LEXER_H 
+# define LEXER_H
 
 // *****************************************************************************
 // Personal library
@@ -183,5 +183,12 @@ int		no_quote(t_list **list);
 @param list		Pointer to the list containing t_arg elements.
 */
 void	empty_quotes(t_list **list);
+
+// TODO: DOC
+void	here_doc_skip(t_list **ret, t_list **ptr);
+
+//TODO: DOC
+void	quote_skip(t_list **ret, t_list **ptr);
+
 
 #endif // LEXER_H
