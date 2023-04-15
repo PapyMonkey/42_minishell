@@ -15,13 +15,11 @@
 /*
 @brief Retrieves the value of a variable from the environment.
 
-@param l_env    A pointer to a list of environment variables (not used).
 @param key      The key of the variable to be retrieved.
 @param var      A pointer to a t_var structure.
 @return             The value of the variable as a string.
 */
 static char	*recover_val(
-	t_list *l_env,
 	char *key,
 	t_var *var)
 {
@@ -118,7 +116,7 @@ static char	*heredoc_expander(
 	{
 		if (str[i] == '$'
 			&& str[i + 1] != '$')
-			str = replace_str_heredoc(str, recover_val(NULL, str + i, var), i);
+			str = replace_str_heredoc(str, recover_val(str + i, var), i);
 		else
 			i++;
 	}

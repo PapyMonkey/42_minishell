@@ -226,13 +226,10 @@ t_list		*get_cmd_start(t_var *var);
 /*
 @brief Returns the command end.
 
-@param var    Pointer to t_var structure.
 @param start  Pointer to the start of the command.
 @return             Pointer to the end of the command.
 */
-t_list		*get_cmd_end(
-				t_var *var,
-				t_list *const start);
+t_list		*get_cmd_end(t_list *const start);
 
 /*
 @brief Returns the current command.
