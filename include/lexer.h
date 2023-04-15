@@ -20,7 +20,7 @@
 # include "structures.h"
 
 // *****************************************************************************
-// Functions - alias.c
+// Functions - alias_*.c
 
 /*
 @brief Replace aliases in the given list with their corresponding values.
@@ -47,6 +47,22 @@ int		alias_finder(char *str);
 @return        Length of the alias, 0 if not found.
 */
 int		is_alias(char *str, t_list **list);
+
+/*
+@brief Skip a HERE_DOC section in the list of arguments.
+
+@param ret  Pointer to the return list.
+@param ptr  Pointer to the current list position.
+*/
+void	here_doc_skip(t_list **ret, t_list **ptr);
+
+/*
+@brief Skip the content inside quotes in the list of arguments.
+
+@param ret  Pointer to the return list.
+@param ptr  Pointer to the current list position.
+*/
+void	quote_skip(t_list **ret, t_list **ptr);
 
 // *****************************************************************************
 // Functions - lexer_*.c
@@ -183,11 +199,5 @@ int		no_quote(t_list **list);
 @param list		Pointer to the list containing t_arg elements.
 */
 void	empty_quotes(t_list **list);
-
-// TODO: DOC
-void	here_doc_skip(t_list **ret, t_list **ptr);
-
-//TODO: DOC
-void	quote_skip(t_list **ret, t_list **ptr);
 
 #endif // LEXER_H

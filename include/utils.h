@@ -22,7 +22,13 @@
 // *****************************************************************************
 // Functions - check.c
 
-// NOTE: Documentation
+/*
+@brief Check for a FLAG argument in the given list.
+
+@param l_arg    List of arguments to check for the FLAG argument.
+@return         Pointer to the list element containing the FLAG argument,
+                or NULL if not found.
+*/
 t_list		*check_arg_flag(t_list *const l_arg);
 
 // *****************************************************************************

@@ -12,6 +12,15 @@
 
 #include "minishell.h"
 
+/*
+@brief Exit the program with an error code after freeing resources.
+
+@param var       Pointer to the t_var structure.
+@param err_code  Error code string.
+@param info      Additional information about the error.
+@param code      Error code integer.
+@return          Exit status after handling the error.
+*/
 static int	effective_exit_err(
 	t_var *var,
 	char *err_code,

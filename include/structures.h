@@ -51,7 +51,11 @@ typedef enum enum_type
 // ****************************************************************************
 // Structures
 
-// NOTE: Documentation
+/*
+@brief Process structure with information about the running process.
+
+Contains the current working directory, process ID, and return code.
+*/
 typedef struct s_process
 {
 	char	*pwd;
