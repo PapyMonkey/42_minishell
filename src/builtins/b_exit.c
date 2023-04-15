@@ -12,6 +12,17 @@
 
 #include "minishell.h"
 
+static int	effective_exit_err(
+	t_var *var,
+	char *err_code,
+	char *info,
+	int code)
+{
+	free_var(var);
+	write(1, "exit\n", 5);
+	exit(err(err_code, info, code));
+}
+
 int	effective_exit(t_var *var)
 {
 	free_var(var);
@@ -25,14 +36,15 @@ int	b_exit(t_var *var)
 	int	i;
 
 	argument_number = count_argument(var->cmd_current);
-	if (argument_number > 2)
-		return (err("exit", "too many arguments", 1));
 	i = 0;
-	while (argument_number == 2 && var->command_array[1][++i])
+	while (argument_number >= 2 && var->command_array[1][++i])
 	{
 		if (!ft_isdigit(var->command_array[1][i]))
-			return (err("exit", "numeric argument required", 255));
+			return (effective_exit_err(
+					var, "exit", "numeric argument required", 255));
 	}
+	if (argument_number > 2)
+		return (err("exit", "too many arguments", 1));
 	if (argument_number == 2)
 		g_process.return_code = ft_atoi(var->command_array[1]) % MODULO_EXIT;
 	else
