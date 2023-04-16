@@ -27,9 +27,7 @@ t_list	*get_cmd_start(t_var *var)
 	return (tmp);
 }
 
-t_list	*get_cmd_end(
-	t_var *var,
-	t_list *const start)
+t_list	*get_cmd_end(t_list *const start)
 {
 	t_list	*tmp;
 

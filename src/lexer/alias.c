@@ -6,7 +6,7 @@
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 13:56:32 by bgales            #+#    #+#             */
-/*   Updated: 2023/04/14 03:00:37 by aguiri           ###   ########.fr       */
+/*   Updated: 2023/04/14 14:15:55 by bgales           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,20 +44,23 @@ static int	get_env(
 {
 	t_env	*env;
 	t_arg	*arg;
+	char	*tmp_itoa;
+	int		tmp_return;
 
 	arg = (*ptr)->content;
 	while (l_env != NULL)
 	{
 		env = l_env->content;
 		if (!ft_strncmp(&arg->content[1], env->key, ft_strlen(arg->content)))
-		{
 			return (handle_env_value(arg, ret, env->value));
-		}
 		l_env = l_env->next;
 	}
 	if (!ft_strncmp(&arg->content[0], "$?", ft_strlen(arg->content)))
 	{
-		return (handle_env_value(arg, ret, ft_itoa(g_process.return_code)));
+		tmp_itoa = ft_itoa(g_process.return_code);
+		tmp_return = handle_env_value(arg, ret, tmp_itoa);
+		safe_free(tmp_itoa);
+		return (tmp_return);
 	}
 	return (0);
 }
@@ -66,7 +69,6 @@ t_list	*alias_replace(
 	t_list **list,
 	t_list *l_env)
 {
-	t_env	*env;
 	t_list	*r;
 	t_list	*ptr;
 
@@ -74,19 +76,17 @@ t_list	*alias_replace(
 	r = NULL;
 	while (ptr != NULL)
 	{
-		if (((t_arg *)ptr->content)->type == OPEN_QUOTE)
-		{
-			while (((t_arg *)ptr->content)->type != CLOSE_QUOTE)
-			{
-				ft_lstadd_back(&r, ft_lstnew(t_arg_cpy((t_arg *)ptr->content)));
-				ptr = ptr->next;
-			}
-		}
-		if (((t_arg *)ptr->content)->type == DOLLAR)
+		if (((t_arg *)ptr->content)->type == HERE_DOC)
+			here_doc_skip(&r, &ptr);
+		if (ptr != NULL && ((t_arg *)ptr->content)->type == OPEN_QUOTE)
+			quote_skip(&r, &ptr);
+		if (ptr != NULL && ((t_arg *)ptr->content)->type == DOLLAR)
 			get_env(l_env, &ptr, &r);
 		else
-			ft_lstadd_back(&r, ft_lstnew(t_arg_cpy((t_arg *)ptr->content)));
-		ptr = ptr->next;
+			if (ptr != NULL)
+				ft_lstadd_back(&r, ft_lstnew(t_arg_cpy((t_arg *)ptr->content)));
+		if (ptr != NULL)
+			ptr = ptr->next;
 	}
 	ft_lstclear(list, free_lstcontent);
 	return (r);

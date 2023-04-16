@@ -64,7 +64,12 @@ static void	init_env(t_var *var, char **envp)
 	}
 }
 
-// NOTE: Documentation
+/*
+@brief Initialize the current working directory.
+
+Initializes the global process structure's pwd member with the current
+working directory.
+*/
 static void	init_pwd(void)
 {
 	char	pwd[BUFFER_SIZE];

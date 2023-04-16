@@ -50,7 +50,6 @@ static void	to_next_quote(t_list **lst, char *quote)
 */
 static void	*join_in_quotes_2(t_list **dst, t_list **src)
 {
-	t_arg	*arg;
 	t_arg	*cpy;
 
 	if (((t_arg *)(*src)->content)->type == CLOSE_D_QUOTE

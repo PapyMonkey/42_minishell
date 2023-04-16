@@ -12,8 +12,9 @@
 
 NAME				?=	minishell
 
-CC					=	gcc -g -fsanitize=address
+CC					=	gcc 
 CFLAGS				?=	-Wall -Wextra -Werror
+CDEBUG				?=	-g -fsanitize=address
 AR 					?=	ar
 RM					?=	rm -f
 MKDIR				?=	mkdir -p
@@ -64,7 +65,7 @@ HFLAGS				:=	-I $(HDRS_PATH)\
 
 # Libft
 FTFLAGS				:=	-L./$(LIBFT_PATH)
-LDFLAGS				:= -L/Users/$(USER)/.brew/opt/readline/lib
+LDFLAGS				:=	-L/Users/$(USER)/.brew/opt/readline/lib
 
 LFLAGS				:=	$(FTFLAGS) $(LDFLAGS) -lft -lreadline
 
@@ -81,11 +82,11 @@ $(OBJS_PATH)/%.o: 	$(SRCS_PATH)/%.c $(HDRS_PATH)
 					@$(MKDIR) $(dir $@)
 					@$(ECHO)\
 					$(WHITE)$(DARK)"Compiling $<"$(EOC)
-					@$(CC) $(HFLAGS) -o $@ -c $<
+					@$(CC) $(CFLAGS) $(HFLAGS) -o $@ -c $<
 
 
 $(NAME):			$(OBJS)
-					@$(CC) $^ $(FTFLAGS) $(LFLAGS) -o $@
+					@$(CC) $(CFLAGS) $^ $(FTFLAGS) $(LFLAGS) -o $@
 					@$(ECHO)\
 					$(CYAN)$(UNDERLINE)"$@"$(EOC)": "$(GREEN)"complete"$(EOC)
 
@@ -107,10 +108,6 @@ re:					fclean all
 norme:				$(NAME)
 					@$(NRM) $(NFLAGS) $(HDRS_PATH) $(SRCS_PATH)
 
-lib:				libft mlx
-					mlx mlx_clean mlx_re
-					mlx mlx_clean mlx_re
-
 libft:
 					@$(MAKE) -C ./$(LIBFT_PATH)
 
@@ -124,5 +121,4 @@ libft_re:
 					@$(MAKE) -C ./$(LIBFT_PATH) re
 
 .PHONY:				all clean fclean re\
-					norme lib\
-					libft libft_clean libft_fclean libft_re
+					norme libft libft_clean libft_fclean libft_re

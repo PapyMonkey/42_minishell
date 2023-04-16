@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir_heredoc.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aguiri <aguiri@student.42nice.fr>          +#+  +:+       +#+        */
+/*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 00:12:43 by aguiri            #+#    #+#             */
-/*   Updated: 2023/04/14 02:40:46 by aguiri           ###   ########.fr       */
+/*   Updated: 2023/04/14 17:32:59 by bgales           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ static int	heredoc_evaluate_line(
 	if (!(*line))
 		return (err("warning",
 				"here-document delimited by end-of-file: wanted", 0));
-	if (!ft_strncmp(*line, heredoc_delimiter, ft_strlen(*line)))
+	if (!ft_strncmp(*line, heredoc_delimiter, ft_strlen(*line))
+		&& ft_strlen(*line) == ft_strlen(heredoc_delimiter))
 		return (0);
 	if (ft_strchr(*line, '$'))
 	{
@@ -89,6 +90,7 @@ static int	create_heredoc_file(
 	red_line = NULL;
 	while (1)
 	{
+		ctrl_hide();
 		set_signals_interactive();
 		red_line = readline(HEREDOC_PROMPT);
 		set_signals_noninteractive();

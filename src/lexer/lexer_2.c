@@ -125,9 +125,7 @@ static int	is_arg(char *str, t_list **list)
 t_list	*struct_init(char *str, t_list *env)
 {
 	int		i;
-	int		c;
 	t_list	*ret;
-	t_arg	*arg;
 
 	ret = NULL;
 	i = 0;

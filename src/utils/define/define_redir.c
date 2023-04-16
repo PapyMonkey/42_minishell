@@ -6,7 +6,7 @@
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 14:07:07 by bgales            #+#    #+#             */
-/*   Updated: 2023/04/14 03:00:23 by aguiri           ###   ########.fr       */
+/*   Updated: 2023/04/14 14:18:16 by bgales           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,8 @@ void	define_redir(t_list **list)
 		if (arg_is_redir(arg->type))
 		{
 			handle_redirections(&ptr);
+			if (ptr == NULL)
+				break ;
 			arg = ptr->content;
 		}
 		if (ptr != NULL)

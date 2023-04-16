@@ -46,15 +46,20 @@ static int	b_echo_ext(t_var *const var)
 	int		is_return_line;
 	int		i;
 	char	**cmd_array;
+	t_list	*tmp;
 
 	is_return_line = 1;
 	i = 1;
 	cmd_array = var->command_array;
-	if (get_arg_type(var->cmd_current->next) == FLAG
-		&& !b_echo_test_flag(var->command_array[i]))
+	tmp = var->cmd_current->next;
+	while (get_arg_type(tmp) == FLAG)
 	{
-		is_return_line = 0;
-		i++;
+		if (!b_echo_test_flag(var->command_array[i]))
+		{
+			is_return_line = 0;
+			i++;
+		}
+		tmp = tmp->next;
 	}
 	while (cmd_array[i])
 	{

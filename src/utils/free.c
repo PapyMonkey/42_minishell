@@ -29,6 +29,7 @@ void	free_command_context(
 	close(fd_read_end);
 	safe_free(input);
 	safe_free(var->command_array);
+	var->command_array = NULL;
 	ft_lstclear(&var->l_arg, free_lstcontent);
 }
 

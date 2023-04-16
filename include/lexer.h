@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aguiri <aguiri@student.42nice.fr>          +#+  +:+       +#+        */
+/*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 16:38:28 by aguiri            #+#    #+#             */
-/*   Updated: 2023/04/14 02:07:25 by aguiri           ###   ########.fr       */
+/*   Updated: 2023/04/14 17:32:47 by bgales           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEXER_H
-# define LEXER_H 
+# define LEXER_H
 
 // *****************************************************************************
 // Personal library
@@ -20,7 +20,7 @@
 # include "structures.h"
 
 // *****************************************************************************
-// Functions - alias.c
+// Functions - alias_*.c
 
 /*
 @brief Replace aliases in the given list with their corresponding values.
@@ -47,6 +47,22 @@ int		alias_finder(char *str);
 @return        Length of the alias, 0 if not found.
 */
 int		is_alias(char *str, t_list **list);
+
+/*
+@brief Skip a HERE_DOC section in the list of arguments.
+
+@param ret  Pointer to the return list.
+@param ptr  Pointer to the current list position.
+*/
+void	here_doc_skip(t_list **ret, t_list **ptr);
+
+/*
+@brief Skip the content inside quotes in the list of arguments.
+
+@param ret  Pointer to the return list.
+@param ptr  Pointer to the current list position.
+*/
+void	quote_skip(t_list **ret, t_list **ptr);
 
 // *****************************************************************************
 // Functions - lexer_*.c

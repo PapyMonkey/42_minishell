@@ -20,8 +20,8 @@ printf("Number of commands : %d\n", var->n_cmds);
 printf("---------------------------------------------------------------\n"); */
 
 int	main(
-	int argc,
-	char **argv,
+	int __attribute__((unused))argc,
+	char __attribute__((unused))**argv,
 	char **env)
 {
 	t_var	*var;

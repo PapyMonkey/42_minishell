@@ -22,7 +22,13 @@
 // *****************************************************************************
 // Functions - check.c
 
-// NOTE: Documentation
+/*
+@brief Check for a FLAG argument in the given list.
+
+@param l_arg    List of arguments to check for the FLAG argument.
+@return         Pointer to the list element containing the FLAG argument,
+                or NULL if not found.
+*/
 t_list		*check_arg_flag(t_list *const l_arg);
 
 // *****************************************************************************
@@ -226,13 +232,10 @@ t_list		*get_cmd_start(t_var *var);
 /*
 @brief Returns the command end.
 
-@param var    Pointer to t_var structure.
 @param start  Pointer to the start of the command.
 @return             Pointer to the end of the command.
 */
-t_list		*get_cmd_end(
-				t_var *var,
-				t_list *const start);
+t_list		*get_cmd_end(t_list *const start);
 
 /*
 @brief Returns the current command.

@@ -35,13 +35,11 @@ int	count_command(struct s_list *l_arg)
 {
 	int			count;
 	t_list		*tmp;
-	t_enum_type	arg_type;
 
 	count = 0;
 	tmp = l_arg;
 	while (tmp)
 	{
-		arg_type = get_arg_type(tmp);
 		if (is_command(tmp))
 			count++;
 		tmp = tmp->next;
@@ -53,13 +51,11 @@ int	count_redirections(struct s_list *l_arg)
 {
 	int			count;
 	t_list		*tmp;
-	t_enum_type	arg_type;
 
 	count = 0;
 	tmp = l_arg;
 	while (tmp)
 	{
-		arg_type = get_arg_type(tmp);
 		if (is_redir_in(tmp) || is_redir_out(tmp))
 			count++;
 		tmp = tmp->next;
@@ -71,13 +67,11 @@ int	count_separator(struct s_list *l_arg)
 {
 	int			count;
 	t_list		*tmp;
-	t_enum_type	arg_type;
 
 	count = 0;
 	tmp = l_arg;
 	while (tmp)
 	{
-		arg_type = get_arg_type(tmp);
 		if (is_separator(tmp))
 			count++;
 		tmp = tmp->next;
