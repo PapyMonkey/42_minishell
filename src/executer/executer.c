@@ -21,6 +21,7 @@
 static int	exec_command_not_builtin(
 	t_var *var)
 {
+
 	char		**env;
 	struct stat	info;
 
