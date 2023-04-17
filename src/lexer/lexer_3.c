@@ -131,6 +131,7 @@ t_list	*struct_init_2(t_list **list)
 	join_text(list);
 	if (!no_redir_no_whitespace(*list))
 		*list = join_all(list);
+	*list = del_quotes(list);
 	*list = del_whitespace(list);
 	define_redir(list);
 	define_elem(list);
