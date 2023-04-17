@@ -29,7 +29,7 @@ t_list	*del_quotes(t_list **list)
 	ret = NULL;
 	while (ptr != NULL)
 	{
-		if (is_quote(get_arg_type(ptr->content)))
+		if (is_quote(get_arg_type(ptr)))
 			ptr = ptr->next;
 		else
 			ft_lstadd_back(&ret, ft_lstnew(t_arg_cpy(ptr->content)));
