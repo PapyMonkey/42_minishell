@@ -25,6 +25,9 @@ int	b_unset(t_var *var)
 		return (err_d("unset", get_arg_content(flag), "invalid option", 2));
 	while (var->command_array[++i])
 	{
+		if (check_identifier(var->command_array[i]))
+			return (err_d("unset", var->command_array[i],
+					"not a valid identifier", 1));
 		tmp_env = search_env_elem(var->l_env, var->command_array[i]);
 		if (tmp_env != NULL)
 			ft_lstremove(&(var->l_env), tmp_env, free_env);

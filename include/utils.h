@@ -22,6 +22,9 @@
 // *****************************************************************************
 // Functions - check.c
 
+// NOTE: Documentation
+int			check_identifier(char *const str);
+
 /*
 @brief Check for a FLAG argument in the given list.
 
