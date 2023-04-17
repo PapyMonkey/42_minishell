@@ -6,7 +6,7 @@
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 15:25:16 by bgales            #+#    #+#             */
-/*   Updated: 2023/04/14 02:32:48 by aguiri           ###   ########.fr       */
+/*   Updated: 2023/04/17 18:33:55 by bgales           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,5 @@ int	b_cd(t_var *var)
 	flag = check_arg_flag(var->cmd_current);
 	if (flag)
 		return (err_d("cd", get_arg_content(flag), "invalid option", 2));
-	if (count > 2)
-		return (err("cd", "too many arguments", 1));
 	return (cd_exec(var, tmp_path));
 }
