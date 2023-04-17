@@ -14,9 +14,9 @@
 
 int	is_quote(int type)
 {
-	if (type == OPEN_D_QUOTE || type == CLOSE_D_QUOTE ||
-		type == OPEN_QUOTE || type == CLOSE_QUOTE)
-			return (1);
+	if (type == OPEN_D_QUOTE || type == CLOSE_D_QUOTE
+		|| type == OPEN_QUOTE || type == CLOSE_QUOTE)
+		return (1);
 	return (0);
 }
 
@@ -29,12 +29,14 @@ t_list	*del_quotes(t_list **list)
 	ret = NULL;
 	while (ptr != NULL)
 	{
+		printf("%s\n", get_arg_content(ptr));
 		if (is_quote(get_arg_type(ptr)))
 			ptr = ptr->next;
-		else
-			ft_lstadd_back(&ret, ft_lstnew(t_arg_cpy(ptr->content)));
 		if (ptr != NULL)
+		{
+			ft_lstadd_back(&ret, ft_lstnew(t_arg_cpy(ptr->content)));
 			ptr = ptr->next;
+		}
 	}
 	ft_lstclear(list, free_lstcontent);
 	return (ret);
