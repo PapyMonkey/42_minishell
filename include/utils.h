@@ -484,5 +484,6 @@ int			arg_is_redir(int type);
 void		reset_cmd_ptrs(
 				t_var *var,
 				t_list *const start);
+t_list		*del_quotes(t_list **list);
 
 #endif	// UTILS_H
