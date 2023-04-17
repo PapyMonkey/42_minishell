@@ -6,7 +6,7 @@
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 15:25:16 by bgales            #+#    #+#             */
-/*   Updated: 2023/04/17 18:33:55 by bgales           ###   ########.fr       */
+/*   Updated: 2023/04/17 22:52:11 by bgales           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static int	cd_exec(
 	cd_update_env(var, "OLDPWD", pwd);
 	if (chdir(tmp_path) != 0)
 		return (err_d("cd", tmp_path,
-				strerror(errno), errno));
+				strerror(errno), 1));
 	getcwd(pwd, BUFFER_SIZE);
 	cd_update_env(var, "PWD", pwd);
 	free(g_process.pwd);
