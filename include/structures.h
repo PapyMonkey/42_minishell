@@ -6,7 +6,7 @@
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 18:37:28 by aguiri            #+#    #+#             */
-/*   Updated: 2023/04/13 15:55:05 by aguiri           ###   ########.fr       */
+/*   Updated: 2023/04/17 23:07:25 by bgales           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ typedef enum enum_type
 	FLAG,
 	DOLLAR,
 	TEXT,
-	WHITE_SPACE,
 	PIPE,
+	WHITE_SPACE,
 	REDIR_IN,
 	APPEND,
 	REDIR_OUT,
