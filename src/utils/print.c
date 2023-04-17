@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aguiri <aguiri@student.42nice.fr>          +#+  +:+       +#+        */
+/*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 11:34:58 by aguiri            #+#    #+#             */
-/*   Updated: 2023/04/14 01:59:26 by aguiri           ###   ########.fr       */
+/*   Updated: 2023/04/17 23:08:15 by bgales           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	print_exp_elem(void *exp)
 void	print_arg_elem(void *arg)
 {
 	const char	*enum_c[] = {"NULL", "BUILTIN", "EXEC", "ARG", "FLAG",
-		"DOLLAR", "TEXT", "WHITE_SPACE", "PIPE", "REDIR_IN", "APPEND",
+		"DOLLAR", "TEXT", "PIPE", "WHITE_SPACE", "REDIR_IN", "APPEND",
 		"REDIR_OUT", "HERE_DOC", "DELIM", "R_FILE", "RI_FILE", "QUOTE",
 		"OPEN_QUOTE", "CLOSE_QUOTE", "IN_QUOTES", "OUT_QUOTES", "D_QUOTE",
 		"OPEN_D_QUOTE", "CLOSE_D_QUOTE", "IN_D_QUOTES", "OUT_D_QUOTES"};
