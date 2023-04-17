@@ -19,10 +19,7 @@ t_list	*ft_split_args(char *str, t_list *env)
 	if (!str)
 		return (NULL);
 	if (!!closed_quotes(str))
-	{
-		printf("missing closing quote");
 		return (NULL);
-	}
 	if (str[0] == '\0')
 		return (NULL);
 	str = ft_strtrim(str, " ");
