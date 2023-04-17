@@ -14,7 +14,7 @@
 
 /**
  * \brief		Check if the given character is a separator or not.
- * 
+ *
  * \param c		Character to be tested.
  * \param sep	Separator.
  * \return		1 if it is, 0 otherwise.
@@ -31,7 +31,7 @@ static int	u_char_is_sep(char c, char sep)
  * \param str	String containing the words.
  * \param c		Delimiting character.
  *
- * \return  	Number of words counted. 
+ * \return  	Number of words counted.
  */
 static int	u_count_words(char *str, char c)
 {
@@ -114,6 +114,8 @@ char	**export_split(char const *s, char c)
 
 	if (s == NULL)
 		return (NULL);
+	if (s[0] == '=')
+		err_exit((char *)s, "not a valid identifier", 1);
 	n_words = u_count_words((char *) s, c);
 	str_splitted = malloc(sizeof(char *) * (n_words + 1));
 	if (!str_splitted)
