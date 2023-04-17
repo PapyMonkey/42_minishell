@@ -55,7 +55,8 @@ static void	j_quotes_norm(t_list **ptr, t_list **save, t_list **ret)
 	*save = *ptr;
 	while (*ptr != NULL && ((t_arg *)(*ptr)->content)->type != WHITE_SPACE
 		&& ((t_arg *)(*ptr)->content)->type != OPEN_D_QUOTE
-		&& ((t_arg *)(*ptr)->content)->type != OPEN_QUOTE)
+		&& ((t_arg *)(*ptr)->content)->type != OPEN_QUOTE
+		&& !r_or_p(((t_arg *)(*ptr)->content)->type))
 		*ptr = (*ptr)->next;
 	if (*ptr != NULL && (((t_arg *)(*ptr)->content)->type == OPEN_D_QUOTE
 		|| ((t_arg *)(*ptr)->content)->type == OPEN_QUOTE))

@@ -12,6 +12,34 @@
 
 #include "minishell.h"
 
+int	is_quote(int type)
+{
+	if (type == OPEN_D_QUOTE || type == CLOSE_D_QUOTE ||
+		type == OPEN_QUOTE || type == CLOSE_QUOTE)
+			return (1);
+	return (0);
+}
+
+t_list	*del_quotes(t_list **list)
+{
+	t_list	*ptr;
+	t_list	*ret;
+
+	ptr = *list;
+	ret = NULL;
+	while (ptr != NULL)
+	{
+		if (is_quote(get_arg_type(ptr->content)))
+			ptr = ptr->next;
+		else
+			ft_lstadd_back(&ret, ft_lstnew(t_arg_cpy(ptr->content)));
+		if (ptr != NULL)
+			ptr = ptr->next;
+	}
+	ft_lstclear(list, free_lstcontent);
+	return (ret);
+}
+
 static void	empty_quotes_ext(t_list **ptr, t_list **tmp, t_list**save)
 {
 	free (((t_arg *)(*tmp)->content)->content);
