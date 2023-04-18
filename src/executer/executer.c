@@ -66,6 +66,8 @@ static int	exec_redirections(
 
 	close(fd_child[READ_END]);
 	result_redirections_in = redir_in_handle(var);
+	if (get_arg_type(var->cmd_start) == PIPE)
+		return(err("syntax error near unexpected token", "", 258));
 	if (result_redirections_in == EXIT_CODE)
 		return (EXIT_CODE);
 	if (!(result_redirections_in == HERE_DOC

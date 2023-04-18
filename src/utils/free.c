@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aguiri <aguiri@student.42nice.fr>          +#+  +:+       +#+        */
+/*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 16:57:36 by aguiri            #+#    #+#             */
-/*   Updated: 2023/04/07 22:52:06 by aguiri           ###   ########.fr       */
+/*   Updated: 2023/04/18 13:50:09 by bgales           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	free_2d_char(char **array)
 	int	i;
 
 	i = 0;
-	while (array[i])
+	while (!array && array[i])
 		safe_free(array[i++]);
 	safe_free(array);
 }

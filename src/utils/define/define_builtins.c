@@ -6,7 +6,7 @@
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 18:47:53 by bgales            #+#    #+#             */
-/*   Updated: 2023/04/14 02:48:40 by aguiri           ###   ########.fr       */
+/*   Updated: 2023/04/18 14:26:39 by bgales           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,9 @@ void	define_builtins(t_list **list)
 		arg = ptr->content;
 		if (is_builtin(arg->content))
 			arg->type = BUILTIN;
-		ptr = ptr->next;
+		while (ptr != NULL && !r_or_p(get_arg_type(ptr)))
+			ptr = ptr->next;
+		if (ptr != NULL)
+			ptr = ptr->next;
 	}
 }

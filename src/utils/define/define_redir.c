@@ -6,7 +6,7 @@
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 14:07:07 by bgales            #+#    #+#             */
-/*   Updated: 2023/04/14 14:18:16 by bgales           ###   ########.fr       */
+/*   Updated: 2023/04/18 13:41:02 by bgales           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,14 @@ static void	define_redir_in(t_list **list)
 		return ;
 	arg = ptr->content;
 	arg->type = RI_FILE;
+	while (ptr != NULL && !r_or_p(get_arg_type(ptr)))
+	{
+		ptr = ptr->next;
+		if (ptr == NULL || r_or_p(get_arg_type(ptr)))
+			break ;
+		arg = ptr->content;
+		arg->type = ARG;
+	}
 }
 
 /*
