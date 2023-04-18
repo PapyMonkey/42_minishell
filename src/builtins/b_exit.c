@@ -54,6 +54,11 @@ int	b_exit(t_var *var)
 	}
 	if (argument_number > 2)
 		return (err("exit", "too many arguments", 1));
+	if (!ft_strncmp("-2147483649", var->command_array[1], 11)
+		|| !ft_strncmp("2147483648", var->command_array[1], 10)
+		|| ft_strlen(var->command_array[1]) > 11)
+		return (effective_exit_err(
+				var, "exit", "numeric argument required", 255));
 	if (argument_number == 2)
 		g_process.return_code = ft_atoi(var->command_array[1]) % MODULO_EXIT;
 	else
