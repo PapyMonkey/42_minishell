@@ -75,14 +75,21 @@ static void	exp_create_env(t_var *var, char *key, int index)
 		);
 }
 
-static int	handle_export(char **key_and_value, t_var *var, int index)
+// NOTE: Documentation
+static int	handle_export(
+	t_var *var,
+	int index)
 {
-	if (check_identifier(key_and_value[0]))
+	char	**key_and_value;
+
+	key_and_value = export_split(var->command_array[index], '=');
+	if (!key_and_value || check_identifier(key_and_value[0]))
 		return (err("export", "not a valid identifier", 1));
 	if (var->command_array[index] && ft_strchr(var->command_array[index], '='))
 		exp_create_env(var, key_and_value[0], index);
 	else
 		exp_create(var, key_and_value[0]);
+	free_2d_char(key_and_value);
 	return (0);
 }
 
@@ -90,7 +97,7 @@ int	b_export(t_var *var)
 {
 	t_list	*flag;
 	int		index;
-	char	**key_and_value;
+	int		return_code;
 
 	if (!var->command_array[1])
 		return (exp_no_args(var), EXIT_SUCCESS);
@@ -100,10 +107,9 @@ int	b_export(t_var *var)
 	index = 0;
 	while (var->command_array[++index])
 	{
-		key_and_value = export_split(var->command_array[index], '=');
-		if (handle_export(key_and_value, var, index))
-			return (free_2d_char(key_and_value), EXIT_FAILURE);
-		free_2d_char(key_and_value);
+		return_code = handle_export(var, index);
+		if (return_code)
+			return (return_code);
 	}
 	g_process.return_code = 0;
 	return (EXIT_SUCCESS);

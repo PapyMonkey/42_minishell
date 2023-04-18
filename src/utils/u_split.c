@@ -115,7 +115,7 @@ char	**export_split(char const *s, char c)
 	if (s == NULL)
 		return (NULL);
 	if (s[0] == '=')
-		err_exit((char *)s, "not a valid identifier", 1);
+		return (NULL);
 	n_words = u_count_words((char *) s, c);
 	str_splitted = malloc(sizeof(char *) * (n_words + 1));
 	if (!str_splitted)
